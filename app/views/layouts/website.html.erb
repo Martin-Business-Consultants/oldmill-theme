@@ -9,10 +9,11 @@
         try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t } catch (e) {}
       </script>
     <% end %>
-    <%= preload_link_tag "oldmill/inter.woff2", crossorigin: "anonymous" %>
-    <%= preload_link_tag "oldmill/fraunces.woff2", crossorigin: "anonymous" %>
-    <%= preload_link_tag "oldmill/ibm-plex-mono-400.woff2", crossorigin: "anonymous" %>
-    <%= stylesheet_link_tag "oldmill/site" %>
+    <%# The theme's files come from the theme itself (Oldmill::AssetsController), not the asset pipeline. %>
+    <% %w[inter.woff2 fraunces.woff2 ibm-plex-mono-400.woff2].each do |font| %>
+      <link rel="preload" href="<%= oldmill_asset_path(font) %>" as="font" type="font/woff2" crossorigin="anonymous">
+    <% end %>
+    <link rel="stylesheet" href="<%= oldmill_asset_path("site.css") %>">
     <%= website_design_tags %>
     <%= yield :head %>
     <% if content_for?(:turnstile) %>
@@ -23,7 +24,7 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="sitemap" href="/sitemap.xml">
     <%= website_scripts("head") %>
-    <%= website_javascript_tags %>
+    <%= oldmill_javascript_tags %>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

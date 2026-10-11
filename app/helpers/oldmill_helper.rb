@@ -181,12 +181,12 @@ module OldmillHelper
   def oldmill_logo(**options)
     alt = oldmill_name
     website_image_tag(Setting.get("branding")["logo_id"], alt:, sizes: "10rem", loading: :eager, **options) ||
-      image_tag("oldmill/logo.webp", alt:, width: 160, height: 80, **options)
+      image_tag(oldmill_asset_path("logo.webp"), alt:, width: 160, height: 80, **options)
   end
 
   def oldmill_favicon_href
     id = Setting.get("branding")["favicon_id"].presence
-    (id && website_image_url(id, width: 192)) || asset_path("oldmill/favicon.png")
+    (id && website_image_url(id, width: 192)) || oldmill_asset_path("favicon.png")
   end
 
   # Cloudflare Turnstile ({site_key:, theme:}) when Settings › Forms has it
@@ -233,6 +233,31 @@ module OldmillHelper
         {"email" => "email", "tel" => "tel", "url" => "url"}[field["type"]]
       tag.input(type: field["type"].presence_in(%w[text email tel url file]) || "text", placeholder: field["placeholder"], autocomplete:, **attributes)
     end
+  end
+
+  # A file of the theme's ("site.css", "hero.webp") at the address the theme
+  # serves it from, with its digest, so browsers and caches keep it for good
+  # and a changed file gets a new address (Oldmill::AssetsController).
+  def oldmill_asset_path(name)
+    digest = (OLDMILL_DIGESTS[name] ||= Digest::SHA1.file(Oldmill::AssetsController.find(name) || raise(ArgumentError, "no theme file #{name}")).hexdigest[0, 10])
+    "/_oldmill/#{name}?v=#{digest}"
+  end
+  OLDMILL_DIGESTS = {} # rubocop:disable Style/MutableConstant
+
+  # The site's scripts as ES modules: an importmap of the theme's own files
+  # (config/importmap.rb's pins, served by the theme), each preloaded, and
+  # the entry point. Instead of website_javascript_tags, which needs the
+  # files compiled into the asset pipeline.
+  OLDMILL_MODULES = %w[site nav tabs specials motion form].freeze
+
+  def oldmill_javascript_tags
+    imports = OLDMILL_MODULES.to_h { ["oldmill/#{it}", oldmill_asset_path("#{it}.js")] }.merge("oldmill" => oldmill_asset_path("site.js"))
+    nonce = content_security_policy_nonce
+    safe_join([
+      tag.script(ERB::Util.json_escape({imports:}.to_json).html_safe, type: "importmap", nonce:), # rubocop:disable Rails/OutputSafety -- our own paths, JSON-escaped
+      *imports.values.uniq.map { tag.link(rel: "modulepreload", href: it, nonce:) },
+      tag.script('import "oldmill"'.html_safe, type: "module", nonce:) # rubocop:disable Rails/OutputSafety -- a constant
+    ], "\n")
   end
 
   # The year in the footer's copyright line.

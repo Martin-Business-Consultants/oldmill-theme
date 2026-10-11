@@ -11,6 +11,14 @@ module Oldmill
       app.config.assets.paths << root.join("app/javascript")
     end
 
+    # The theme's files, served by the theme (Oldmill::AssetsController), ahead
+    # of the website's catch-all.
+    initializer "oldmill.routes" do |app|
+      app.routes.append do
+        get "_oldmill/*path", to: "oldmill/assets#show", format: false, as: :oldmill_asset
+      end
+    end
+
     config.to_prepare do
       # A plugin too, so Settings › Plugins installs it from its GitHub
       # release, updates it, and switches the site on and off.

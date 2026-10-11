@@ -33,6 +33,11 @@ The pages' SEO panels hold `seo_title` and `seo_description` (and the 404's
 `no_index`), the names the site's import gave them; the theme reads those
 when `meta_title` and `meta_description` are blank.
 
+The theme serves its own stylesheet, scripts, fonts and images, at
+`/_oldmill/<file>?v=<digest>` (`Oldmill::AssetsController`), rather than
+through the asset pipeline: an install that hasn't compiled a theme added
+from Settings › Plugins would otherwise answer every page with a 500.
+
 Settings › Themes › Customize: the colors a first-time visitor sees (dark or
 light), and whether the sun/moon switch is shown.
 

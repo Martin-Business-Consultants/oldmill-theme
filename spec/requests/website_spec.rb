@@ -182,12 +182,29 @@ RSpec.describe "The Old Mill website", type: :request, website: true do
     expect(html.css("[data-theme-toggle]")).to be_empty
   end
 
-  it "loads its own scripts and stylesheet, none of the admin's" do
+  it "serves its own scripts, stylesheet and fonts, none of the admin's, with nothing compiled" do
     get "/"
+    page = html
 
-    importmap = JSON.parse(html.at_css("script[type=importmap]").text)["imports"]
+    importmap = JSON.parse(page.at_css("script[type=importmap]").text)["imports"]
     expect(importmap.keys).to all(start_with("oldmill"))
-    expect(response.body).to include("/assets/oldmill/site-")
-    expect(response.body).not_to include("litewind", "/assets/application-")
+    expect(importmap.values).to all(start_with("/_oldmill/"))
+    expect(response.body).not_to include("litewind", "/assets/application-", "/assets/oldmill/")
+
+    stylesheet = page.at_css("link[rel=stylesheet]")["href"]
+    get stylesheet
+    expect(response).to have_http_status(:ok)
+    expect(response.media_type).to eq("text/css")
+    expect(response.headers["Cache-Control"]).to include("immutable")
+    expect(response.body).to include('url("fraunces.woff2")')
+
+    (importmap.values + [page.at_css("link[as=font]")["href"]]).each do |path|
+      get path
+      expect(response).to have_http_status(:ok), path
+    end
+    get "/_oldmill/../../oldmill.gemspec"
+    expect(response).to have_http_status(:not_found)
+    get "/_oldmill/README.md"
+    expect(response).to have_http_status(:not_found)
   end
 end
