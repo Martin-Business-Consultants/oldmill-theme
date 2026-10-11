@@ -1,0 +1,7 @@
+<%# locals: (data:) -%>
+<section class="section section--alt">
+  <figure class="container container--narrow centered quote" data-reveal>
+    <blockquote class="quote__text"><%= website_plain_text(data.text) %></blockquote>
+    <% if data.attribution.present? %><figcaption class="eyebrow"><%= data.attribution %></figcaption><% end %>
+  </figure>
+</section>

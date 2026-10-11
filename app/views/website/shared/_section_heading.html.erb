@@ -1,0 +1,9 @@
+<%# locals: (heading:, highlighted: nil, body: nil, amber: true) -%>
+<%# A section's centred heading over the ledger rule. %>
+<div class="section-heading" data-reveal>
+  <h2 class="h2"><%= oldmill_heading(heading, highlighted, amber:) %></h2>
+  <div class="ledger-rule ledger-rule--center"></div>
+  <% if body.present? %>
+    <p class="section-heading__body"><%= body %></p>
+  <% end %>
+</div>

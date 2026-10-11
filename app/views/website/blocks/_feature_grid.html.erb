@@ -1,0 +1,46 @@
+<%# locals: (data:) -%>
+<%# Cards in two or three columns; or, when every item is a short figure with no icon ("1869 / Year Built"), a ruled ledger of figures, the mill's record. %>
+<% items = data.items %>
+<% stat_band = items.any? && items.all? { |item| item.icon.blank? && website_plain_text(item.title).length <= 5 } %>
+<% if stat_band %>
+  <section class="section section--alt section--ruled ledger-band">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="container container--mid">
+      <% if data.heading.present? %>
+        <%= render "website/shared/section_heading", heading: data.heading %>
+      <% end %>
+      <dl class="ledger" data-reveal-group>
+        <% items.each do |item| %>
+          <div class="ledger__cell">
+            <dt class="ledger__figure"><%= item.title %></dt>
+            <dd class="ledger__label"><%= website_plain_text(item.body) %></dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+  </section>
+<% else %>
+  <% centered = data.columns.to_i >= 3 %>
+  <section class="section">
+    <div class="container container--mid">
+      <% if data.heading.present? %>
+        <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+      <% end %>
+      <div class="<%= class_names("cards", "cards--3": centered, "cards--center": centered) %>" data-reveal-group>
+        <% items.each do |item| %>
+          <% href = website_href(item.link) %>
+          <div class="card">
+            <% if item.icon.present? %>
+              <span class="card__icon"><%= render "website/shared/path_icon", icon: item.icon %></span>
+            <% end %>
+            <h3 class="card__title"><%= item.title %></h3>
+            <p class="card__text"><%= website_plain_text(item.body) %></p>
+            <% if href %>
+              <%= link_to "Learn more →", href, class: "text-link", **oldmill_link_options(href) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

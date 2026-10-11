@@ -1,0 +1,26 @@
+<%# locals: (entry:) -%>
+<%# A special's own page: its price, photo and description. One that's off this week keeps its page, so a shared link doesn't break. %>
+<% special = website_fields(entry) %>
+<% name = website_plain_text(entry.title) %>
+<% price = website_plain_text(special.price) %>
+<% description = website_plain_text(special.description) %>
+<% content_for :head, oldmill_seo_tags(entry, title: "#{name} | #{oldmill_name}", image: special.image_id.presence,
+  description: oldmill_item_description(name:, body: description, context: "A daily special at #{oldmill_name} in Plainwell, MI.")) %>
+<article class="item-page">
+  <%= render "website/shared/photo_backdrop" %>
+  <div class="container container--narrow item-page__body centered">
+    <a class="eyebrow back-link" href="/#specials"><span aria-hidden="true">&larr;</span> Specials</a>
+    <p class="eyebrow" data-fade><%= special.day.present? && website_truthy?(special.active) ? "#{special.day}’s Special" : "Daily Special" %></p>
+    <h1 class="item-page__title" data-fade><%= name %></h1>
+    <% if price.present? %><p class="data item-page__price" data-fade><%= price %></p><% end %>
+    <div class="ledger-rule ledger-rule--center" data-fade></div>
+    <% if special.image_id.present? %>
+      <div class="item-page__photo" data-fade><%= website_image_tag special.image_id, alt: name, sizes: "(min-width: 640px) 28rem, 90vw", loading: :eager %></div>
+    <% end %>
+    <% if description.present? %><p class="item-page__text" data-fade><%= description %></p><% end %>
+    <div class="actions actions--center">
+      <% if (order = oldmill_order) %><%= oldmill_button order[:label], href: order[:href] %><% end %>
+      <%= oldmill_button "All Specials", href: "/#specials", variant: :outline %>
+    </div>
+  </div>
+</article>

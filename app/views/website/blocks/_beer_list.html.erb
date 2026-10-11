@@ -1,0 +1,24 @@
+<%# locals: (data:) -%>
+<%# What's on tap: the beers collection, newest first, each to its page. The block's own beers stand in only where there's no beers collection to read. %>
+<% beers = oldmill_beers %>
+<section class="section section--glow">
+  <div class="container">
+    <div class="beer-grid" data-reveal-group>
+      <% if beers.any? %>
+        <%= render partial: "website/shared/beer_tile", collection: beers, as: :beer %>
+      <% else %>
+        <% data.beers.each do |beer| %>
+          <div class="beer-tile">
+            <% if beer.image_id.present? %>
+              <span class="beer-tile__art"><%= website_image_tag beer.image_id, alt: "#{beer.name} beer artwork", sizes: "(min-width: 1024px) 20vw, 45vw" %></span>
+            <% end %>
+            <span class="beer-tile__text">
+              <span class="beer-tile__head"><h3 class="beer-tile__name"><%= beer.name %></h3><span class="data beer-tile__abv"><%= beer.abv %></span></span>
+              <span class="beer-tile__style"><%= beer.style %></span>
+            </span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

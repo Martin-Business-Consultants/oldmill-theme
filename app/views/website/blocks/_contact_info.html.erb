@@ -1,0 +1,16 @@
+<%# locals: (data:) -%>
+<%# The business's contact details (Settings › General, as the CMS resolves them). %>
+<% contact = data.resolved.to_h["contact"].to_h.presence || website_settings %>
+<section class="section">
+  <div class="container container--narrow centered">
+    <% if data.heading.present? %><%= render "website/shared/section_heading", heading: data.heading %><% end %>
+    <% if data.body.present? %><p class="cta__body"><%= website_plain_text(data.body) %></p><% end %>
+    <address class="contact-list" data-reveal>
+      <% if contact["phone"].present? %><%= link_to contact["phone"], oldmill_tel(contact["phone"]), class: "data contact-line" %><% end %>
+      <% if contact["email"].present? %><a class="data contact-line" href="mailto:<%= contact["email"] %>"><%= contact["email"] %></a><% end %>
+      <% if contact["address_line1"].present? %>
+        <span class="data"><%= contact["address_line1"] %>, <%= [contact["city"], [contact["state"], contact["zip"]].compact_blank.join(" ")].compact_blank.join(", ") %></span>
+      <% end %>
+    </address>
+  </div>
+</section>

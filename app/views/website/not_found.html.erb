@@ -1,0 +1,10 @@
+<%# locals: () -%>
+<%# Page not found: the CMS's "not-found" page, its blocks, never indexed. Without one, a plain header back to the menu. %>
+<% page = Page.live.find_by(path: "not-found") %>
+<% if page %>
+  <% content_for :head, oldmill_seo_tags(page, noindex: true) %>
+  <%= website_blocks page %>
+<% else %>
+  <% content_for :head, website_seo_tags(title: "Page not found | #{oldmill_name}", noindex: true) %>
+  <%= render "website/shared/page_header", eyebrow: "404", heading: "Page", highlighted: "not found", cta_label: "See the menu", cta_href: "/menu" %>
+<% end %>

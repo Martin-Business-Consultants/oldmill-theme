@@ -1,0 +1,9 @@
+<%# locals: (data:) -%>
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <div class="card card--note centered" data-reveal>
+      <h2 class="card__heading"><%= data.heading %></h2>
+      <p class="muted"><%= website_plain_text(data.body) %></p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+<%# locals: (entry:) -%>
+<%# A beer's own page: its label art beside its style, name, ABV and description, over the brewer pulling a pint, then back to the tap list. %>
+<% beer = website_fields(entry) %>
+<% name = oldmill_texturize(website_plain_text(entry.title)) %>
+<% style = entry.category && website_plain_text(entry.category.title) %>
+<% description = oldmill_body_text(entry) %>
+<% abv = oldmill_abv(entry) %>
+<% content_for :head, oldmill_seo_tags(entry, title: "#{name} | #{oldmill_name}", image: beer.featured_image.presence,
+  description: oldmill_item_description(name:, body: description, context: "#{style.presence || "Craft beer"}, brewed on site at #{oldmill_name} in Plainwell, MI.")) %>
+<article class="item-page">
+  <%= render "website/shared/photo_backdrop", fallback: "taps" %>
+  <div class="container container--mid item-page__body">
+    <a class="eyebrow back-link" href="/beers"><span aria-hidden="true">&larr;</span> On Tap</a>
+    <div class="item-page__split">
+      <% if beer.featured_image.present? %>
+        <div class="item-page__art" data-fade>
+          <%= website_image_tag beer.featured_image, alt: "#{name} label artwork", sizes: "(min-width: 768px) 32rem, 90vw", loading: :eager, fetchpriority: :high %>
+        </div>
+      <% end %>
+      <div data-fade>
+        <% if style.present? %><p class="eyebrow"><%= style %></p><% end %>
+        <h1 class="item-page__title"><%= name %></h1>
+        <% if abv %>
+          <p class="abv"><span class="data abv__figure"><%= abv %></span> <span class="abv__label">ABV</span></p>
+        <% end %>
+        <% if description.present? %><p class="item-page__text"><%= description %></p><% end %>
+        <div class="actions">
+          <% if (order = oldmill_order) %><%= oldmill_button order[:label], href: order[:href] %><% end %>
+          <%= oldmill_button "Full Tap List", href: "/beers", variant: :outline %>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

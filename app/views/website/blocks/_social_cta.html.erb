@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# Follow the pub: a heading and line over its Facebook and Instagram. %>
+<% networks = [["facebook", "Facebook", oldmill_href(data.facebook_url)], ["instagram", "Instagram", oldmill_href(data.instagram_url)]].select(&:last) %>
+<section class="section section--alt">
+  <div class="container container--narrow centered" data-reveal>
+    <% if data.heading.present? || data.heading_highlight.present? %>
+      <h2 class="h2"><%= oldmill_heading(data.heading, data.heading_highlight, amber: false) %></h2>
+      <div class="ledger-rule ledger-rule--center"></div>
+    <% end %>
+    <% if data.body.present? %>
+      <p class="cta__body"><%= website_plain_text(data.body) %></p>
+    <% end %>
+    <div class="actions actions--center">
+      <% networks.each do |icon, name, href| %>
+        <%= oldmill_button name, href:, variant: :social, icon: %>
+      <% end %>
+    </div>
+  </div>
+</section>

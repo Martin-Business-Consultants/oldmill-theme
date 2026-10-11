@@ -1,0 +1,42 @@
+<%# locals: () -%>
+<%# The bar over every page: the logo, the nav global's links and its "Order Online" button. Clear over the photo at the top, solid once the page scrolls (oldmill/nav.js). %>
+<% items = oldmill_nav.items.filter_map { |item| (href = website_href(item.link)) && {text: item.label, href:} } %>
+<% order = oldmill_order %>
+<header id="site-header" class="nav" data-nav>
+  <div class="container nav__inner">
+    <a class="nav__logo" href="/"><%= oldmill_logo %></a>
+    <nav class="nav__menu" aria-label="Main">
+      <ul>
+        <% items.each do |item| %>
+          <%= render "website/shared/nav_link", **item %>
+        <% end %>
+      </ul>
+      <%= render "website/shared/theme_toggle" %>
+      <% if order %>
+        <%= oldmill_button order[:label], href: order[:href], class: "button--small" %>
+      <% end %>
+    </nav>
+    <div class="nav__mobile">
+      <%= render "website/shared/theme_toggle" %>
+      <button type="button" class="nav__burger" aria-label="Open the menu" aria-controls="mobile-menu" aria-expanded="false" data-menu-open>
+        <%= oldmill_icon("menu") %>
+      </button>
+    </div>
+  </div>
+</header>
+<dialog id="mobile-menu" class="mobile-menu" aria-label="Menu">
+  <div class="mobile-menu__top">
+    <a class="nav__logo" href="/"><%= oldmill_logo %></a>
+    <button type="button" class="mobile-menu__close" aria-label="Close the menu" data-menu-close><%= oldmill_icon("x") %></button>
+  </div>
+  <nav aria-label="Main">
+    <ul>
+      <% items.each do |item| %>
+        <%= render "website/shared/nav_link", **item %>
+      <% end %>
+    </ul>
+  </nav>
+  <% if order %>
+    <%= oldmill_button order[:label], href: order[:href], class: "button--wide" %>
+  <% end %>
+</dialog>

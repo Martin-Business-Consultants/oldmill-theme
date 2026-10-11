@@ -1,0 +1,18 @@
+<%# locals: (data:) -%>
+<%# What happens every week, as cards with an icon each. %>
+<% icons = %w[glass music star tv] %>
+<section class="section">
+  <div class="container container--mid">
+    <%= render "website/shared/section_heading", heading: "Regular", highlighted: "Happenings", amber: false %>
+    <div class="cards" data-reveal-group>
+      <% data.events.each_with_index do |event, index| %>
+        <div class="card card--hover">
+          <span class="card__icon"><%= oldmill_icon(icons[index % icons.size]) %></span>
+          <p class="card__day"><%= event.day %></p>
+          <h3 class="card__title"><%= event.name %></h3>
+          <p class="card__text"><%= website_plain_text(event.desc) %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

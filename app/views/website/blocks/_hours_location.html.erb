@@ -1,0 +1,53 @@
+<%# locals: (data:) -%>
+<%# Hours, location and contact, as three cards. %>
+<% address = data.address.to_s %>
+<% maps_href = oldmill_href(data.maps_url) %>
+<section id="visit" class="section">
+  <div class="container container--mid">
+    <div class="cards cards--3" data-reveal-group>
+      <div class="card">
+        <span class="card__icon"><%= oldmill_icon("clock") %></span>
+        <h2 class="card__heading">Hours</h2>
+        <dl class="hours">
+          <% data.hours.each do |row| %>
+            <div class="hours__row"><dt><%= row.day %></dt><dd class="data"><%= row.hours %></dd></div>
+          <% end %>
+        </dl>
+        <% if data.holiday_note.present? %>
+          <p class="small faint"><%= data.holiday_note %></p>
+        <% end %>
+      </div>
+      <div class="card">
+        <span class="card__icon"><%= oldmill_icon("map-pin") %></span>
+        <h2 class="card__heading">Location</h2>
+        <% if address.present? %>
+          <p class="data address"><%= safe_join(address.split("\n"), tag.br) %></p>
+        <% end %>
+        <% if data.address_note.present? %>
+          <p class="small muted"><%= website_plain_text(data.address_note) %></p>
+        <% end %>
+        <% if maps_href %>
+          <%= oldmill_button "Get Directions", href: maps_href, class: "card__button" %>
+        <% end %>
+      </div>
+      <div class="card">
+        <span class="card__icon"><%= oldmill_icon("phone") %></span>
+        <h2 class="card__heading">Contact</h2>
+        <% if data.phone.present? %>
+          <p class="label">Phone</p>
+          <p><%= link_to data.phone, oldmill_tel(data.phone), class: "data contact-line" %></p>
+        <% end %>
+        <% if data.email.present? %>
+          <p class="label">Email</p>
+          <p><a class="data contact-line" href="mailto:<%= data.email %>"><%= data.email %></a></p>
+        <% end %>
+        <% if data.facebook_url.present? || data.instagram_url.present? %>
+          <div class="card__social">
+            <p class="label">Social</p>
+            <%= render "website/shared/socials", facebook: data.facebook_url, instagram: data.instagram_url %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<%# locals: (data:) -%>
+<%# The mill through the years, either side of a line: the Kalamazoo, running the length of its history. %>
+<section class="section section--alt section--fade-top">
+  <div class="container container--narrow">
+    <%= render "website/shared/section_heading", heading: "Through the Years" %>
+    <ol class="timeline">
+      <% data.items.each do |item| %>
+        <li class="timeline__item" data-reveal>
+          <span class="timeline__dot" aria-hidden="true"></span>
+          <div class="timeline__text">
+            <p class="data timeline__year"><%= item.year %></p>
+            <p class="muted"><%= website_plain_text(item.text) %></p>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</section>

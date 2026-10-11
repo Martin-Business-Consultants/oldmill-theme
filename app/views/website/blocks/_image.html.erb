@@ -1,0 +1,5 @@
+<%# locals: (data:) -%>
+<figure class="container container--mid figure" data-reveal>
+  <%= website_image_tag data.asset_id, alt: data.alt.presence, sizes: "(min-width: 72rem) 64rem, 100vw" %>
+  <% if data.caption.present? %><figcaption><%= data.caption %></figcaption><% end %>
+</figure>

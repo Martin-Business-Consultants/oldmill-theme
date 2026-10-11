@@ -1,0 +1,8 @@
+<%# locals: (image: nil, fallback: "food") -%>
+<%# A darkened photo behind a heading, the home hero's treatment: a CMS image, else the mill's food shot (or, fallback "taps", the brewer pulling a pint). %>
+<div class="backdrop" aria-hidden="true">
+  <%= website_image_tag(image, alt: "", loading: :eager, fetchpriority: :high, class: "backdrop__image") ||
+    image_tag("oldmill/#{fallback == "taps" ? "about" : "hero"}.webp", alt: "", class: "backdrop__image", fetchpriority: "high") %>
+  <div class="backdrop__shade"></div>
+  <div class="grain"></div>
+</div>

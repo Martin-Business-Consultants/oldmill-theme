@@ -1,0 +1,9 @@
+<%# locals: (data:) -%>
+<section class="<%= class_names("section cta", "section--alt": data.background.to_s != "primary", "section--glow": data.background.to_s == "accent") %>">
+  <div class="container container--narrow centered" data-reveal>
+    <h2 class="h2"><%= data.heading %></h2>
+    <div class="ledger-rule ledger-rule--center"></div>
+    <% if data.body.present? %><p class="cta__body"><%= website_plain_text(data.body) %></p><% end %>
+    <%= render "website/shared/ctas", ctas: data.ctas %>
+  </div>
+</section>

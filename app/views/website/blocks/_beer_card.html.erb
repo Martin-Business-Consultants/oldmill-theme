@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# One beer, written into the page: its art beside its name, style, ABV and description. %>
+<div class="container container--mid beer-card-wrap">
+  <div class="<%= class_names("beer-card", "beer-card--reversed": data.reversed) %>" data-reveal>
+    <% if data.image_id.present? %>
+      <div class="beer-card__art"><%= website_image_tag data.image_id, alt: "#{data.name} beer artwork", sizes: "(min-width: 1024px) 20rem, (min-width: 768px) 18rem, 100vw" %></div>
+    <% end %>
+    <div class="beer-card__text">
+      <div class="beer-card__head">
+        <div>
+          <h2 class="beer-card__name"><%= data.name %></h2>
+          <p class="beer-card__style"><%= data.style %></p>
+        </div>
+        <span class="data beer-card__abv"><%= data.abv %> ABV</span>
+      </div>
+      <p class="muted"><%= website_plain_text(data.description) %></p>
+    </div>
+  </div>
+</div>

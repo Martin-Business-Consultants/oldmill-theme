@@ -1,0 +1,16 @@
+<%# locals: (data:) -%>
+<section class="section">
+  <div class="container container--mid">
+    <% if data.heading.present? %>
+      <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <% end %>
+    <div class="cards cards--3" data-reveal-group>
+      <% data.testimonials.each do |testimonial| %>
+        <figure class="card quote">
+          <blockquote class="card__text"><%= website_plain_text(testimonial.quote) %></blockquote>
+          <figcaption class="card__day"><%= testimonial.attribution %></figcaption>
+        </figure>
+      <% end %>
+    </div>
+  </div>
+</section>

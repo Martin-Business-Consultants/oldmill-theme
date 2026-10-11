@@ -1,0 +1,20 @@
+<%# locals: (data:) -%>
+<section class="section">
+  <div class="container container--mid">
+    <% if data.heading.present? %>
+      <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <% end %>
+    <div class="<%= class_names("cards", "cards--3": data.columns.to_i >= 3) %>" data-reveal-group>
+      <% data.cards.each do |card| %>
+        <% href = website_href(card.link_url) %>
+        <div class="card">
+          <% if card.image_id.present? %><div class="card__image"><%= website_image_tag card.image_id, sizes: "(min-width: 800px) 33vw, 100vw" %></div><% end %>
+          <h3 class="card__title"><%= card.title %></h3>
+          <% if card.subtitle.present? %><p class="card__day"><%= card.subtitle %></p><% end %>
+          <p class="card__text"><%= website_plain_text(card.description) %></p>
+          <% if href %><%= link_to "#{card.link_label.presence || "Learn more"} →", href, class: "text-link", **oldmill_link_options(href) %><% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

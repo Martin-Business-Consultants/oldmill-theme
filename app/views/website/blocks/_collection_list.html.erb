@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<%# Entries of a collection, as the CMS picked them: beers as tiles, anything else as cards. %>
+<% entries = Array(data.resolved.to_h["entries"]) %>
+<section class="section">
+  <div class="container">
+    <% if data.heading.present? %>
+      <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <% end %>
+    <div class="cards cards--3" data-reveal-group>
+      <% entries.each do |entry| %>
+        <% summary = website_plain_text(entry.dig("frontmatter", "description").presence || entry["excerpt"]) %>
+        <%= link_to entry["url"], class: "card card--link" do %>
+          <h3 class="card__title"><%= website_plain_text(entry["title"]) %></h3>
+          <% if summary.present? %><p class="card__text"><%= summary.truncate(160) %></p><% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,10 @@
+<%# locals: (facebook: nil, instagram: nil) -%>
+<%# Round buttons to the pub's Facebook and Instagram. %>
+<% networks = [["facebook", "Facebook", facebook], ["instagram", "Instagram", instagram]].select { |_, _, url| oldmill_href(url) } %>
+<% if networks.any? %>
+  <div class="socials">
+    <% networks.each do |icon, name, url| %>
+      <%= link_to oldmill_icon(icon, label: name), oldmill_href(url), class: "social", target: "_blank", rel: "noopener noreferrer" %>
+    <% end %>
+  </div>
+<% end %>

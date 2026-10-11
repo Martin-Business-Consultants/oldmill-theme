@@ -1,0 +1,18 @@
+<%# locals: (data:) -%>
+<%# A call to action: a heading and line over one button; just the button when there's no copy. An address on another site opens in a new tab, with its icon. %>
+<% href = oldmill_href(data.button_url) %>
+<% copy = data.heading.present? || data.heading_highlight.present? || data.body.present? %>
+<section class="<%= class_names("section cta", "section--alt": copy) %>">
+  <div class="container container--narrow centered" data-reveal>
+    <% if data.heading.present? || data.heading_highlight.present? %>
+      <h2 class="h2"><%= oldmill_heading(data.heading, data.heading_highlight, amber: false) %></h2>
+      <div class="ledger-rule ledger-rule--center"></div>
+    <% end %>
+    <% if data.body.present? %>
+      <p class="cta__body"><%= website_plain_text(data.body) %></p>
+    <% end %>
+    <% if data.button_label.present? && href %>
+      <%= oldmill_button data.button_label, href:, icon_after: ("external" if oldmill_external?(href)) %>
+    <% end %>
+  </div>
+</section>

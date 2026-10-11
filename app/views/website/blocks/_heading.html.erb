@@ -1,0 +1,3 @@
+<%# locals: (data:) -%>
+<% level = data.level.to_s.delete("h").to_i.clamp(2, 4) %>
+<div class="container container--narrow centered block-tight"><%= content_tag "h#{level}", data.text, class: "h#{level}" %></div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="<%= website_settings["default_locale"].presence || "en" %>" data-theme="<%= website_design(:color_scheme) %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if website_design(:theme_toggle) %>
+      <%# A visitor's own choice of dark or light, before the first paint, so it never flashes. %>
+      <script nonce="<%= content_security_policy_nonce %>">
+        try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t } catch (e) {}
+      </script>
+    <% end %>
+    <%= preload_link_tag "oldmill/inter.woff2", crossorigin: "anonymous" %>
+    <%= preload_link_tag "oldmill/fraunces.woff2", crossorigin: "anonymous" %>
+    <%= preload_link_tag "oldmill/ibm-plex-mono-400.woff2", crossorigin: "anonymous" %>
+    <%= stylesheet_link_tag "oldmill/site" %>
+    <%= website_design_tags %>
+    <%= yield :head %>
+    <% if content_for?(:turnstile) %>
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="<%= content_security_policy_nonce %>"></script>
+    <% end %>
+    <link rel="icon" type="image/png" href="<%= oldmill_favicon_href %>">
+    <link rel="apple-touch-icon" href="<%= oldmill_favicon_href %>">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="sitemap" href="/sitemap.xml">
+    <%= website_scripts("head") %>
+    <%= website_javascript_tags %>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <%= render "website/shared/nav" %>
+    <main id="main"><%= yield %></main>
+    <%= render "website/shared/footer" %>
+    <%= website_scripts("body") %>
+  </body>
+</html>

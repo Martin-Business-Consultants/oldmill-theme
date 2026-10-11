@@ -1,0 +1,13 @@
+<%# locals: (data:) -%>
+<%# Figures as the mill's ledger. %>
+<section class="section section--alt section--ruled ledger-band">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="container container--mid">
+    <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <dl class="ledger" data-reveal-group>
+      <% data.stats.each do |stat| %>
+        <div class="ledger__cell"><dt class="ledger__figure"><%= stat.value %></dt><dd class="ledger__label"><%= stat.label %></dd></div>
+      <% end %>
+    </dl>
+  </div>
+</section>

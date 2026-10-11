@@ -1,0 +1,4 @@
+<%# locals: (text:, href:) -%>
+<li>
+  <%= link_to text, href, class: "nav-link", "aria-current": ("page" if oldmill_current?(href)), **oldmill_link_options(href) %>
+</li>

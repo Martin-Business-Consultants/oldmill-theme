@@ -1,0 +1,7 @@
+<%# locals: (data:) -%>
+<% src = oldmill_href(data.url) %>
+<% if src&.match?(%r{\Ahttps://}) %>
+  <section class="section">
+    <div class="container container--mid"><div class="map embed"><iframe src="<%= src %>" title="Embedded content" loading="lazy" allowfullscreen></iframe></div></div>
+  </section>
+<% end %>

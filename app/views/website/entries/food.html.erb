@@ -1,0 +1,27 @@
+<%# locals: (entry:) -%>
+<%# A dish's own page: its section, name and dietary marks, its description, then back to the menu. %>
+<% name, marks = oldmill_dietary(entry.title) %>
+<% section = entry.category && website_plain_text(entry.category.title) %>
+<% description = oldmill_body_text(entry) %>
+<% photo = website_fields(entry).featured_image.presence %>
+<% content_for :head, oldmill_seo_tags(entry, title: "#{name} | #{oldmill_name}", image: photo,
+  description: oldmill_item_description(name:, body: description,
+    context: "#{section ? "From the #{section} menu" : "On the menu"} at #{oldmill_name}, the scratch kitchen in Plainwell, MI.")) %>
+<article class="item-page">
+  <%= render "website/shared/photo_backdrop" %>
+  <div class="container container--narrow item-page__body centered">
+    <a class="eyebrow back-link" href="/menu"><span aria-hidden="true">&larr;</span> Menu</a>
+    <% if section %><p class="eyebrow" data-fade><%= section %></p><% end %>
+    <h1 class="item-page__title" data-fade><%= name %></h1>
+    <% if marks.any? %><p class="item-page__marks" data-fade><%= oldmill_dietary_label(marks) %></p><% end %>
+    <div class="ledger-rule ledger-rule--center" data-fade></div>
+    <% if photo %>
+      <div class="item-page__photo" data-fade><%= website_image_tag photo, alt: name, sizes: "(min-width: 640px) 28rem, 90vw", loading: :eager %></div>
+    <% end %>
+    <% if description.present? %><p class="item-page__text" data-fade><%= description %></p><% end %>
+    <div class="actions actions--center">
+      <% if (order = oldmill_order) %><%= oldmill_button order[:label], href: order[:href] %><% end %>
+      <%= oldmill_button "Full Menu", href: "/menu", variant: :outline %>
+    </div>
+  </div>
+</article>

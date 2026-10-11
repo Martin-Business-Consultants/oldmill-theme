@@ -1,0 +1,35 @@
+<%# locals: (form:) -%>
+<%# A CMS form (the Forms plugin's), in the site's design: its fields, labels, choices, button and thank-you are the form's. It posts to the Forms plugin, which checks the honeypot, its rate limit, Cloudflare Turnstile (when Settings › Forms has its keys) and the fields, then sends its emails (oldmill/form.js). %>
+<% turnstile = oldmill_turnstile %>
+<section class="section section--tight">
+  <div class="container container--narrow">
+    <form id="form-<%= form.slug %>" class="form" method="post" action="<%= api_form_submissions_path(form_slug: form.slug) %>" enctype="multipart/form-data"
+      data-form data-honeypot="<%= Form::HONEYPOT_FIELD %>" data-success="<%= form.success_message.presence || "Thanks, we got it." %>" novalidate>
+      <p class="honeypot" aria-hidden="true">
+        <label>Leave this empty: <input name="<%= Form::HONEYPOT_FIELD %>" tabindex="-1" autocomplete="off"></label>
+      </p>
+      <% form.fields.each do |field| %>
+        <% id = "form-#{form.slug}-#{field["name"]}" %>
+        <% single_check = field["type"] == "checkbox" && Array(field["options"]).empty? %>
+        <div class="<%= class_names("field", "field--check": single_check) %>">
+          <% if single_check %>
+            <%= oldmill_form_control(field, id:) %>
+            <label class="field__label" for="<%= id %>"><%= field["label"] %><% if field["required"] %><span class="field__required" aria-hidden="true"> *</span><% end %></label>
+          <% else %>
+            <label class="field__label" for="<%= id %>"><%= field["label"] %><% if field["required"] %><span class="field__required" aria-hidden="true"> *</span><% end %></label>
+            <%= oldmill_form_control(field, id:) %>
+          <% end %>
+          <p class="field__error" data-error-for="<%= field["name"] %>" data-label="<%= field["label"] %>" hidden></p>
+        </div>
+      <% end %>
+      <% if turnstile %>
+        <% content_for :turnstile, "on" %>
+        <div class="cf-turnstile" data-sitekey="<%= turnstile[:site_key] %>" data-theme="<%= turnstile[:theme] %>" data-size="flexible"></div>
+      <% end %>
+      <div class="form__submit">
+        <%= oldmill_button form.submit_label.presence || "Submit", type: :submit %>
+      </div>
+      <p class="form__status" data-form-status role="status" aria-live="polite" hidden></p>
+    </form>
+  </div>
+</section>

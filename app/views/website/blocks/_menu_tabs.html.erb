@@ -1,0 +1,37 @@
+<%# locals: (data:) -%>
+<%# The food menu: the food collection's sections as tabs (oldmill/tabs.js), each dish linking to its page. The block's own categories stand in only where there's no food collection to read. %>
+<% sections = oldmill_menu %>
+<% if sections.empty? %>
+  <% sections = data.categories.map { |category| {name: category.name, slug: category.name.parameterize, note: category.note, items: category.items} } %>
+<% end %>
+<section id="menu" class="section section--alt section--fade-top">
+  <div class="container" data-tabs>
+    <div class="tabs" role="tablist" aria-label="Menu sections">
+      <% sections.each_with_index do |section, index| %>
+        <button type="button" class="tab" role="tab" id="menu-tab-<%= section[:slug] %>" aria-controls="menu-panel-<%= section[:slug] %>" aria-selected="<%= index.zero? %>" tabindex="<%= index.zero? ? 0 : -1 %>" data-tab><%= section[:name] %></button>
+      <% end %>
+    </div>
+    <% sections.each_with_index do |section, index| %>
+      <%= tag.div class: "tab-panel", role: "tabpanel", id: "menu-panel-#{section[:slug]}", "aria-labelledby": "menu-tab-#{section[:slug]}", hidden: !index.zero? do %>
+        <% if section[:note].present? %>
+          <p class="tab-panel__note"><%= section[:note] %></p>
+        <% end %>
+        <div class="dishes">
+          <% section[:items].each do |item| %>
+            <% if item.is_a?(CollectionEntry) %>
+              <%= render "website/shared/dish", dish: item %>
+            <% else %>
+              <div class="dish">
+                <div class="dish__head">
+                  <h3 class="dish__name"><%= item.name %></h3>
+                  <% if item.tag.present? %><span class="tag data"><%= item.tag %></span><% end %>
+                </div>
+                <% if item.desc.present? %><p class="dish__desc"><%= website_plain_text(item.desc) %></p><% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</section>

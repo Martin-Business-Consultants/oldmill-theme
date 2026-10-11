@@ -1,0 +1,12 @@
+<%# locals: (data:) -%>
+<%# A map (an embed URL), toned down to sit in the dark page. %>
+<% src = oldmill_href(data.src) %>
+<% if src&.match?(%r{\Ahttps://}) %>
+  <section class="section section--alt">
+    <div class="container container--mid">
+      <div class="map" data-reveal>
+        <iframe src="<%= src %>" title="<%= data.title.presence || "Map" %>" width="100%" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+<% end %>

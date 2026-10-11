@@ -1,0 +1,19 @@
+<%# locals: (data:) -%>
+<% href = website_href(data.cta_url) %>
+<section class="section">
+  <div class="container container--mid about about--flip">
+    <% if data.image_id.present? %>
+      <div class="about__photo" data-reveal><%= website_image_tag data.image_id, sizes: "(min-width: 768px) 36rem, 90vw" %></div>
+    <% end %>
+    <div class="about__text prose" data-reveal>
+      <h2 class="h2"><%= data.heading %></h2>
+      <ul class="checklist">
+        <% data.questions.each do |question| %>
+          <li><%= question.text %></li>
+        <% end %>
+      </ul>
+      <%= website_rich_text data.body %>
+      <% if data.cta_label.present? && href %><p><%= oldmill_button data.cta_label, href: %></p><% end %>
+    </div>
+  </div>
+</section>

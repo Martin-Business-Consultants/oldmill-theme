@@ -1,0 +1,7 @@
+<%# locals: (data:) -%>
+<% href = website_href(data.url) %>
+<% if href %>
+  <div class="container centered block-tight">
+    <%= oldmill_button data.label, href:, variant: data.style.to_s.in?(["", "primary"]) ? :primary : :outline %>
+  </div>
+<% end %>

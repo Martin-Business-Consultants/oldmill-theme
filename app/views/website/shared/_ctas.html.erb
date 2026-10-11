@@ -1,0 +1,10 @@
+<%# locals: (ctas:) -%>
+<%# A row of buttons from a ctas repeater: primary is amber, the rest a hairline outline. %>
+<% links = Array(ctas).filter_map { |cta| (href = website_href(cta.url)) && cta.label.present? && [cta.label, href, cta.style] } %>
+<% if links.any? %>
+  <div class="actions actions--center">
+    <% links.each do |text, href, style| %>
+      <%= oldmill_button text, href:, variant: style.to_s.in?(["", "primary"]) ? :primary : :outline %>
+    <% end %>
+  </div>
+<% end %>

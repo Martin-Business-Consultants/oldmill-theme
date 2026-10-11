@@ -1,0 +1,7 @@
+<%# locals: (data:) -%>
+<%# Blocks side by side. %>
+<div class="<%= class_names("container columns", "columns--#{data.column_count.presence || 2}") %>">
+  <% Array(data.to_h["items"]).each do |block| %>
+    <div><%= website_block(block) %></div>
+  <% end %>
+</div>

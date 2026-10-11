@@ -1,0 +1,41 @@
+<%# locals: (data:) -%>
+<%# The week's specials: every active entry of the specials collection, a tab per day (oldmill/tabs.js), today's open, in Plainwell time. Every day is in the page, so a script re-picks today against the visitor's clock (oldmill/specials.js); this is the fallback without it. %>
+<% week = oldmill_specials_week %>
+<% today = oldmill_today %>
+<% opened = week.key?(today) ? today : week.keys.first %>
+<% heading = data.heading.nil? ? "Check out our" : data.heading %>
+<% highlighted = data.heading_highlight.nil? ? (data.heading.present? ? nil : "Specials") : data.heading_highlight %>
+<% cta_href = oldmill_href(data.cta_url) %>
+<% if week.any? %>
+  <section id="specials" class="section section--glow">
+    <div class="container">
+      <div class="section-heading" data-reveal>
+        <h2 class="h2"><%= oldmill_heading(heading, highlighted) %></h2>
+        <% if data.note.present? %>
+          <p class="section-heading__body"><%= data.note %></p>
+        <% end %>
+        <div class="ledger-rule ledger-rule--center"></div>
+        <% if cta_href %>
+          <div class="actions actions--center"><%= oldmill_button data.cta_label.presence || "Order Online", href: cta_href %></div>
+        <% end %>
+      </div>
+      <div data-tabs data-specials data-time-zone="<%= OldmillHelper::TIME_ZONE %>">
+        <div class="tabs" role="tablist" aria-label="Specials by day">
+          <% week.each_key do |day| %>
+            <button type="button" class="tab" role="tab" id="special-tab-<%= day.downcase %>" aria-controls="special-panel-<%= day.downcase %>"
+              aria-selected="<%= day == opened %>" tabindex="<%= day == opened ? 0 : -1 %>" data-tab data-day="<%= day %>">
+              <%= day %> <%= tag.span "Today", class: "tab__today", hidden: day != today, data: {today: true} %>
+            </button>
+          <% end %>
+        </div>
+        <% week.each do |day, specials| %>
+          <%= tag.div class: "tab-panel", role: "tabpanel", id: "special-panel-#{day.downcase}", "aria-labelledby": "special-tab-#{day.downcase}", hidden: day != opened do %>
+            <div class="<%= class_names("specials", "specials--pair": specials.size > 1) %>">
+              <%= render partial: "website/shared/special_card", collection: specials, as: :special, locals: {day:} %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

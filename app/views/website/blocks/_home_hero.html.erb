@@ -1,0 +1,49 @@
+<%# locals: (data:) -%>
+<%# The home page's header, the full height of the screen: the headline over the mill's food, the "Order Online" button beside the block's, and the pub's phone and directions (General) as small links. %>
+<% order = oldmill_order %>
+<% primary_href = oldmill_href(data.cta_primary_url) %>
+<% secondary_href = oldmill_href(data.cta_secondary_url) %>
+<% phone = website_settings["phone"].presence || oldmill_footer.phone %>
+<% address = [website_settings["address_line1"], [website_settings["city"], [website_settings["state"], website_settings["zip"]].compact_blank.join(" ")].compact_blank.join(", ")].compact_blank.join(", ").presence || oldmill_footer.address %>
+<section class="home-hero">
+  <%= render "website/shared/photo_backdrop" %>
+  <div class="container home-hero__body">
+    <% if data.eyebrow.present? %>
+      <p class="eyebrow home-hero__eyebrow" data-fade><%= data.eyebrow %></p>
+    <% end %>
+    <h1 class="home-hero__title" data-fade>
+      <% if data.heading.present? %><span class="home-hero__line"><%= data.heading %></span><% end %>
+      <% if data.heading_highlight.present? %><span class="highlight highlight--italic"><%= data.heading_highlight %></span><% end %>
+    </h1>
+    <% if data.body.present? %>
+      <p class="home-hero__lede" data-fade><%= website_plain_text(data.body) %></p>
+    <% end %>
+    <div class="actions actions--center" data-fade>
+      <% if order %>
+        <%= oldmill_button order[:label], href: order[:href] %>
+      <% end %>
+      <% if data.cta_primary_label.present? && primary_href %>
+        <%= oldmill_button data.cta_primary_label, href: primary_href, variant: :outline %>
+      <% end %>
+      <% if !order && data.cta_secondary_label.present? && secondary_href %>
+        <%= oldmill_button data.cta_secondary_label, href: secondary_href, variant: :outline %>
+      <% end %>
+    </div>
+    <div class="actions actions--center actions--pills" data-fade>
+      <% if phone.present? %>
+        <%= link_to safe_join([oldmill_icon("phone"), tag.span(phone, class: "data")]), oldmill_tel(phone), class: "pill" %>
+      <% end %>
+      <% if address.present? %>
+        <%= link_to safe_join([oldmill_icon("map-pin"), tag.span("Get Directions")]), oldmill_directions(address), class: "pill", target: "_blank", rel: "noopener noreferrer" %>
+      <% end %>
+      <% if order && data.cta_secondary_label.present? && secondary_href %>
+        <%= link_to safe_join([oldmill_icon("calendar"), tag.span(data.cta_secondary_label)]), secondary_href, class: "pill" %>
+      <% end %>
+    </div>
+    <a class="home-hero__scroll" href="#after-hero" data-fade>
+      <span class="eyebrow">Scroll</span>
+      <%= oldmill_icon("arrow-down", class: "bounce") %>
+    </a>
+  </div>
+</section>
+<div id="after-hero"></div>

@@ -1,0 +1,11 @@
+<%# locals: (data:) -%>
+<section class="section">
+  <div class="container gallery" data-reveal-group>
+    <% data.items.each do |item| %>
+      <figure>
+        <%= website_image_tag item.asset_id, sizes: "(min-width: 800px) 33vw, 100vw" %>
+        <% if item.caption.present? %><figcaption><%= item.caption %></figcaption><% end %>
+      </figure>
+    <% end %>
+  </div>
+</section>

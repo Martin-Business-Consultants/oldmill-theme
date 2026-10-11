@@ -1,0 +1,10 @@
+<%# locals: (page:) -%>
+<%# Every CMS page, from its blocks, and under them the form of the same name when there is one (the careers page, the careers form). A page that doesn't open with a photo header gets its title as one, over the mill. %>
+<% content_for :head, oldmill_seo_tags(page) %>
+<% unless %w[home_hero page_hero hero].include?(Array(page.blocks).first.to_h["type"]) %>
+  <%= render "website/shared/page_header", heading: page.title %>
+<% end %>
+<%= website_blocks page %>
+<% if (form = oldmill_page_form(page)) %>
+  <%= render "website/shared/form", form: %>
+<% end %>

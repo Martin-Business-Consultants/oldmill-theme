@@ -1,0 +1,20 @@
+<%# locals: (beer:) -%>
+<%# A beer on tap, as a tile: its label art, name, ABV and style, linking to its page. %>
+<% artwork = website_fields(beer).featured_image %>
+<% abv = oldmill_abv(beer) %>
+<%= link_to website_path(beer), class: "beer-tile" do %>
+  <% if artwork.present? %>
+    <span class="beer-tile__art">
+      <%= website_image_tag artwork, alt: "#{website_plain_text(beer.title)} beer artwork", sizes: "(min-width: 1280px) 15rem, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 90vw" %>
+    </span>
+  <% end %>
+  <span class="beer-tile__text">
+    <span class="beer-tile__head">
+      <h3 class="beer-tile__name"><%= oldmill_texturize(website_plain_text(beer.title)) %></h3>
+      <% if abv %><span class="data beer-tile__abv"><%= abv %></span><% end %>
+    </span>
+    <% if beer.category %>
+      <span class="beer-tile__style"><%= website_plain_text(beer.category.title) %></span>
+    <% end %>
+  </span>
+<% end %>

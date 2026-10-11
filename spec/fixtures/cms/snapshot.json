@@ -1,0 +1,6087 @@
+{
+  "block_types": [
+    {
+      "slug": "about_intro",
+      "label": "About Intro",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "image_id",
+          "label": "Image",
+          "type": "asset",
+          "help": "Pick from the media library."
+        },
+        {
+          "name": "image_url",
+          "label": "Image URL",
+          "type": "string"
+        },
+        {
+          "name": "image_alt",
+          "label": "Image alt text",
+          "type": "string"
+        },
+        {
+          "name": "paragraphs",
+          "label": "Paragraphs (HTML)",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "html",
+              "label": "Paragraph HTML",
+              "type": "text",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "beer_card",
+      "label": "Beer Card",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "style",
+          "label": "Style",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "abv",
+          "label": "ABV",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "image_id",
+          "label": "Image",
+          "type": "asset",
+          "help": "Pick from the media library."
+        },
+        {
+          "name": "image_url",
+          "label": "Image URL",
+          "type": "string"
+        },
+        {
+          "name": "reversed",
+          "label": "Reverse layout",
+          "type": "boolean"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "beer_list",
+      "label": "Beer List",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "beers",
+          "label": "Beers",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "style",
+              "label": "Style",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "abv",
+              "label": "ABV",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "image_id",
+              "label": "Image",
+              "type": "asset",
+              "help": "Pick from the media library."
+            },
+            {
+              "name": "image_url",
+              "label": "Image URL",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "card_grid",
+      "label": "Card grid (legacy)",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "columns",
+          "label": "Columns",
+          "type": "select",
+          "options": [
+            "2",
+            "3",
+            "4"
+          ],
+          "required": true
+        },
+        {
+          "name": "cards",
+          "label": "Cards",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "icon",
+              "label": "Icon (lucide)",
+              "type": "string"
+            },
+            {
+              "name": "image_id",
+              "label": "Image asset ID",
+              "type": "asset"
+            },
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "subtitle",
+              "label": "Subtitle",
+              "type": "string"
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "type": "text"
+            },
+            {
+              "name": "link_url",
+              "label": "Link",
+              "type": "link"
+            },
+            {
+              "name": "link_label",
+              "label": "Link label",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "columns": "3"
+      }
+    },
+    {
+      "slug": "collection_list",
+      "label": "Collection list",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "collection_slug",
+          "label": "Collection",
+          "type": "string",
+          "required": true,
+          "help": "Slug of the collection to list (e.g. \"beers\")."
+        },
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Intro",
+          "type": "text"
+        },
+        {
+          "name": "filter_status",
+          "label": "Status filter",
+          "type": "select",
+          "options": [
+            "published",
+            "any"
+          ],
+          "required": true,
+          "help": "Limit to published entries (default) or include drafts/archived too."
+        },
+        {
+          "name": "filter_tags",
+          "label": "Filter tags",
+          "type": "string",
+          "help": "Comma-separated. Entries must have all listed tags."
+        },
+        {
+          "name": "sort_by",
+          "label": "Sort by",
+          "type": "select",
+          "options": [
+            "published_at",
+            "updated_at",
+            "created_at",
+            "title"
+          ],
+          "required": true
+        },
+        {
+          "name": "sort_dir",
+          "label": "Direction",
+          "type": "select",
+          "options": [
+            "desc",
+            "asc"
+          ],
+          "required": true
+        },
+        {
+          "name": "limit",
+          "label": "Limit",
+          "type": "integer",
+          "help": "Max entries to show. Leave 0 / blank for all."
+        },
+        {
+          "name": "group_by",
+          "label": "Group by",
+          "type": "string",
+          "help": "Optional frontmatter field to group entries by (e.g. \"section\")."
+        },
+        {
+          "name": "layout",
+          "label": "Layout",
+          "type": "select",
+          "options": [
+            "grid",
+            "list",
+            "featured-first"
+          ],
+          "required": true
+        }
+      ],
+      "defaults": {
+        "filter_status": "published",
+        "sort_by": "published_at",
+        "sort_dir": "desc",
+        "limit": 0,
+        "layout": "grid"
+      }
+    },
+    {
+      "slug": "columns",
+      "label": "Columns",
+      "category": "Layout",
+      "version": 1,
+      "fields": [
+        {
+          "name": "column_count",
+          "label": "Columns",
+          "type": "select",
+          "options": [
+            "2",
+            "3",
+            "4"
+          ],
+          "required": true
+        },
+        {
+          "name": "items",
+          "label": "Blocks",
+          "type": "blocks",
+          "required": true
+        }
+      ],
+      "defaults": {
+        "column_count": "2"
+      }
+    },
+    {
+      "slug": "contact_info",
+      "label": "Contact info",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "help": "Optional section heading. Leave blank to omit."
+        },
+        {
+          "name": "body",
+          "label": "Intro",
+          "type": "text"
+        }
+      ],
+      "defaults": {
+        "heading": "Visit Us"
+      }
+    },
+    {
+      "slug": "cta",
+      "label": "Call to action",
+      "category": "Action",
+      "version": 1,
+      "fields": [
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "url",
+          "label": "Link",
+          "type": "link",
+          "required": true
+        },
+        {
+          "name": "style",
+          "label": "Style",
+          "type": "select",
+          "options": [
+            "primary",
+            "secondary",
+            "ghost"
+          ],
+          "required": true
+        }
+      ],
+      "defaults": {
+        "label": "Get started",
+        "url": {
+          "kind": "url",
+          "value": "/"
+        },
+        "style": "primary"
+      }
+    },
+    {
+      "slug": "cta_band",
+      "label": "CTA band",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "ctas",
+          "label": "Buttons",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "url",
+              "label": "Link",
+              "type": "link",
+              "required": true
+            },
+            {
+              "name": "style",
+              "label": "Style",
+              "type": "select",
+              "options": [
+                "primary",
+                "secondary",
+                "ghost"
+              ],
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "background",
+          "label": "Background",
+          "type": "select",
+          "options": [
+            "primary",
+            "muted",
+            "accent"
+          ],
+          "required": true
+        }
+      ],
+      "defaults": {
+        "heading": "Ready to take the next step?",
+        "body": "Wrap up the page with a clear call to action.",
+        "ctas": [
+          {
+            "label": "Get started",
+            "url": {
+              "kind": "url",
+              "value": "/"
+            },
+            "style": "primary"
+          }
+        ],
+        "background": "primary"
+      }
+    },
+    {
+      "slug": "cta_section",
+      "label": "CTA Section",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "heading_highlight",
+          "label": "Heading highlight",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "button_label",
+          "label": "Button label",
+          "type": "string"
+        },
+        {
+          "name": "button_url",
+          "label": "Button URL",
+          "type": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "divider",
+      "label": "Divider",
+      "category": "Layout",
+      "version": 1,
+      "fields": [
+        {
+          "name": "style",
+          "label": "Style",
+          "type": "select",
+          "options": [
+            "solid",
+            "dashed",
+            "dotted"
+          ],
+          "required": true
+        }
+      ],
+      "defaults": {
+        "style": "solid"
+      }
+    },
+    {
+      "slug": "embed",
+      "label": "Embed",
+      "category": "Media",
+      "version": 1,
+      "fields": [
+        {
+          "name": "url",
+          "label": "URL",
+          "type": "url",
+          "required": true
+        },
+        {
+          "name": "kind",
+          "label": "Kind",
+          "type": "select",
+          "options": [
+            "youtube",
+            "vimeo",
+            "twitter",
+            "other"
+          ],
+          "required": true
+        }
+      ],
+      "defaults": {
+        "kind": "youtube"
+      }
+    },
+    {
+      "slug": "feature_grid",
+      "label": "Feature grid",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Intro",
+          "type": "text"
+        },
+        {
+          "name": "columns",
+          "label": "Columns",
+          "type": "select",
+          "options": [
+            "2",
+            "3",
+            "4"
+          ],
+          "required": true
+        },
+        {
+          "name": "items",
+          "label": "Items",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "icon",
+              "label": "Icon (lucide)",
+              "type": "string"
+            },
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "body",
+              "label": "Body",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link"
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "heading": "Why this works",
+        "columns": "3",
+        "items": [
+          {
+            "icon": "Sparkles",
+            "title": "First benefit",
+            "body": "One short sentence that captures the user value."
+          },
+          {
+            "icon": "Zap",
+            "title": "Second benefit",
+            "body": "Another sharp benefit. Three is the sweet spot for scannability."
+          },
+          {
+            "icon": "Heart",
+            "title": "Third benefit",
+            "body": "Keep them parallel in length and structure."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "feature_list",
+      "label": "Feature list",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "items",
+          "label": "Bullet items",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "gallery",
+      "label": "Gallery",
+      "category": "Media",
+      "version": 1,
+      "fields": [
+        {
+          "name": "items",
+          "label": "Images",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "asset_id",
+              "label": "Image",
+              "type": "asset",
+              "required": true
+            },
+            {
+              "name": "caption",
+              "label": "Caption",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "heading",
+      "label": "Heading",
+      "category": "Text",
+      "version": 1,
+      "fields": [
+        {
+          "name": "level",
+          "label": "Level",
+          "type": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "required": true
+        },
+        {
+          "name": "text",
+          "label": "Text",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "defaults": {
+        "level": "2",
+        "text": "Heading"
+      }
+    },
+    {
+      "slug": "hero",
+      "label": "Hero",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "subheading",
+          "label": "Subheading",
+          "type": "text"
+        },
+        {
+          "name": "image_id",
+          "label": "Image",
+          "type": "asset"
+        },
+        {
+          "name": "ctas",
+          "label": "Buttons",
+          "type": "repeater",
+          "of": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "url",
+              "label": "Link",
+              "type": "link",
+              "required": true
+            },
+            {
+              "name": "style",
+              "label": "Style",
+              "type": "select",
+              "options": [
+                "primary",
+                "secondary",
+                "ghost"
+              ],
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "heading": "Lead with your strongest line.",
+        "subheading": "A clear sub-headline that supports the hero. Two lines max.",
+        "ctas": [
+          {
+            "label": "Get started",
+            "url": {
+              "kind": "url",
+              "value": "/"
+            },
+            "style": "primary"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "home_hero",
+      "label": "Home Hero",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "eyebrow",
+          "label": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "heading_highlight",
+          "label": "Heading highlight",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "cta_primary_label",
+          "label": "Primary button label",
+          "type": "string"
+        },
+        {
+          "name": "cta_primary_url",
+          "label": "Primary button URL",
+          "type": "string"
+        },
+        {
+          "name": "cta_secondary_label",
+          "label": "Secondary button label",
+          "type": "string"
+        },
+        {
+          "name": "cta_secondary_url",
+          "label": "Secondary button URL",
+          "type": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "hours_location",
+      "label": "Hours & Location",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "hours",
+          "label": "Hours",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "day",
+              "label": "Day",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "hours",
+              "label": "Hours",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "holiday_note",
+          "label": "Holiday note",
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "label": "Address",
+          "type": "text"
+        },
+        {
+          "name": "address_note",
+          "label": "Address note",
+          "type": "text"
+        },
+        {
+          "name": "maps_url",
+          "label": "Google Maps URL",
+          "type": "string"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "string"
+        },
+        {
+          "name": "facebook_url",
+          "label": "Facebook URL",
+          "type": "string"
+        },
+        {
+          "name": "instagram_url",
+          "label": "Instagram URL",
+          "type": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "image",
+      "label": "Image",
+      "category": "Media",
+      "version": 1,
+      "fields": [
+        {
+          "name": "asset_id",
+          "label": "Asset ID",
+          "type": "asset",
+          "required": true
+        },
+        {
+          "name": "alt",
+          "label": "Alt text",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "caption",
+          "label": "Caption",
+          "type": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "info_card",
+      "label": "Info Card",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text",
+          "required": true
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "map_embed",
+      "label": "Map Embed",
+      "category": "Media",
+      "version": 1,
+      "fields": [
+        {
+          "name": "src",
+          "label": "Embed URL",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "media_text",
+      "label": "Media + text",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "markdown",
+          "required": true
+        },
+        {
+          "name": "image_id",
+          "label": "Image",
+          "type": "asset"
+        },
+        {
+          "name": "side",
+          "label": "Image side",
+          "type": "select",
+          "options": [
+            "right",
+            "left"
+          ],
+          "required": true,
+          "help": "Which side of the row the image sits on."
+        },
+        {
+          "name": "background",
+          "label": "Background",
+          "type": "select",
+          "options": [
+            "none",
+            "muted",
+            "accent"
+          ],
+          "required": true
+        },
+        {
+          "name": "cta_label",
+          "label": "CTA label",
+          "type": "string"
+        },
+        {
+          "name": "cta_url",
+          "label": "CTA link",
+          "type": "link"
+        }
+      ],
+      "defaults": {
+        "heading": "Pair an image with words.",
+        "body": "A two-column section that places an image alongside supporting copy. Use it for product highlights, feature explanations, or about-section narratives.",
+        "side": "right",
+        "background": "none"
+      }
+    },
+    {
+      "slug": "menu_section",
+      "label": "Menu Section",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "name",
+          "label": "Category Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "string"
+        },
+        {
+          "name": "items",
+          "label": "Items",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "name",
+              "label": "Item Name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "desc",
+              "label": "Description",
+              "type": "text"
+            },
+            {
+              "name": "tag",
+              "label": "Tag (GF/GS/V)",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "menu_tabs",
+      "label": "Menu (Tabs)",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "categories",
+          "label": "Categories",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "name",
+              "label": "Category name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "type": "string"
+            },
+            {
+              "name": "items",
+              "label": "Items",
+              "type": "repeater",
+              "required": true,
+              "of": [
+                {
+                  "name": "name",
+                  "label": "Name",
+                  "type": "string",
+                  "required": true
+                },
+                {
+                  "name": "desc",
+                  "label": "Description",
+                  "type": "text"
+                },
+                {
+                  "name": "tag",
+                  "label": "Tag (GF / GS / V)",
+                  "type": "string"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "page_hero",
+      "label": "Page Hero",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "eyebrow",
+          "label": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "heading_highlight",
+          "label": "Heading highlight",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "image_id",
+          "label": "Background image",
+          "type": "asset",
+          "help": "Photo behind the heading. Leave empty for the default food photo."
+        },
+        {
+          "name": "cta_label",
+          "label": "Button label",
+          "type": "string"
+        },
+        {
+          "name": "cta_url",
+          "label": "Button URL",
+          "type": "string",
+          "help": "A page path, a full URL, or #specials to jump to a section on this page."
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "partners_grid",
+      "label": "Partners grid",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "partners",
+          "label": "Partners",
+          "type": "record_refs",
+          "of_collection": "partners",
+          "required": true
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "pattern",
+      "label": "Synced pattern",
+      "category": "Patterns",
+      "version": 1,
+      "fields": [
+        {
+          "name": "pattern",
+          "label": "Pattern",
+          "type": "string",
+          "required": true,
+          "help": "The pattern's slug (Content › Patterns)."
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "pitch",
+      "label": "Pitch",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "questions",
+          "label": "Questions",
+          "type": "repeater",
+          "of": [
+            {
+              "name": "text",
+              "label": "Question",
+              "type": "string",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "cta_label",
+          "label": "CTA label",
+          "type": "string"
+        },
+        {
+          "name": "cta_url",
+          "label": "CTA link",
+          "type": "link"
+        },
+        {
+          "name": "image_id",
+          "label": "Image asset ID",
+          "type": "asset"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "private_events",
+      "label": "Private Events",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "events",
+          "label": "Event types",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "desc",
+              "label": "Description",
+              "type": "text",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "contact_email",
+          "label": "Contact email",
+          "type": "string"
+        },
+        {
+          "name": "contact_phone",
+          "label": "Contact phone",
+          "type": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "quote",
+      "label": "Quote",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "text",
+          "label": "Quote",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "attribution",
+          "label": "Attribution",
+          "type": "string"
+        }
+      ],
+      "defaults": {
+        "text": "A bold pull-quote captures the essential idea on the page. Trim to one sentence; let it breathe.",
+        "attribution": "— Source name"
+      }
+    },
+    {
+      "slug": "recurring_events",
+      "label": "Recurring Events",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "events",
+          "label": "Events",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "day",
+              "label": "Day",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "desc",
+              "label": "Description",
+              "type": "text",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "social_cta",
+      "label": "Social CTA",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "heading_highlight",
+          "label": "Heading highlight",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "facebook_url",
+          "label": "Facebook URL",
+          "type": "string"
+        },
+        {
+          "name": "instagram_url",
+          "label": "Instagram URL",
+          "type": "string"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "specials",
+      "label": "Specials (Weekly)",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "heading_highlight",
+          "label": "Heading highlight",
+          "type": "string"
+        },
+        {
+          "name": "note",
+          "label": "Note",
+          "type": "string"
+        },
+        {
+          "name": "cta_label",
+          "label": "CTA label",
+          "type": "string"
+        },
+        {
+          "name": "cta_url",
+          "label": "CTA URL",
+          "type": "url"
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "stats_section",
+      "label": "Stats",
+      "category": "Sections",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "image_id",
+          "label": "Image",
+          "type": "asset"
+        },
+        {
+          "name": "stats",
+          "label": "Stats",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "value",
+              "label": "Value",
+              "type": "string",
+              "required": true,
+              "help": "Display string, e.g. \"98%\" or \"8,000+\""
+            },
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "heading": "By the numbers",
+        "stats": [
+          {
+            "value": "10+",
+            "label": "Years experience"
+          },
+          {
+            "value": "1,000+",
+            "label": "Happy customers"
+          },
+          {
+            "value": "98%",
+            "label": "Satisfaction rate"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "testimonial_grid",
+      "label": "Testimonial grid",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "heading",
+          "label": "Heading",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "name": "testimonials",
+          "label": "Testimonials",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "rating",
+              "label": "Rating (1–5)",
+              "type": "integer"
+            },
+            {
+              "name": "quote",
+              "label": "Quote",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "attribution",
+              "label": "Attribution",
+              "type": "string",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    },
+    {
+      "slug": "text",
+      "label": "Text",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "body",
+          "label": "Body (markdown)",
+          "type": "markdown",
+          "required": true
+        }
+      ],
+      "defaults": {
+        "body": "## Your section heading\n\nReplace this paragraph with your content. Markdown formatting is supported — **bold**, *italic*, [links](https://example.com), lists, code, and more."
+      }
+    },
+    {
+      "slug": "timeline",
+      "label": "Timeline",
+      "category": "Content",
+      "version": 1,
+      "fields": [
+        {
+          "name": "items",
+          "label": "Items",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "year",
+              "label": "Year / Label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "text",
+              "label": "Text",
+              "type": "text",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "defaults": {}
+    }
+  ],
+  "collections": [
+    {
+      "slug": "beer-categories",
+      "name": "Beer styles",
+      "enable_blocks": false,
+      "schema": {
+        "fields": []
+      },
+      "categories_collection": null,
+      "tags_collection": null
+    },
+    {
+      "slug": "beers",
+      "name": "Beers",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "abv",
+            "label": "ABV",
+            "type": "string",
+            "help": "Alcohol by volume, e.g. 6.4"
+          },
+          {
+            "name": "featured_image",
+            "label": "Featured image",
+            "type": "asset"
+          }
+        ]
+      },
+      "categories_collection": "beer-categories",
+      "tags_collection": null
+    },
+    {
+      "slug": "food",
+      "name": "Food",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "featured_image",
+            "label": "Featured image",
+            "type": "asset"
+          }
+        ]
+      },
+      "categories_collection": "food-categories",
+      "tags_collection": "food-tags"
+    },
+    {
+      "slug": "food-categories",
+      "name": "Menu sections",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "position",
+            "type": "integer",
+            "help": "Lower numbers appear first on menus."
+          }
+        ]
+      },
+      "categories_collection": null,
+      "tags_collection": null
+    },
+    {
+      "slug": "food-tags",
+      "name": "Menus",
+      "enable_blocks": false,
+      "schema": {
+        "fields": []
+      },
+      "categories_collection": null,
+      "tags_collection": null
+    },
+    {
+      "slug": "special-categories",
+      "name": "Special days",
+      "enable_blocks": false,
+      "schema": {
+        "fields": []
+      },
+      "categories_collection": null,
+      "tags_collection": null
+    },
+    {
+      "slug": "specials",
+      "name": "Specials",
+      "enable_blocks": false,
+      "schema": {
+        "fields": [
+          {
+            "name": "description",
+            "label": "Description",
+            "type": "text"
+          },
+          {
+            "name": "price",
+            "label": "Price",
+            "type": "string"
+          },
+          {
+            "name": "image_id",
+            "label": "Image",
+            "type": "asset",
+            "help": "Pick from the media library."
+          },
+          {
+            "name": "image_url",
+            "label": "Image URL",
+            "type": "url"
+          },
+          {
+            "name": "active",
+            "label": "Active (show on its day)",
+            "type": "boolean"
+          },
+          {
+            "name": "day",
+            "label": "Day of week",
+            "type": "select",
+            "options": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ]
+          }
+        ]
+      },
+      "categories_collection": null,
+      "tags_collection": null
+    }
+  ],
+  "globals": [
+    {
+      "slug": "footer",
+      "name": "Footer",
+      "data": {
+        "tagline": "Beer brewed on site and scratch-made food, inside the 1869 flour mill on Bridge Street in Plainwell.",
+        "quick_links": [
+          {
+            "label": "Our Story",
+            "link": {
+              "kind": "page",
+              "value": "about"
+            }
+          },
+          {
+            "label": "Menu",
+            "link": {
+              "kind": "page",
+              "value": "menu"
+            }
+          },
+          {
+            "label": "On Tap",
+            "link": {
+              "kind": "page",
+              "value": "beers"
+            }
+          },
+          {
+            "label": "Visit Us",
+            "link": {
+              "kind": "page",
+              "value": "visit"
+            }
+          },
+          {
+            "label": "Careers",
+            "link": {
+              "kind": "page",
+              "value": "careers"
+            }
+          },
+          {
+            "label": "Order Online",
+            "link": {
+              "kind": "url",
+              "value": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+            }
+          },
+          {
+            "label": "Privacy",
+            "link": {
+              "kind": "page",
+              "value": "privacy"
+            }
+          }
+        ],
+        "phone": "(269) 204-6601",
+        "address": "717 E. Bridge Street, Plainwell, MI 49080",
+        "facebook_url": "https://www.facebook.com/OldMillBrewpubGrill",
+        "instagram_url": "https://www.instagram.com/oldmillbrewpubandgrill",
+        "copyright": "Old Mill Brewpub & Grill. All rights reserved."
+      },
+      "fields": [
+        {
+          "name": "tagline",
+          "label": "Tagline",
+          "type": "text"
+        },
+        {
+          "name": "quick_links",
+          "label": "Quick links",
+          "type": "repeater",
+          "of": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "string"
+        },
+        {
+          "name": "address",
+          "label": "Address",
+          "type": "string"
+        },
+        {
+          "name": "facebook_url",
+          "label": "Facebook URL",
+          "type": "url"
+        },
+        {
+          "name": "instagram_url",
+          "label": "Instagram URL",
+          "type": "url"
+        },
+        {
+          "name": "copyright",
+          "label": "Copyright",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "slug": "general",
+      "name": "General",
+      "data": {
+        "title": "Old Mill Brewpub & Grill",
+        "description": "Plainwell's hometown brewpub & grill — craft beers, scratch-made food.",
+        "phone": "(269) 204-6601",
+        "email": "mgmt@oldmillbrew.com",
+        "address_line1": "717 E. Bridge Street",
+        "city": "Plainwell",
+        "state": "MI",
+        "zip": "49080",
+        "hours": [
+          {
+            "day": "Monday",
+            "hours": "11:00am - 9:00pm"
+          },
+          {
+            "day": "Tuesday",
+            "hours": "11:00am - 9:00pm"
+          },
+          {
+            "day": "Wednesday",
+            "hours": "11:00am - 9:00pm"
+          },
+          {
+            "day": "Thursday",
+            "hours": "11:00am - 9:00pm"
+          },
+          {
+            "day": "Friday",
+            "hours": "11:00am - 9:00pm"
+          },
+          {
+            "day": "Saturday",
+            "hours": "11:00am - 9:00pm"
+          },
+          {
+            "day": "Sunday",
+            "hours": "2:00pm - 7:30pm"
+          }
+        ],
+        "holiday_note": "Closed for most major holidays",
+        "default_locale": "en"
+      },
+      "fields": [
+        {
+          "name": "title",
+          "label": "Site title",
+          "type": "string",
+          "required": true,
+          "tab": "Identity"
+        },
+        {
+          "name": "description",
+          "label": "Site description",
+          "type": "text",
+          "tab": "Identity"
+        },
+        {
+          "name": "default_og_image",
+          "label": "Default OG image",
+          "type": "asset",
+          "tab": "Identity"
+        },
+        {
+          "name": "default_locale",
+          "label": "Default locale",
+          "type": "string",
+          "tab": "Identity"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "string",
+          "tab": "Contact"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "string",
+          "tab": "Contact"
+        },
+        {
+          "name": "address_line1",
+          "label": "Address line 1",
+          "type": "string",
+          "tab": "Contact"
+        },
+        {
+          "name": "city",
+          "label": "City",
+          "type": "string",
+          "tab": "Contact"
+        },
+        {
+          "name": "state",
+          "label": "State",
+          "type": "string",
+          "tab": "Contact"
+        },
+        {
+          "name": "zip",
+          "label": "Zip",
+          "type": "string",
+          "tab": "Contact"
+        },
+        {
+          "name": "hours",
+          "label": "Hours",
+          "type": "repeater",
+          "tab": "Hours",
+          "of": [
+            {
+              "name": "day",
+              "type": "string"
+            },
+            {
+              "name": "hours",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "holiday_note",
+          "label": "Holiday note",
+          "type": "string",
+          "tab": "Hours"
+        }
+      ]
+    },
+    {
+      "slug": "nav",
+      "name": "Navigation",
+      "data": {
+        "items": [
+          {
+            "label": "About",
+            "link": {
+              "kind": "page",
+              "value": "about"
+            }
+          },
+          {
+            "label": "Menu",
+            "link": {
+              "kind": "page",
+              "value": "menu"
+            }
+          },
+          {
+            "label": "Beers",
+            "link": {
+              "kind": "page",
+              "value": "beers"
+            }
+          },
+          {
+            "label": "Events",
+            "link": {
+              "kind": "page",
+              "value": "events"
+            }
+          },
+          {
+            "label": "Visit",
+            "link": {
+              "kind": "page",
+              "value": "visit"
+            }
+          },
+          {
+            "label": "Careers",
+            "link": {
+              "kind": "page",
+              "value": "careers"
+            }
+          }
+        ],
+        "cta_label": "Order Online",
+        "cta_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+      },
+      "fields": [
+        {
+          "name": "items",
+          "label": "Menu items",
+          "type": "repeater",
+          "required": true,
+          "of": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "link",
+              "label": "Link",
+              "type": "link",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "cta_label",
+          "label": "CTA label",
+          "type": "string"
+        },
+        {
+          "name": "cta_url",
+          "label": "CTA URL",
+          "type": "url"
+        }
+      ]
+    },
+    {
+      "slug": "scripts",
+      "name": "Scripts",
+      "data": {
+        "items": []
+      },
+      "fields": [
+        {
+          "name": "items",
+          "label": "Scripts",
+          "type": "repeater",
+          "help": "Add one entry per script (analytics, pixels, fonts, etc.).",
+          "of": [
+            {
+              "name": "name",
+              "label": "Name",
+              "type": "string",
+              "required": true,
+              "help": "Internal label, e.g. 'GA4', 'Meta Pixel'."
+            },
+            {
+              "name": "head",
+              "label": "Head",
+              "type": "text",
+              "help": "Pasted into <head>."
+            },
+            {
+              "name": "body",
+              "label": "Body",
+              "type": "text",
+              "help": "Pasted just before the closing </body> tag."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "path": "about",
+      "slug": "about",
+      "title": "Our Story",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "Est. 1869",
+            "heading": "Our",
+            "heading_highlight": "Story",
+            "image_id": "119"
+          }
+        },
+        {
+          "type": "about_intro",
+          "version": 1,
+          "data": {
+            "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjgsInB1ciI6ImJsb2JfaWQifX0=--3ac40cc80adc4cb2b253663b7165b1878cdf40c5/about.webp",
+            "image_alt": "Bartender pouring a craft beer at the Old Mill tap",
+            "paragraphs": [
+              {
+                "html": "In <strong class=\"text-cream\">1869</strong>, on the banks of the Kalamazoo River in Plainwell, Michigan, a massive four-story stone building rose to become the <strong class=\"text-cream\">largest buckwheat flour mill in the country</strong>. For decades, it was the heartbeat of a small Michigan town — grinding grain, employing workers, and feeding communities across the region."
+              },
+              {
+                "html": "When the milling era ended, the building stood quiet. But its thick stone walls, heavy timber beams, and the spirit of honest craftsmanship endured. Today, the Old Mill is listed on the <strong class=\"text-cream\">National Register of Historic Places</strong> — a testament to the people who built it and the community that preserved it."
+              }
+            ],
+            "image_id": "68"
+          }
+        },
+        {
+          "type": "timeline",
+          "version": 1,
+          "data": {
+            "items": [
+              {
+                "year": "1869",
+                "text": "The mill is constructed on the Kalamazoo River, becoming the largest buckwheat flour mill in the nation."
+              },
+              {
+                "year": "Early 1900s",
+                "text": "The mill era winds down as industrial milling shifts elsewhere. The building is repurposed over the decades."
+              },
+              {
+                "year": "Historic Registry",
+                "text": "The building earns its place on the National Register of Historic Places, ensuring its preservation for future generations."
+              },
+              {
+                "year": "Today",
+                "text": "The Old Mill Brewpub & Grill fills the building with the aromas of craft beer and scratch-made food, honoring its industrial heritage with warm, welcoming hospitality."
+              }
+            ]
+          }
+        },
+        {
+          "type": "feature_grid",
+          "version": 1,
+          "data": {
+            "heading": "The Mill Today",
+            "columns": "3",
+            "items": [
+              {
+                "title": "Brewed In-House",
+                "body": "Every craft beer on our tap list is brewed right here in the mill. From session bitters to barrel-aged barleywines, we make beer the way it should be made."
+              },
+              {
+                "title": "Scratch Kitchen",
+                "body": "Our kitchen team smokes meats low and slow, batters perch in our own Crazy Beaver lager, and makes everything from coleslaw to cheese dip from scratch."
+              },
+              {
+                "title": "Community Hub",
+                "body": "From families to friends to first dates, the Old Mill is where Plainwell gathers. Indoor and outdoor seating, games in the tap room, and daily specials keep people coming back."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta_section",
+          "version": 1,
+          "data": {
+            "button_label": "Plan Your Visit",
+            "button_url": "/visit"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Our Story | Old Mill Brewpub & Grill",
+        "seo_description": "Learn about the history of the Old Mill Brewpub & Grill — an 1869 flour mill turned craft brewpub in Plainwell, Michigan."
+      }
+    },
+    {
+      "path": "beers",
+      "slug": "beers",
+      "title": "On Tap",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "From Our Brewery",
+            "heading": "On",
+            "heading_highlight": "Tap",
+            "body": "Every pint is brewed in-house, right here in the mill. Our rotating lineup spans easy-drinking session ales to bold, boundary-pushing creations. We also offer bottled beer, wine, and a full liquor selection.",
+            "image_id": "68"
+          }
+        },
+        {
+          "type": "beer_list",
+          "version": 1,
+          "data": {
+            "beers": [
+              {
+                "name": "Plainwell Standard",
+                "style": "Standard Bitter",
+                "abv": "3.9%",
+                "description": "Our flagship session ale and the beer that started it all. Drawing from the English bitter tradition, the Plainwell Standard emphasizes malt flavors balanced with floral English hops. Not particularly bitter by American standards, this copper-colored pint proves session beers don't have to sacrifice character.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NTgsInB1ciI6ImJsb2JfaWQifX0=--cb67331dbf645894d6d178e2974e3b9a9b684b89/Plainwell-Standard.jpg",
+                "image_id": "58"
+              },
+              {
+                "name": "Crazy Beaver",
+                "style": "Light Lager",
+                "abv": "5.3%",
+                "description": "Don't let the name fool you — Crazy Beaver is as smooth as they come. Brewed with a generous helping of maize for a clean, light cereal grain flavor and exceptionally smooth body. Just a touch of noble Saaz hops rounds it out. Perfect for a sunny afternoon on the patio.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NTksInB1ciI6ImJsb2JfaWQifX0=--5de3e3a138d348b69ddae2e79c5082c141c15d42/crazy-beaver-logo.jpg",
+                "image_id": "59"
+              },
+              {
+                "name": "Island City",
+                "style": "American IPA",
+                "abv": "6.8%",
+                "description": "Named for Plainwell's island city heritage, this American IPA delivers everything you want from the style. A clean, bready malt backbone supports citrus and floral hop character front and center. Hop-forward and bitter, but balanced enough to stay refreshing pint after pint.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjAsInB1ciI6ImJsb2JfaWQifX0=--4c68c0ba5e35ad2af2feeafe0d4ca443099ae853/Island-City-IPA.jpg",
+                "image_id": "60"
+              },
+              {
+                "name": "Cold West",
+                "style": "Cold IPA",
+                "abv": "6.3%",
+                "description": "The best of both worlds: all the hop character and flavor of a West Coast IPA with the crisp, clean finish of a lager. Fermented cold with lager yeast and loaded with local Michigan Chinook and Citra hops. The result is a beer that's bold on flavor but impossibly clean.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjEsInB1ciI6ImJsb2JfaWQifX0=--1603dc868f1ab5ec39c78026522597e627306c4b/Cold-West.jpg",
+                "image_id": "61"
+              },
+              {
+                "name": "Earth Angel",
+                "style": "Belgian Golden Strong Ale",
+                "abv": "8.3%",
+                "description": "Brewed not with a devilish name, but an angelic one. Light in color and bold in flavor, Earth Angel delivers notes of sugar cookies and honeycomb with an aroma of fresh pear, clove, meadow grass, and lilies. This beer is simply heaven on earth — and at 8.3%, it packs a divine punch.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjIsInB1ciI6ImJsb2JfaWQifX0=--da2cb62ad20ebd2ad47217d68c59aa9d9d0c8aeb/Earth-Angel.jpg",
+                "image_id": "62"
+              },
+              {
+                "name": "Sunshine",
+                "style": "Oatmeal Stout",
+                "abv": "6.8%",
+                "description": "A bold stout with layers of bittersweet chocolate and licorice, finishing with a warm hint of coffee. We incorporate substantial amounts of oatmeal in the grain bill, which contributes to an incredibly rich, silky mouthfeel that you'll feel from the first sip to the last.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjMsInB1ciI6ImJsb2JfaWQifX0=--991343f45a2f4ec1a43af000886bb901198003a8/Sunshine-Stout-Poster.jpg",
+                "image_id": "63"
+              },
+              {
+                "name": "Vanilla Sunshine",
+                "style": "Vanilla Oatmeal Stout",
+                "abv": "6.8%",
+                "description": "Everything you love about Sunshine, elevated with fair trade Mexican vanilla. The natural bittersweet chocolate, licorice, and coffee notes of the base stout are deepened and enhanced by that complex sweetness that only real vanilla can bring. Dessert-like without being sweet.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjQsInB1ciI6ImJsb2JfaWQifX0=--76f9aa695e7462f484ba6d67e06bc2d39a6afaad/Vanilla-Sunshine.jpg",
+                "image_id": "64"
+              },
+              {
+                "name": "BEERRH",
+                "style": "French Aperitif-Inspired Ale",
+                "abv": "8.0%",
+                "description": "Our most adventurous creation — a homage to a classic French aperitif made of fortified red wine and quinine. This plummy red ale is brewed with Michigan cherries, Cabernet Sauvignon grapes, and quinine syrup (the main flavor of tonic water). Fruit-forward, herbal, and completely unlike anything else you've had.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjUsInB1ciI6ImJsb2JfaWQifX0=--c69f5596038a8880468189c3d542419c87541662/Beerrh.jpg",
+                "image_id": "65"
+              },
+              {
+                "name": "Little Boy Barley",
+                "style": "Vintage Petite Barleywine",
+                "abv": "8.7%",
+                "description": "Good things take time. Little Boy Barley spends a full year aging in our cellar before it ever meets a glass. The result is rich marmalade sweetness, velvety caramel flavor, and a warming alcohol presence that's perfect as we await our spring thaw. A seasonal release meant to be savored.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjYsInB1ciI6ImJsb2JfaWQifX0=--b18de812c0271e0091ff2bae967173111c5231d1/little-boy-barley.jpg",
+                "image_id": "66"
+              },
+              {
+                "name": "Brewer's Batch #100",
+                "style": "Triple-Hopped Double NEIPA",
+                "abv": "7.8%",
+                "description": "Created to commemorate brewer Adam's 100th batch at the Old Mill. This triple-hopped double New England IPA features Amarillo, Calypso, Citra, Mosaic, and Michigan-grown Chinook and Centennial hops. Prioritizes flavor over bitterness with an exceptionally prominent, juicy hop profile. A celebration in a glass.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjcsInB1ciI6ImJsb2JfaWQifX0=--a90cddd1733cf79d55f13f7b9f59e5bbacbdc775/Brewers-Batch-100-Adam.jpg",
+                "image_id": "67"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social_cta",
+          "version": 1,
+          "data": {
+            "heading": "Always",
+            "heading_highlight": "Rotating",
+            "body": "Our tap list changes with the seasons. Follow us on social media for the latest releases, limited batches, and seasonal specials.",
+            "facebook_url": "https://www.facebook.com/OldMillBrewpubGrill",
+            "instagram_url": "https://www.instagram.com/oldmillbrewpubandgrill"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "On Tap | Old Mill Brewpub & Grill",
+        "seo_description": "Craft beers brewed in-house at Old Mill Brewpub & Grill. From session bitters to barrel-aged barleywines, discover our full tap list."
+      }
+    },
+    {
+      "path": "careers",
+      "slug": "careers",
+      "title": "Careers",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "Join the Crew",
+            "heading": "Work at the",
+            "heading_highlight": "Old Mill",
+            "body": "We're a scratch kitchen and working brewery inside an 1869 flour mill — and we're always glad to meet good people. Tell us about yourself below.",
+            "image_id": "68"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Careers | Old Mill Brewpub & Grill",
+        "seo_description": "Join the team at Old Mill Brewpub & Grill in Plainwell, MI. Apply for kitchen, bar, and front-of-house positions."
+      }
+    },
+    {
+      "path": "events",
+      "slug": "events",
+      "title": "Events",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "What's Happening",
+            "heading": "",
+            "heading_highlight": "Events",
+            "body": "From legendary Wednesday burritos to live music and seasonal celebrations, there's always something happening at the Old Mill.",
+            "image_id": "68"
+          }
+        },
+        {
+          "type": "recurring_events",
+          "version": 1,
+          "data": {
+            "events": [
+              {
+                "name": "Famous Wednesday Burrito",
+                "day": "Every Wednesday",
+                "desc": "A Plainwell legend. Every Wednesday we roll out a massive, creative wet burrito with a new twist. Past creations have become the stuff of local lore. Get here early — they go fast."
+              },
+              {
+                "name": "Live Music",
+                "day": "Select Weekends",
+                "desc": "We bring in local and regional talent for live music nights in the pub. Acoustic sets, full bands, and everything in between. Check our socials for the latest lineup."
+              },
+              {
+                "name": "Daily Specials",
+                "day": "Every Day",
+                "desc": "We always have something special cooking. From soup of the day to the Belgian Waffle of the week, there's always a reason to stop by and see what's new."
+              },
+              {
+                "name": "Game Day",
+                "day": "During Season",
+                "desc": "Catch the big game on our TVs while you enjoy craft beers and great food. The tap room is the perfect spot to gather with friends for football, basketball, and more."
+              }
+            ]
+          }
+        },
+        {
+          "type": "social_cta",
+          "version": 1,
+          "data": {
+            "heading": "Stay in the",
+            "heading_highlight": "Loop",
+            "body": "Our events calendar is always evolving. Follow us on social media for the latest happenings, upcoming live music, seasonal beer releases, and special menus.",
+            "facebook_url": "https://www.facebook.com/OldMillBrewpubGrill",
+            "instagram_url": "https://www.instagram.com/oldmillbrewpubandgrill"
+          }
+        },
+        {
+          "type": "private_events",
+          "version": 1,
+          "data": {
+            "events": [
+              {
+                "name": "Private Parties",
+                "desc": "Looking to host a birthday, reunion, or celebration? We can accommodate groups in our dining space. Contact us to discuss your event."
+              },
+              {
+                "name": "Corporate Events",
+                "desc": "Team dinners, happy hours, and client events in a unique historic setting. Great beer and great food make for great business."
+              },
+              {
+                "name": "Community Gatherings",
+                "desc": "The Old Mill has been a community gathering place since 1869. We love hosting local groups, fundraisers, and neighborhood events."
+              }
+            ],
+            "contact_email": "mgmt@oldmillbrew.com",
+            "contact_phone": "(269) 204-6601"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Events | Old Mill Brewpub & Grill",
+        "seo_description": "Events, live music, and happenings at Old Mill Brewpub & Grill in Plainwell, MI. Wednesday burritos, live music, game days, and more."
+      }
+    },
+    {
+      "path": "home",
+      "slug": "home",
+      "title": "Old Mill Brewpub & Grill",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "home_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "Built 1869 - Est. 2014 - Plainwell, MI",
+            "heading": "Brewed In",
+            "heading_highlight": "History",
+            "body": "Craft beer brewed in house and food made from scratch inside our nineteenth century four story flour mill, listed on the National Register of Historic Places.",
+            "cta_primary_label": "Explore Our Menu",
+            "cta_primary_url": "/menu",
+            "cta_secondary_label": "Plan Your Visit",
+            "cta_secondary_url": "/visit"
+          }
+        },
+        {
+          "type": "about_intro",
+          "version": 1,
+          "data": {
+            "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjgsInB1ciI6ImJsb2JfaWQifX0=--3ac40cc80adc4cb2b253663b7165b1878cdf40c5/about.webp",
+            "image_alt": "Bartender pouring a craft beer at the Old Mill tap",
+            "paragraphs": [
+              {
+                "html": "Built in <strong class=\"text-cream\">1869</strong>, this four-story stone building on the banks of the Kalamazoo River was once the <strong class=\"text-cream\">largest buckwheat flour mill in the country</strong>. Today it stands as a proud landmark, listed on the <strong class=\"text-cream\">National Register of Historic Places</strong>."
+              },
+              {
+                "html": "We’ve honored the building’s industrial heritage while transforming it into a warm, welcoming brewpub where great craft beer meets a scratch-made kitchen. Every pint is brewed in-house, and every plate is made from fresh ingredients."
+              },
+              {
+                "html": "Whether you’re settling in for a family dinner, catching the game with friends, or enjoying a quiet pint on the patio overlooking the river, the Old Mill is your place."
+              }
+            ],
+            "image_id": "68"
+          }
+        },
+        {
+          "type": "feature_grid",
+          "version": 1,
+          "data": {
+            "columns": "4",
+            "items": [
+              {
+                "title": "1869",
+                "body": "Year Built"
+              },
+              {
+                "title": "4",
+                "body": "Stories Tall"
+              },
+              {
+                "title": "10+",
+                "body": "Beers on Tap"
+              },
+              {
+                "title": "∞",
+                "body": "Good Times"
+              }
+            ]
+          }
+        },
+        {
+          "type": "menu_tabs",
+          "version": 1,
+          "data": {
+            "categories": [
+              {
+                "name": "Appetizers",
+                "items": [
+                  {
+                    "name": "Smoked Whitefish Dip",
+                    "desc": "Smoked in house & served chilled, with fresh-fried pita chips"
+                  },
+                  {
+                    "name": "Smoked Chicken Wings",
+                    "desc": "Wings from off our smoker, served with your choice of dipping sauce",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Mexican Street Corn Dip",
+                    "desc": "Housemade roasted corn & fresh Mexican cotija cheese dip with warm tortilla chips",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Pretzels & Beer Cheese",
+                    "desc": "Two giant soft pretzel sticks with warm beer cheese dip"
+                  },
+                  {
+                    "name": "Ranch Cheese Curds",
+                    "desc": "Ranch-seasoned Wisconsin white cheddar fried golden brown with our famous ranch dressing"
+                  },
+                  {
+                    "name": "Pickle Fries",
+                    "desc": "Lightly battered & fried golden brown, with ranch dressing"
+                  },
+                  {
+                    "name": "Jalapeño Poppers",
+                    "desc": "Fried cream cheese-stuffed jalapeños, with ranch dressing"
+                  },
+                  {
+                    "name": "Kettle Chips & Beer Cheese",
+                    "desc": "Our housemade kettle chips with warm beer cheese dip"
+                  },
+                  {
+                    "name": "Cheese Quesadilla",
+                    "desc": "Grilled flour tortilla stuffed with melted cheddar-jack, tomatoes, onions, with sour cream & salsa"
+                  },
+                  {
+                    "name": "Onion Rings",
+                    "desc": "Basket of crispy-fried onion rings, with ranch dressing"
+                  }
+                ]
+              },
+              {
+                "name": "Burgers",
+                "note": "All burgers feature an 8oz hand-pressed patty with lettuce, tomato & onion",
+                "items": [
+                  {
+                    "name": "Old Mill Burger",
+                    "desc": "8oz hand-pressed patty with LTO — or make it a cheeseburger"
+                  },
+                  {
+                    "name": "The Bronco Burger",
+                    "desc": "Crispy bacon, barbecue sauce & cheddar cheese"
+                  },
+                  {
+                    "name": "Smoked Cheese & Mushroom",
+                    "desc": "Cream cheese from off our smoker, sautéed mushrooms & scallions"
+                  },
+                  {
+                    "name": "Green Olive Burger",
+                    "desc": "A West Michigan classic topped with a mix of chopped green olives, mayo & seasonings"
+                  },
+                  {
+                    "name": "The Autumn Burger",
+                    "desc": "Brandied apples, bacon & provolone cheese"
+                  },
+                  {
+                    "name": "Veggie Burger",
+                    "desc": "You won't miss a thing with our healthy Impossible meat alternative",
+                    "tag": "V"
+                  }
+                ]
+              },
+              {
+                "name": "Sandwiches",
+                "items": [
+                  {
+                    "name": "Classic Reuben",
+                    "desc": "Thinly-sliced corned beef, Swiss, sauerkraut & Thousand Island on grilled rye"
+                  },
+                  {
+                    "name": "California Reuben",
+                    "desc": "Thinly-sliced turkey breast, Swiss & housemade coleslaw on grilled rye"
+                  },
+                  {
+                    "name": "Philly Cheesesteak",
+                    "desc": "Thinly-sliced ribeye grilled with green peppers & onions, melted provolone on a grilled hoagie"
+                  },
+                  {
+                    "name": "Ultimate Steak Sandwich",
+                    "desc": "USDA Choice top sirloin strips, champagne-roasted onions, bleu cheese, fresh greens & horseradish mayo"
+                  },
+                  {
+                    "name": "BBQ Pulled Pork",
+                    "desc": "Our own pulled pork in tangy barbecue sauce on a homestyle bun with housemade coleslaw"
+                  },
+                  {
+                    "name": "Boxcar BLT",
+                    "desc": "Crispy applewood-smoked bacon, lettuce, tomatoes & mayo on grilled sourdough"
+                  },
+                  {
+                    "name": "Grain Elevator",
+                    "desc": "Grilled ham & turkey, American & Swiss, crispy bacon, lettuce, tomato & mayo on grilled sourdough"
+                  },
+                  {
+                    "name": "Crackling Chicken",
+                    "desc": "Pork rind-breaded chicken breast, bacon, lettuce, tomato & jalapeño crema",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Smoked Meatloaf",
+                    "desc": "A thick slice of our classic meatloaf off the smoker, Swiss & smoked ketchup on grilled sourdough"
+                  },
+                  {
+                    "name": "Jalapeño Popper Grilled Cheese",
+                    "desc": "Cream cheese-stuffed jalapeño poppers, cheddar, Keweenaw blueberry jam & Cajun seasoning on sourdough"
+                  },
+                  {
+                    "name": "Smoked Chicken Street Tacos",
+                    "desc": "Smoked chicken thighs in flour tortillas with cotija, lettuce, tomato, cilantro & jalapeño crema"
+                  }
+                ]
+              },
+              {
+                "name": "Wraps",
+                "items": [
+                  {
+                    "name": "Club Wrap",
+                    "desc": "Sliced turkey & ham, crispy bacon, cheddar-jack, lettuce, tomato & mayo"
+                  },
+                  {
+                    "name": "BBQ Pulled Pork Wrap",
+                    "desc": "Smoked barbecue pulled pork, cheddar-jack & housemade coleslaw"
+                  },
+                  {
+                    "name": "Chicken Ranch Wrap",
+                    "desc": "Crispy chicken tenders, lettuce, tomato, cheddar-jack & ranch dressing"
+                  },
+                  {
+                    "name": "Buffalo Chicken Wrap",
+                    "desc": "Chicken tenders tossed in buffalo sauce with lettuce, tomato, cheddar-jack & ranch"
+                  },
+                  {
+                    "name": "Mexican Chicken & Corn",
+                    "desc": "Grilled chicken breast, cheddar-jack, our Mexican street corn dip, black beans, lettuce & jalapeño crema"
+                  }
+                ]
+              },
+              {
+                "name": "Salads",
+                "items": [
+                  {
+                    "name": "House Side Salad",
+                    "desc": "Iceberg, tomatoes, scallions & shredded cheese"
+                  },
+                  {
+                    "name": "Nuts & Berries",
+                    "desc": "Fresh greens, Michigan dried cherries, bleu cheese crumbles, toasted pecans & raspberry vinaigrette",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Chicken Tender Salad",
+                    "desc": "Fresh greens, crispy chicken tenders, cheddar-jack, tomatoes & scallions"
+                  },
+                  {
+                    "name": "Taco Salad",
+                    "desc": "Crispy tortilla bowl, iceberg, cheddar-jack, tomatoes, onions & choice of seasoned beef or chicken"
+                  },
+                  {
+                    "name": "Kale & Roasted Squash",
+                    "desc": "Kale, roasted butternut squash, toasted pumpkin seeds, dried cranberries & red wine-citrus vinaigrette",
+                    "tag": "GF"
+                  }
+                ]
+              },
+              {
+                "name": "Entrées",
+                "items": [
+                  {
+                    "name": "Beer-Battered Perch",
+                    "desc": "Crazy-Beaver-battered Zander perch fillets with fries, coleslaw & tartar sauce"
+                  },
+                  {
+                    "name": "Bourbon BBQ Ribs",
+                    "desc": "Half rack of pork ribs, slow-cooked & basted with our bourbon barbecue sauce, fries & coleslaw",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Grilled Top Sirloin",
+                    "desc": "Half-pound hand-cut USDA Choice top sirloin grilled to your spec, baked potato & vegetable",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Grilled Chicken",
+                    "desc": "Char-grilled boneless breast — barbecue, blackened, or salt & pepper — with wild rice & vegetable",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Bourbon BBQ Salmon",
+                    "desc": "Half-pound salmon fillet charbroiled & glazed with our bourbon barbecue sauce, wild rice & vegetable",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Chicken Tenders",
+                    "desc": "Crispy chicken tenders with fries & your choice of dipping sauce"
+                  },
+                  {
+                    "name": "Shrimp Basket",
+                    "desc": "Golden-fried shrimp with fries, coleslaw & cocktail sauce"
+                  },
+                  {
+                    "name": "Smoked Meatball Stroganoff",
+                    "desc": "Housemade smoked pork & beef meatballs in rich mushroom & sour cream gravy over egg noodles"
+                  },
+                  {
+                    "name": "Smoked Mac & Cheese",
+                    "desc": "Cavatappi noodles in thick & creamy cheese sauce made with cheese from off our smoker"
+                  },
+                  {
+                    "name": "Famous Wet Burrito",
+                    "desc": "Huge 12\" tortilla stuffed with your choice of chicken or beef & refried beans, topped with burrito sauce & cheese"
+                  }
+                ]
+              },
+              {
+                "name": "Sides & Extras",
+                "items": [
+                  {
+                    "name": "Basket of French Fries",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Basket of Sweet Potato Fries",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Basket of Parmesan-Truffle Fries",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Basket of Tater Tots",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Side of Chips & Salsa",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Baked Potato",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Loaded Baked Potato",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Homemade Coleslaw",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Vegetable of the Day",
+                    "desc": ""
+                  }
+                ]
+              },
+              {
+                "name": "Soup & Specials",
+                "items": [
+                  {
+                    "name": "Soup of the Day",
+                    "desc": "Made in house daily, served in a cup or a bowl"
+                  },
+                  {
+                    "name": "Belgian Waffle",
+                    "desc": "Hot Belgian waffle studded with crispy sugar pearls, topped with caramel sauce"
+                  },
+                  {
+                    "name": "Belgian Waffle of the Week",
+                    "desc": "Hot Belgian waffle with crispy sugar pearls, topped with this week's special accompaniments"
+                  }
+                ]
+              },
+              {
+                "name": "Kids' Menu",
+                "note": "For guests 12 & under. Served with fries.",
+                "items": [
+                  {
+                    "name": "Chicken Fingers",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Grilled Cheese",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Mini Corn Dogs",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Mac & Cheese",
+                    "desc": ""
+                  }
+                ]
+              },
+              {
+                "name": "Beverages",
+                "items": [
+                  {
+                    "name": "Coca Cola",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Diet Coke",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Cherry Coke",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Sprite",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Mello Yello",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Dr. Pepper",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Rootbeer",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Lemonade",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Iced Tea",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Hot Tea",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Coffee",
+                    "desc": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "specials",
+          "version": 1,
+          "data": {
+            "heading": "Check out our",
+            "heading_highlight": "Specials",
+            "note": "Entrées every day of the week.",
+            "cta_label": "Order Online",
+            "cta_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+          }
+        },
+        {
+          "type": "cta_section",
+          "version": 1,
+          "data": {
+            "heading": "Ready to",
+            "heading_highlight": "Order?",
+            "body": "Skip the wait and order ahead for pickup.",
+            "button_label": "Order Online",
+            "button_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+          }
+        },
+        {
+          "type": "beer_list",
+          "version": 1,
+          "data": {
+            "beers": [
+              {
+                "name": "Plainwell Standard",
+                "style": "Standard Bitter",
+                "abv": "3.9%",
+                "description": "Our flagship session ale and the beer that started it all. Drawing from the English bitter tradition, the Plainwell Standard emphasizes malt flavors balanced with floral English hops. Not particularly bitter by American standards, this copper-colored pint proves session beers don't have to sacrifice character.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NTgsInB1ciI6ImJsb2JfaWQifX0=--cb67331dbf645894d6d178e2974e3b9a9b684b89/Plainwell-Standard.jpg",
+                "image_id": "58"
+              },
+              {
+                "name": "Crazy Beaver",
+                "style": "Light Lager",
+                "abv": "5.3%",
+                "description": "Don't let the name fool you — Crazy Beaver is as smooth as they come. Brewed with a generous helping of maize for a clean, light cereal grain flavor and exceptionally smooth body. Just a touch of noble Saaz hops rounds it out. Perfect for a sunny afternoon on the patio.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NTksInB1ciI6ImJsb2JfaWQifX0=--5de3e3a138d348b69ddae2e79c5082c141c15d42/crazy-beaver-logo.jpg",
+                "image_id": "59"
+              },
+              {
+                "name": "Island City",
+                "style": "American IPA",
+                "abv": "6.8%",
+                "description": "Named for Plainwell's island city heritage, this American IPA delivers everything you want from the style. A clean, bready malt backbone supports citrus and floral hop character front and center. Hop-forward and bitter, but balanced enough to stay refreshing pint after pint.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjAsInB1ciI6ImJsb2JfaWQifX0=--4c68c0ba5e35ad2af2feeafe0d4ca443099ae853/Island-City-IPA.jpg",
+                "image_id": "60"
+              },
+              {
+                "name": "Cold West",
+                "style": "Cold IPA",
+                "abv": "6.3%",
+                "description": "The best of both worlds: all the hop character and flavor of a West Coast IPA with the crisp, clean finish of a lager. Fermented cold with lager yeast and loaded with local Michigan Chinook and Citra hops. The result is a beer that's bold on flavor but impossibly clean.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjEsInB1ciI6ImJsb2JfaWQifX0=--1603dc868f1ab5ec39c78026522597e627306c4b/Cold-West.jpg",
+                "image_id": "61"
+              },
+              {
+                "name": "Earth Angel",
+                "style": "Belgian Golden Strong Ale",
+                "abv": "8.3%",
+                "description": "Brewed not with a devilish name, but an angelic one. Light in color and bold in flavor, Earth Angel delivers notes of sugar cookies and honeycomb with an aroma of fresh pear, clove, meadow grass, and lilies. This beer is simply heaven on earth — and at 8.3%, it packs a divine punch.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjIsInB1ciI6ImJsb2JfaWQifX0=--da2cb62ad20ebd2ad47217d68c59aa9d9d0c8aeb/Earth-Angel.jpg",
+                "image_id": "62"
+              },
+              {
+                "name": "Sunshine",
+                "style": "Oatmeal Stout",
+                "abv": "6.8%",
+                "description": "A bold stout with layers of bittersweet chocolate and licorice, finishing with a warm hint of coffee. We incorporate substantial amounts of oatmeal in the grain bill, which contributes to an incredibly rich, silky mouthfeel that you'll feel from the first sip to the last.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjMsInB1ciI6ImJsb2JfaWQifX0=--991343f45a2f4ec1a43af000886bb901198003a8/Sunshine-Stout-Poster.jpg",
+                "image_id": "63"
+              },
+              {
+                "name": "Vanilla Sunshine",
+                "style": "Vanilla Oatmeal Stout",
+                "abv": "6.8%",
+                "description": "Everything you love about Sunshine, elevated with fair trade Mexican vanilla. The natural bittersweet chocolate, licorice, and coffee notes of the base stout are deepened and enhanced by that complex sweetness that only real vanilla can bring. Dessert-like without being sweet.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjQsInB1ciI6ImJsb2JfaWQifX0=--76f9aa695e7462f484ba6d67e06bc2d39a6afaad/Vanilla-Sunshine.jpg",
+                "image_id": "64"
+              },
+              {
+                "name": "BEERRH",
+                "style": "French Aperitif-Inspired Ale",
+                "abv": "8.0%",
+                "description": "Our most adventurous creation — a homage to a classic French aperitif made of fortified red wine and quinine. This plummy red ale is brewed with Michigan cherries, Cabernet Sauvignon grapes, and quinine syrup (the main flavor of tonic water). Fruit-forward, herbal, and completely unlike anything else you've had.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjUsInB1ciI6ImJsb2JfaWQifX0=--c69f5596038a8880468189c3d542419c87541662/Beerrh.jpg",
+                "image_id": "65"
+              },
+              {
+                "name": "Little Boy Barley",
+                "style": "Vintage Petite Barleywine",
+                "abv": "8.7%",
+                "description": "Good things take time. Little Boy Barley spends a full year aging in our cellar before it ever meets a glass. The result is rich marmalade sweetness, velvety caramel flavor, and a warming alcohol presence that's perfect as we await our spring thaw. A seasonal release meant to be savored.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjYsInB1ciI6ImJsb2JfaWQifX0=--b18de812c0271e0091ff2bae967173111c5231d1/little-boy-barley.jpg",
+                "image_id": "66"
+              },
+              {
+                "name": "Brewer's Batch #100",
+                "style": "Triple-Hopped Double NEIPA",
+                "abv": "7.8%",
+                "description": "Created to commemorate brewer Adam's 100th batch at the Old Mill. This triple-hopped double New England IPA features Amarillo, Calypso, Citra, Mosaic, and Michigan-grown Chinook and Centennial hops. Prioritizes flavor over bitterness with an exceptionally prominent, juicy hop profile. A celebration in a glass.",
+                "image_url": "https://oldmill.librepublish.com/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NjcsInB1ciI6ImJsb2JfaWQifX0=--a90cddd1733cf79d55f13f7b9f59e5bbacbdc775/Brewers-Batch-100-Adam.jpg",
+                "image_id": "67"
+              }
+            ]
+          }
+        },
+        {
+          "type": "social_cta",
+          "version": 1,
+          "data": {
+            "heading": "Always",
+            "heading_highlight": "Rotating",
+            "body": "Our tap list changes with the seasons. Follow us on social media for the latest releases, limited batches, and seasonal specials.",
+            "facebook_url": "https://www.facebook.com/OldMillBrewpubGrill",
+            "instagram_url": "https://www.instagram.com/oldmillbrewpubandgrill"
+          }
+        },
+        {
+          "type": "hours_location",
+          "version": 1,
+          "data": {
+            "hours": [
+              {
+                "day": "Monday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Tuesday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Wednesday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Thursday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Friday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Saturday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Sunday",
+                "hours": "2pm – 7:30pm"
+              }
+            ],
+            "holiday_note": "Closed most major holidays",
+            "address": "717 E. Bridge Street\nPlainwell, MI 49080",
+            "address_note": "Located on the banks of the Kalamazoo River in downtown Plainwell. The historic four-story stone building is hard to miss.",
+            "maps_url": "https://maps.google.com/?q=717+E+Bridge+Street+Plainwell+MI+49080",
+            "phone": "(269) 204-6601",
+            "email": "mgmt@oldmillbrew.com",
+            "facebook_url": "https://www.facebook.com/OldMillBrewpubGrill",
+            "instagram_url": "https://www.instagram.com/oldmillbrewpubandgrill"
+          }
+        },
+        {
+          "type": "cta_section",
+          "version": 1,
+          "data": {
+            "heading": "Can’t Make It",
+            "heading_highlight": "In?",
+            "body": "Order online for pickup and enjoy the Old Mill at home.",
+            "button_label": "Order Online",
+            "button_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Old Mill Brewpub & Grill | Plainwell, MI",
+        "seo_description": "Brewpub and scratch kitchen in Plainwell, MI, inside an 1869 flour mill on the National Register of Historic Places. Beer brewed on site. Walk-ins only."
+      }
+    },
+    {
+      "path": "menu",
+      "slug": "menu",
+      "title": "Menu",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "From Our Kitchen",
+            "heading": "The",
+            "heading_highlight": "Menu",
+            "body": "Scratch-made food crafted with care. GF = Gluten Free. GS = Gluten Sensitive. V = Vegetarian.",
+            "image_id": "119",
+            "cta_label": "This Week's Specials",
+            "cta_url": "#specials"
+          }
+        },
+        {
+          "type": "specials",
+          "version": 1,
+          "data": {
+            "heading": "Check out our",
+            "heading_highlight": "Specials",
+            "note": "Entrées every day of the week.",
+            "cta_label": "Order Online",
+            "cta_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+          }
+        },
+        {
+          "type": "menu_tabs",
+          "version": 1,
+          "data": {
+            "categories": [
+              {
+                "name": "Appetizers",
+                "items": [
+                  {
+                    "name": "Smoked Whitefish Dip",
+                    "desc": "Smoked in house & served chilled, with fresh-fried pita chips"
+                  },
+                  {
+                    "name": "Smoked Chicken Wings",
+                    "desc": "Wings from off our smoker, served with your choice of dipping sauce",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Mexican Street Corn Dip",
+                    "desc": "Housemade roasted corn & fresh Mexican cotija cheese dip with warm tortilla chips",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Pretzels & Beer Cheese",
+                    "desc": "Two giant soft pretzel sticks with warm beer cheese dip"
+                  },
+                  {
+                    "name": "Ranch Cheese Curds",
+                    "desc": "Ranch-seasoned Wisconsin white cheddar fried golden brown with our famous ranch dressing"
+                  },
+                  {
+                    "name": "Pickle Fries",
+                    "desc": "Lightly battered & fried golden brown, with ranch dressing"
+                  },
+                  {
+                    "name": "Jalapeño Poppers",
+                    "desc": "Fried cream cheese-stuffed jalapeños, with ranch dressing"
+                  },
+                  {
+                    "name": "Kettle Chips & Beer Cheese",
+                    "desc": "Our housemade kettle chips with warm beer cheese dip"
+                  },
+                  {
+                    "name": "Cheese Quesadilla",
+                    "desc": "Grilled flour tortilla stuffed with melted cheddar-jack, tomatoes, onions, with sour cream & salsa"
+                  },
+                  {
+                    "name": "Onion Rings",
+                    "desc": "Basket of crispy-fried onion rings, with ranch dressing"
+                  }
+                ]
+              },
+              {
+                "name": "Burgers",
+                "note": "All burgers feature an 8oz hand-pressed patty with lettuce, tomato & onion",
+                "items": [
+                  {
+                    "name": "Old Mill Burger",
+                    "desc": "8oz hand-pressed patty with LTO — or make it a cheeseburger"
+                  },
+                  {
+                    "name": "The Bronco Burger",
+                    "desc": "Crispy bacon, barbecue sauce & cheddar cheese"
+                  },
+                  {
+                    "name": "Smoked Cheese & Mushroom",
+                    "desc": "Cream cheese from off our smoker, sautéed mushrooms & scallions"
+                  },
+                  {
+                    "name": "Green Olive Burger",
+                    "desc": "A West Michigan classic topped with a mix of chopped green olives, mayo & seasonings"
+                  },
+                  {
+                    "name": "The Autumn Burger",
+                    "desc": "Brandied apples, bacon & provolone cheese"
+                  },
+                  {
+                    "name": "Veggie Burger",
+                    "desc": "You won't miss a thing with our healthy Impossible meat alternative",
+                    "tag": "V"
+                  }
+                ]
+              },
+              {
+                "name": "Sandwiches",
+                "items": [
+                  {
+                    "name": "Classic Reuben",
+                    "desc": "Thinly-sliced corned beef, Swiss, sauerkraut & Thousand Island on grilled rye"
+                  },
+                  {
+                    "name": "California Reuben",
+                    "desc": "Thinly-sliced turkey breast, Swiss & housemade coleslaw on grilled rye"
+                  },
+                  {
+                    "name": "Philly Cheesesteak",
+                    "desc": "Thinly-sliced ribeye grilled with green peppers & onions, melted provolone on a grilled hoagie"
+                  },
+                  {
+                    "name": "Ultimate Steak Sandwich",
+                    "desc": "USDA Choice top sirloin strips, champagne-roasted onions, bleu cheese, fresh greens & horseradish mayo"
+                  },
+                  {
+                    "name": "BBQ Pulled Pork",
+                    "desc": "Our own pulled pork in tangy barbecue sauce on a homestyle bun with housemade coleslaw"
+                  },
+                  {
+                    "name": "Boxcar BLT",
+                    "desc": "Crispy applewood-smoked bacon, lettuce, tomatoes & mayo on grilled sourdough"
+                  },
+                  {
+                    "name": "Grain Elevator",
+                    "desc": "Grilled ham & turkey, American & Swiss, crispy bacon, lettuce, tomato & mayo on grilled sourdough"
+                  },
+                  {
+                    "name": "Crackling Chicken",
+                    "desc": "Pork rind-breaded chicken breast, bacon, lettuce, tomato & jalapeño crema",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Smoked Meatloaf",
+                    "desc": "A thick slice of our classic meatloaf off the smoker, Swiss & smoked ketchup on grilled sourdough"
+                  },
+                  {
+                    "name": "Jalapeño Popper Grilled Cheese",
+                    "desc": "Cream cheese-stuffed jalapeño poppers, cheddar, Keweenaw blueberry jam & Cajun seasoning on sourdough"
+                  },
+                  {
+                    "name": "Smoked Chicken Street Tacos",
+                    "desc": "Smoked chicken thighs in flour tortillas with cotija, lettuce, tomato, cilantro & jalapeño crema"
+                  }
+                ]
+              },
+              {
+                "name": "Wraps",
+                "items": [
+                  {
+                    "name": "Club Wrap",
+                    "desc": "Sliced turkey & ham, crispy bacon, cheddar-jack, lettuce, tomato & mayo"
+                  },
+                  {
+                    "name": "BBQ Pulled Pork Wrap",
+                    "desc": "Smoked barbecue pulled pork, cheddar-jack & housemade coleslaw"
+                  },
+                  {
+                    "name": "Chicken Ranch Wrap",
+                    "desc": "Crispy chicken tenders, lettuce, tomato, cheddar-jack & ranch dressing"
+                  },
+                  {
+                    "name": "Buffalo Chicken Wrap",
+                    "desc": "Chicken tenders tossed in buffalo sauce with lettuce, tomato, cheddar-jack & ranch"
+                  },
+                  {
+                    "name": "Mexican Chicken & Corn",
+                    "desc": "Grilled chicken breast, cheddar-jack, our Mexican street corn dip, black beans, lettuce & jalapeño crema"
+                  }
+                ]
+              },
+              {
+                "name": "Salads",
+                "items": [
+                  {
+                    "name": "House Side Salad",
+                    "desc": "Iceberg, tomatoes, scallions & shredded cheese"
+                  },
+                  {
+                    "name": "Nuts & Berries",
+                    "desc": "Fresh greens, Michigan dried cherries, bleu cheese crumbles, toasted pecans & raspberry vinaigrette",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Chicken Tender Salad",
+                    "desc": "Fresh greens, crispy chicken tenders, cheddar-jack, tomatoes & scallions"
+                  },
+                  {
+                    "name": "Taco Salad",
+                    "desc": "Crispy tortilla bowl, iceberg, cheddar-jack, tomatoes, onions & choice of seasoned beef or chicken"
+                  },
+                  {
+                    "name": "Kale & Roasted Squash",
+                    "desc": "Kale, roasted butternut squash, toasted pumpkin seeds, dried cranberries & red wine-citrus vinaigrette",
+                    "tag": "GF"
+                  }
+                ]
+              },
+              {
+                "name": "Entrées",
+                "items": [
+                  {
+                    "name": "Beer-Battered Perch",
+                    "desc": "Crazy-Beaver-battered Zander perch fillets with fries, coleslaw & tartar sauce"
+                  },
+                  {
+                    "name": "Bourbon BBQ Ribs",
+                    "desc": "Half rack of pork ribs, slow-cooked & basted with our bourbon barbecue sauce, fries & coleslaw",
+                    "tag": "GS"
+                  },
+                  {
+                    "name": "Grilled Top Sirloin",
+                    "desc": "Half-pound hand-cut USDA Choice top sirloin grilled to your spec, baked potato & vegetable",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Grilled Chicken",
+                    "desc": "Char-grilled boneless breast — barbecue, blackened, or salt & pepper — with wild rice & vegetable",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Bourbon BBQ Salmon",
+                    "desc": "Half-pound salmon fillet charbroiled & glazed with our bourbon barbecue sauce, wild rice & vegetable",
+                    "tag": "GF"
+                  },
+                  {
+                    "name": "Chicken Tenders",
+                    "desc": "Crispy chicken tenders with fries & your choice of dipping sauce"
+                  },
+                  {
+                    "name": "Shrimp Basket",
+                    "desc": "Golden-fried shrimp with fries, coleslaw & cocktail sauce"
+                  },
+                  {
+                    "name": "Smoked Meatball Stroganoff",
+                    "desc": "Housemade smoked pork & beef meatballs in rich mushroom & sour cream gravy over egg noodles"
+                  },
+                  {
+                    "name": "Smoked Mac & Cheese",
+                    "desc": "Cavatappi noodles in thick & creamy cheese sauce made with cheese from off our smoker"
+                  },
+                  {
+                    "name": "Famous Wet Burrito",
+                    "desc": "Huge 12\" tortilla stuffed with your choice of chicken or beef & refried beans, topped with burrito sauce & cheese"
+                  }
+                ]
+              },
+              {
+                "name": "Sides & Extras",
+                "items": [
+                  {
+                    "name": "Basket of French Fries",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Basket of Sweet Potato Fries",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Basket of Parmesan-Truffle Fries",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Basket of Tater Tots",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Side of Chips & Salsa",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Baked Potato",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Loaded Baked Potato",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Homemade Coleslaw",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Vegetable of the Day",
+                    "desc": ""
+                  }
+                ]
+              },
+              {
+                "name": "Soup & Specials",
+                "items": [
+                  {
+                    "name": "Soup of the Day",
+                    "desc": "Made in house daily, served in a cup or a bowl"
+                  },
+                  {
+                    "name": "Belgian Waffle",
+                    "desc": "Hot Belgian waffle studded with crispy sugar pearls, topped with caramel sauce"
+                  },
+                  {
+                    "name": "Belgian Waffle of the Week",
+                    "desc": "Hot Belgian waffle with crispy sugar pearls, topped with this week's special accompaniments"
+                  }
+                ]
+              },
+              {
+                "name": "Kids' Menu",
+                "note": "For guests 12 & under. Served with fries.",
+                "items": [
+                  {
+                    "name": "Chicken Fingers",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Grilled Cheese",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Mini Corn Dogs",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Mac & Cheese",
+                    "desc": ""
+                  }
+                ]
+              },
+              {
+                "name": "Beverages",
+                "items": [
+                  {
+                    "name": "Coca Cola",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Diet Coke",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Cherry Coke",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Sprite",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Mello Yello",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Dr. Pepper",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Rootbeer",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Lemonade",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Iced Tea",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Hot Tea",
+                    "desc": ""
+                  },
+                  {
+                    "name": "Coffee",
+                    "desc": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta_section",
+          "version": 1,
+          "data": {
+            "heading": "Ready to",
+            "heading_highlight": "Order?",
+            "body": "Skip the wait and order ahead for pickup.",
+            "button_label": "Order Online",
+            "button_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Menu | Old Mill Brewpub & Grill",
+        "seo_description": "Full menu for Old Mill Brewpub & Grill in Plainwell, MI. Scratch-made appetizers, burgers, sandwiches, entrees, and more."
+      }
+    },
+    {
+      "path": "not-found",
+      "slug": "not-found",
+      "title": "Page not found",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "404",
+            "heading": "Nothing on tap",
+            "heading_highlight": "here",
+            "body": "That page moved or never was. The menu, the beers and the hours are all still where you left them. Walk-ins welcome, same as always.",
+            "cta_label": "See the menu",
+            "cta_url": "/menu/",
+            "image_id": "68"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Page not found | Old Mill Brewpub & Grill",
+        "seo_description": "This page isn't here. Find the menu, what's on tap and our hours at Old Mill Brewpub & Grill in Plainwell, MI.",
+        "no_index": true
+      }
+    },
+    {
+      "path": "privacy",
+      "slug": "privacy",
+      "title": "Privacy",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "Privacy",
+            "heading": "What We Do With",
+            "heading_highlight": "Your Information",
+            "body": "Short version: the only information we collect through this site is what you type into the job application, and it goes to our managers. Here's the longer version.",
+            "image_id": "119"
+          }
+        },
+        {
+          "type": "feature_grid",
+          "version": 1,
+          "data": {
+            "columns": "2",
+            "items": [
+              {
+                "title": "What we collect",
+                "body": "Only what you type into a form on this site. The job application asks for your name, email, phone number, the position you want, employment type, availability, earliest start date, and whatever you write in the experience and notes boxes. We don't ask for a Social Security number, a date of birth, or bank details, and you shouldn't send them."
+              },
+              {
+                "title": "Where it goes",
+                "body": "Applications are stored in LibrePublish, the content system that runs this site, and emailed to our managers at mgmt@oldmillbrew.com. Old Mill managers and the people who maintain the site are the only ones who see them. We don't sell, rent or trade what you send us."
+              },
+              {
+                "title": "How long we keep it",
+                "body": "We hold on to applications while we're hiring and for a while after, in case a spot opens up. If you'd rather we delete yours, ask and we will."
+              },
+              {
+                "title": "Cookies and tracking",
+                "body": "This site stores one thing in your browser: whether you chose the light or dark theme. There's no analytics, no advertising pixel and no tracking of you across other sites."
+              },
+              {
+                "title": "Things we load from other companies",
+                "body": "Our web fonts come from Google, the map on the Visit page is a Google Maps embed, and the Order Online button hands you off to Toast. Those companies see the request your browser makes, including your IP address, and their own privacy policies apply once you're on their page."
+              },
+              {
+                "title": "Your choices",
+                "body": "Want a copy of what you sent us, or want it deleted? Email mgmt@oldmillbrew.com or call (269) 204-6601 and tell us which. We'll take care of it."
+              }
+            ]
+          }
+        },
+        {
+          "type": "info_card",
+          "version": 1,
+          "data": {
+            "heading": "Questions about any of this?",
+            "body": "Email mgmt@oldmillbrew.com, call (269) 204-6601, or stop in at 717 E. Bridge Street in Plainwell and ask for a manager. Last updated September 1, 2026."
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Privacy | Old Mill Brewpub & Grill",
+        "seo_description": "What Old Mill Brewpub & Grill collects through this website, where it goes, and how to have it deleted."
+      }
+    },
+    {
+      "path": "visit",
+      "slug": "visit",
+      "title": "Visit Us",
+      "locale": "en",
+      "blocks": [
+        {
+          "type": "page_hero",
+          "version": 1,
+          "data": {
+            "eyebrow": "Plan Your Visit",
+            "heading": "Come",
+            "heading_highlight": "See Us",
+            "image_id": "119"
+          }
+        },
+        {
+          "type": "hours_location",
+          "version": 1,
+          "data": {
+            "hours": [
+              {
+                "day": "Monday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Tuesday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Wednesday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Thursday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Friday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Saturday",
+                "hours": "11am – 9pm"
+              },
+              {
+                "day": "Sunday",
+                "hours": "2pm – 7:30pm"
+              }
+            ],
+            "holiday_note": "Closed most major holidays",
+            "address": "717 E. Bridge Street\nPlainwell, MI 49080",
+            "address_note": "Located on the banks of the Kalamazoo River in downtown Plainwell. The historic four-story stone building is hard to miss.",
+            "maps_url": "https://maps.google.com/?q=717+E+Bridge+Street+Plainwell+MI+49080",
+            "phone": "(269) 204-6601",
+            "email": "mgmt@oldmillbrew.com",
+            "facebook_url": "https://www.facebook.com/OldMillBrewpubGrill",
+            "instagram_url": "https://www.instagram.com/oldmillbrewpubandgrill"
+          }
+        },
+        {
+          "type": "info_card",
+          "version": 1,
+          "data": {
+            "heading": "Walk-In Only — No Reservations",
+            "body": "We operate on a first-come, first-served basis. When you arrive, check in with our hostess, grab a drink, and have a seat in our tap room. Play a game or watch TV while you wait — we'll come find you when your table is ready."
+          }
+        },
+        {
+          "type": "feature_grid",
+          "version": 1,
+          "data": {
+            "heading": "What to Expect",
+            "columns": "2",
+            "items": [
+              {
+                "title": "Indoor Dining",
+                "body": "Settle into the warmth of the original mill building. Exposed stone, heavy timbers, and the character of 150+ years of history surround you while you eat and drink."
+              },
+              {
+                "title": "Outdoor Patio",
+                "body": "In warmer months, enjoy your meal on our patio overlooking the Kalamazoo River. There's nothing like a craft beer and the Michigan breeze."
+              },
+              {
+                "title": "The Tap Room",
+                "body": "Our casual tap room is the perfect spot to wait for a table, meet friends, or just enjoy a pint. Games, TVs, and a relaxed vibe."
+              },
+              {
+                "title": "Family Friendly",
+                "body": "We welcome families with a dedicated kids' menu and a welcoming atmosphere. The Old Mill is a place for everyone."
+              }
+            ]
+          }
+        },
+        {
+          "type": "map_embed",
+          "version": 1,
+          "data": {
+            "src": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2956.123!2d-85.6488!3d42.4419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8817f5c3e3c2a1a1%3A0x1234567890abcdef!2s717+E+Bridge+St%2C+Plainwell%2C+MI+49080!5e0!3m2!1sen!2sus!4v1700000000000",
+            "title": "Old Mill Brewpub & Grill location"
+          }
+        },
+        {
+          "type": "cta_section",
+          "version": 1,
+          "data": {
+            "heading": "Can't Make It",
+            "heading_highlight": "In?",
+            "body": "Order online for pickup and enjoy the Old Mill at home.",
+            "button_label": "Order Online",
+            "button_url": "https://order.toasttab.com/online/old-mill-brewpub-llc-717-e-bridge-st"
+          }
+        }
+      ],
+      "frontmatter": {},
+      "seo": {
+        "seo_title": "Visit Us | Old Mill Brewpub & Grill",
+        "seo_description": "Hours, location, directions, and everything you need to plan your visit to Old Mill Brewpub & Grill in Plainwell, Michigan."
+      }
+    }
+  ],
+  "entries": [
+    {
+      "slug": "marzen",
+      "title": "Märzen",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "american-pale-wheat",
+      "title": "American Pale Wheat",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "bohemian-pilsner",
+      "title": "Bohemian Pilsner",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "fruit-ale",
+      "title": "Fruit Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "hazy-double-ipa",
+      "title": "Hazy Double IPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "imperial-pastry-stout",
+      "title": "Imperial Pastry Stout",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "pale-ale",
+      "title": "Pale Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "winter-ale",
+      "title": "Winter Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "saison",
+      "title": "Saison",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "barley-wine",
+      "title": "Barley Wine",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "wee-heavy",
+      "title": "Wee Heavy",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "vienna",
+      "title": "Vienna",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "porter",
+      "title": "Porter",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "cold-ipa",
+      "title": "Cold IPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "belgian-golden-ale",
+      "title": "Belgian Golden Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "brown-ale",
+      "title": "Brown Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "cream-ale",
+      "title": "Cream Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "west-coast-ipa",
+      "title": "West Coast IPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "helles",
+      "title": "Helles",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "session-ipa",
+      "title": "Session IPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "spiced",
+      "title": "Spiced",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "red-ipa",
+      "title": "Red IPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "belgian-golden-strong-ale",
+      "title": "Belgian Golden Strong Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "ipa",
+      "title": "IPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "oatmeal-stout",
+      "title": "Oatmeal Stout",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "witbier",
+      "title": "Witbier",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "standard-bitter",
+      "title": "Standard Bitter",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "red-ale",
+      "title": "Red Ale",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "schwarzbier",
+      "title": "Schwarzbier",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "neipa",
+      "title": "NEIPA",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "beer-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "appetizers",
+      "title": "Appetizers",
+      "locale": "en",
+      "frontmatter": {
+        "position": 10
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "soup",
+      "title": "Soup",
+      "locale": "en",
+      "frontmatter": {
+        "position": 20
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "salad",
+      "title": "Salad",
+      "locale": "en",
+      "frontmatter": {
+        "position": 30
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "wraps",
+      "title": "Wraps",
+      "locale": "en",
+      "frontmatter": {
+        "position": 50
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "burgers",
+      "title": "Burgers",
+      "locale": "en",
+      "frontmatter": {
+        "position": 60
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "sandwiches",
+      "title": "Sandwiches",
+      "locale": "en",
+      "frontmatter": {
+        "position": 40
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "entrees",
+      "title": "Entrées",
+      "locale": "en",
+      "frontmatter": {
+        "position": 80
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "extras",
+      "title": "Extras",
+      "locale": "en",
+      "frontmatter": {
+        "position": 100
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "desserts",
+      "title": "Desserts",
+      "locale": "en",
+      "frontmatter": {
+        "position": 110
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "kids-meal",
+      "title": "Kid's Meal",
+      "locale": "en",
+      "frontmatter": {
+        "position": 90
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "drinks",
+      "title": "Drinks",
+      "locale": "en",
+      "frontmatter": {
+        "position": 120
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "pasta",
+      "title": "Pasta",
+      "locale": "en",
+      "frontmatter": {
+        "position": 70
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-categories",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "daily",
+      "title": "Daily",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-tags",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "sunday",
+      "title": "Sunday",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "food-tags",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "chicago-grille",
+      "title": "Chicago Grille",
+      "locale": "en",
+      "frontmatter": {
+        "description": "seasoned Roast Beef on a toasted Sun Bun w/ Sour Cream, diced Tomatoes, & Scallions",
+        "price": "",
+        "image_url": "",
+        "day": "Thursday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "shrimp-basket",
+      "title": "Shrimp Basket",
+      "locale": "en",
+      "frontmatter": {
+        "description": "golden-fried Shrimp served w/ French Fries, housemade Coleslaw, & Cocktail Sauce",
+        "price": "",
+        "image_url": "",
+        "day": "Friday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "lasagna",
+      "title": "Lasagna",
+      "locale": "en",
+      "frontmatter": {
+        "description": "housemade Beef & Sausage Lasagna - served w/ Garlic Toast",
+        "price": "",
+        "image_url": "",
+        "day": "Thursday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "hawaiian-chicken-sandwich",
+      "title": "Hawaiian Chicken Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "Charboiled Chicken Breast glazed w/ Teriyaki Sauce & topped w/ Swiss Cheese, Bacon, & a grilled Pineapple Ring",
+        "price": "",
+        "image_url": "",
+        "day": "Monday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "beef-stroganoff",
+      "title": "Beef Stroganoff",
+      "locale": "en",
+      "frontmatter": {
+        "description": "served over Fettuccini w/ Garlic Toast",
+        "price": "",
+        "image_url": "",
+        "day": "Tuesday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "jalapeno-popper-burger",
+      "title": "Jalapeño Popper Burger",
+      "locale": "en",
+      "frontmatter": {
+        "description": "half pound Burger topped w/ Jalapeño Cream Cheese",
+        "price": "",
+        "image_url": "",
+        "day": "Tuesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "brewhouse-roast-beef-sandwich",
+      "title": "Brewhouse Roast Beef Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "sliced Roast Beef, Cheddar Cheese, Bacon, Barbecue Sauce, Lettuce, & Tomato on Texas Toast",
+        "price": "",
+        "image_url": "",
+        "day": "Monday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "fried-blue-gill",
+      "title": "Fried Blue Gill",
+      "locale": "en",
+      "frontmatter": {
+        "description": "dusted in Seasoned Flour & deep fried, served w/ French Fries & housemade Coleslaw",
+        "price": "",
+        "image_url": "",
+        "day": "Sunday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "chicken-andouille-wrap",
+      "title": "Chicken Andouille Wrap",
+      "locale": "en",
+      "frontmatter": {
+        "description": "charbroiled Chicken, Andouille Sausage, Sauteed Peppers & Onions, Shredded Cheese, & Chipotle Ranch wrapped in a grilled Flour Tortilla",
+        "price": "",
+        "image_url": "",
+        "day": "Tuesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "bratchos",
+      "title": "Bratchos",
+      "locale": "en",
+      "frontmatter": {
+        "description": "our own Crazy Beaver Beer Brats chopped up and served on Tortilla Chips w/ shredded Mexican Cheese, Tomatoes, Scallions, & Shredded Lettuce",
+        "price": "",
+        "image_url": "",
+        "day": "Wednesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "lemon-caper-walleye",
+      "title": "Lemon Caper Walleye",
+      "locale": "en",
+      "frontmatter": {
+        "description": "oven-broiled Walley Filet seasoned w/ Lemon Pepper, White Wine, & Capers - served w/ Rice Pilaf & Broccoli",
+        "price": "",
+        "image_url": "",
+        "day": "Friday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "fish-and-chips",
+      "title": "Fish & Chips",
+      "locale": "en",
+      "frontmatter": {
+        "description": "three Crazy Beaver Beer-Battered Cod Fillets served w/ French Fries & housemade Coleslaw",
+        "price": "",
+        "image_url": "",
+        "day": "Friday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "chicken-parmesan-sandwich",
+      "title": "Chicken Parmesan Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "Italian Breaded Chicken Breast topped w/ Provolone Cheese, Marinera Sauce, & Parmesan Cheese, served on a Homestyle Bun",
+        "price": "",
+        "image_url": "",
+        "day": "Sunday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "plate-of-nachos",
+      "title": "Plate of Nachos",
+      "locale": "en",
+      "frontmatter": {
+        "description": "your choice of Chicken or Beef Nachos served w/ all the fixings",
+        "price": "",
+        "image_url": "",
+        "day": "Wednesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "chicken-tender-club",
+      "title": "Chicken Tender Club",
+      "locale": "en",
+      "frontmatter": {
+        "description": "crispy Chicken, Bacon, Cheddar Cheese, Lettuce, Tomato, & Mayonnaise on a toasted Sub Bun",
+        "price": "",
+        "image_url": "",
+        "day": "Monday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "jambalaya",
+      "title": "Jambalaya",
+      "locale": "en",
+      "frontmatter": {
+        "description": "Chicken, Shrimp, & Andouille Sausage in a spicy Chicken Broth - served w/ Rice & freshly-made Cornbread",
+        "price": "",
+        "image_url": "",
+        "day": "Saturday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "shrimp-stir-fry",
+      "title": "Shrimp Stir-Fry",
+      "locale": "en",
+      "frontmatter": {
+        "description": "10 Shrimp sauteed w/ fresh Vegetables & glazed w/ Teriyaki Sauce, served over a bed of White Rice",
+        "price": "",
+        "image_url": "",
+        "day": "Friday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "mushroom-and-swiss-chicken-sandwich",
+      "title": "Mushroom & Swiss Chicken Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "charbroiled Chicken Breast topped w/ sauteed Mushrooms & Swiss Cheese, served on a homestyle Bun",
+        "price": "",
+        "image_url": "",
+        "day": "Monday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "shrimp-ravioli",
+      "title": "Shrimp Ravioli",
+      "locale": "en",
+      "frontmatter": {
+        "description": "plump Ravioli filled w/ Shrimp & Garlic tossed in Marinara Sauce, served w/ a side of Garlic Toast",
+        "price": "",
+        "image_url": "",
+        "day": "Friday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "smothered-sirloin",
+      "title": "Smothered Sirloin",
+      "locale": "en",
+      "frontmatter": {
+        "description": "8oz Top Sirloin topped w/ sauteed Mushroom & Onions - served w/ a Baked Potato & Broccoli",
+        "price": "",
+        "image_url": "",
+        "day": "Sunday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "smoked-brisket-sandwich",
+      "title": "Smoked Brisket Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "tender Beef Brisket smoked in house, glazed w/ Bourbon Barbecue Sauce & served on a toasted Hoagie Roll w/ Cheddar Cheese & Sauteed Onions",
+        "price": "",
+        "image_url": "",
+        "day": "Tuesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "chicken-and-broccoli-alfredo",
+      "title": "Chicken & Broccoli Alfredo",
+      "locale": "en",
+      "frontmatter": {
+        "description": "Fettuccini & Broccoli tossed in a creamy Alfredo Sauce & topped w/ a charbroiled Chicken Breast",
+        "price": "",
+        "image_url": "",
+        "day": "Saturday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "chicken-pot-pie",
+      "title": "Chicken Pot Pie",
+      "locale": "en",
+      "frontmatter": {
+        "description": "charbroiled Chicken Breast & Mixed Vegetables in a rich Chicken Gravy, baked in a flaky Pie Shell",
+        "price": "",
+        "image_url": "",
+        "day": "Thursday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "brewpub-chicken-sandwich",
+      "title": "Brewpub Chicken Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "Chicken Breast w/ a Pretzel Crust, served on a Homestyle Bun, topped w/ Mustard-Beer Cheese Sauce",
+        "price": "",
+        "image_url": "",
+        "day": "Monday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "fried-walleye-sandwich",
+      "title": "Fried Walleye Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "crispy Breaded Walleye Fillet served on a Hoagie Roll w/ shredded Lettuce, Tomato, & Tartar Sauce",
+        "price": "",
+        "image_url": "",
+        "day": "Thursday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "egg-salad-croissant",
+      "title": "Egg Salad Croissant",
+      "locale": "en",
+      "frontmatter": {
+        "description": "housemade Egg Salad on a toasted Croissant, w/ Lettuce & Tomato",
+        "price": "",
+        "image_url": "",
+        "day": "Wednesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "roast-beef-and-cheddar-sandwich",
+      "title": "Roast Beef & Cheddar Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "Roast Beef & Cheddar Cheese on toasted Sourdough, w/ Lettuce, Tomato, Onion, & Horseradish Mayo",
+        "price": "",
+        "image_url": "",
+        "day": "Thursday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "bbq-chicken-and-ribs",
+      "title": "BBQ Chicken & Ribs",
+      "locale": "en",
+      "frontmatter": {
+        "description": "grilled BBQ Chicken Breast, & a 1/4 rack of our BBQ Pork Ribs, served w/ French Fries, housemade Coleslaw, & a Corn Rib",
+        "price": "",
+        "image_url": "",
+        "day": "Saturday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "bourbon-barbecue-pork-chops",
+      "title": "Bourbon Barbecue Pork Chops",
+      "locale": "en",
+      "frontmatter": {
+        "description": "two boneless Pork Chops charbroiled & glazed with out own Bourbon BBQ sauce, served w/ a Baked Potato & Broccoli",
+        "price": "",
+        "image_url": "",
+        "day": "Saturday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "brisket-burger",
+      "title": "Brisket Burger",
+      "locale": "en",
+      "frontmatter": {
+        "description": "charbroiled half pound, hand-pressed all Beef Patty topped w/ thinly-shaved Smoked Beef Brisket, Cheddar Cheese, Sauteed Onions, & Barbecue Sauce",
+        "day": "Tuesday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "spaghetti-and-meatballs",
+      "title": "Spaghetti & Meatballs",
+      "locale": "en",
+      "frontmatter": {
+        "description": "our housemade smoked Pork & Beef Meatballs & our own signature Marinara over Spaghetti - served w/ Garlic Toast",
+        "day": "Saturday",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "meatball-marinara-sub",
+      "title": "Meatball Marinara Sub",
+      "locale": "en",
+      "frontmatter": {
+        "day": "Wednesday",
+        "description": "half a dozen of our smoked-in-house Pork & Beef Meatballs w/ housemade Marinara, & Provolone on a Sub Bun",
+        "active": false
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "hot-pork-sandwich",
+      "title": "Hot Pork Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "<p>thinly-sliced roast Pork Loin on Texas Toast, w/ Mashed Potatoes, Brown Gravy, &amp; Corn.</p>",
+        "day": "Wednesday",
+        "active": true
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "fried-bologna-sandwich",
+      "title": "Fried Bologna Sandwich",
+      "locale": "en",
+      "frontmatter": {
+        "description": "<p>a thick slice of our smoked Bologna topped w/ American Cheese, Yellow Mustard, Lettuce, &amp; Tomato</p>",
+        "day": "Sunday"
+      },
+      "body_markdown": "",
+      "seo": {},
+      "published_at": null,
+      "collection": "specials",
+      "category": null,
+      "tags": []
+    },
+    {
+      "slug": "crazy-beaver",
+      "title": "Crazy Beaver",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "5.3",
+        "featured_image": "83"
+      },
+      "body_markdown": "Our lightest and most easy-drinking offering is brewed with lots of Maize for a light, cereal grain flavor and a smooth body, with just a touch of noble Saaz Hops.",
+      "seo": {
+        "description": "Our lightest and most easy-drinking offering is brewed with lots of Maize for a light, cereal grain flavor and a smooth body, with just a touch of noble Saaz Hops."
+      },
+      "published_at": "2023-10-10 20:28:32 UTC",
+      "collection": "beers",
+      "category": "cream-ale",
+      "tags": []
+    },
+    {
+      "slug": "island-city",
+      "title": "Island City",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "6.8",
+        "featured_image": "84"
+      },
+      "body_markdown": "Our American-style IPA features a clean, bready malt backbone with a crisp, citrus and floral hop taste and aroma. This beer is hop-forward, bitter, and very refreshing.",
+      "seo": {
+        "description": "Our American-style IPA features a clean, bready malt backbone with a crisp, citrus and floral hop taste and aroma. This beer is hop-forward, bitter, and very refreshing."
+      },
+      "published_at": "2023-10-11 13:20:31 UTC",
+      "collection": "beers",
+      "category": "west-coast-ipa",
+      "tags": []
+    },
+    {
+      "slug": "sunshine",
+      "title": "Sunshine",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "6.8",
+        "featured_image": "103"
+      },
+      "body_markdown": "Our Stout is bold from start to finish with flavors of bittersweet chocolate and licorice, finishing with a hint of coffee. Lots of Oatmeal in the mash gives this beer an incredibly rich mouthfeel.",
+      "seo": {
+        "description": "Our Stout is bold from start to finish with flavors of bittersweet chocolate and licorice, finishing with a hint of coffee. Lots of Oatmeal in the mash gives this beer an incredibly rich mouthfeel."
+      },
+      "published_at": "2023-10-11 13:22:46 UTC",
+      "collection": "beers",
+      "category": "oatmeal-stout",
+      "tags": []
+    },
+    {
+      "slug": "beerrh",
+      "title": "BEERRH",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "8.0",
+        "featured_image": "110"
+      },
+      "body_markdown": "Just say ‘BEER’ – this incredible libation is an homage to a classic French aperitif made of fortified red wine and quinine, the main flavor of tonic water. Our plummy red beer was brewed with Michigan Cherries, Cabernet Sauvignon Grapes, and Quinine Syrup.",
+      "seo": {},
+      "published_at": "2026-01-29 16:05:40 UTC",
+      "collection": "beers",
+      "category": "spiced",
+      "tags": []
+    },
+    {
+      "slug": "oktoberfest",
+      "title": "Oktoberfest",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "6.4",
+        "featured_image": "71"
+      },
+      "body_markdown": "A lot of extra time and care went into crafting this traditional German Lager, which was cold-conditioned for two months. This beer is very easy drinking with a sweet cereal nose, a fresh malty body, and the smoothest finish around. Ein Prosit zum Oktoberfest!",
+      "seo": {
+        "description": "A lot of extra time and care went into crafting this traditional German Lager, which was cold-conditioned for two months. This beer is very easy drinking with a sweet cereal nose, a fresh malty body, and the smoothest finish around. Ein Prosit zum Oktoberfest!"
+      },
+      "published_at": "2023-10-11 13:25:55 UTC",
+      "collection": "beers",
+      "category": "marzen",
+      "tags": []
+    },
+    {
+      "slug": "pastry-case-key-lime-cream-ale",
+      "title": "Pastry Case: Key Lime Cream Ale",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "5.3",
+        "featured_image": "105"
+      },
+      "body_markdown": "We've blended our classic Crazy Beaver Cream Ale w/ real Key Lime Juice & pure fair trade Mexican Vanilla to recreate our favorite diner pie from the pastry case for you pub pint glass. It is light, refreshing, and just a little tart, all w/ a beautifully sweet note of Vanilla",
+      "seo": {
+        "description": "We've blended our classic Crazy Beaver Cream Ale w/ real Key Lime Juice & pure fair trade Mexican Vanilla to recreate our favorite diner pie from the pastry case for you pub pint glass. It is light, refreshing, and just a little tart, all w/ a beautifully sweet note of Vanilla"
+      },
+      "published_at": "2024-05-22 17:28:18 UTC",
+      "collection": "beers",
+      "category": "cream-ale",
+      "tags": []
+    },
+    {
+      "slug": "railside-red",
+      "title": "Railside Red",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "5.0",
+        "featured_image": "106"
+      },
+      "body_markdown": "Red Ales are the middle way between meltier dark beers and hoppier Pale Ales. Brewed with premium Marris Otter Malt, our Irish-style Red strikes a balance with a biscuity, slightly boggy taste and a clean, moderately bitter finish.",
+      "seo": {},
+      "published_at": "2025-06-17 17:21:38 UTC",
+      "collection": "beers",
+      "category": "red-ale",
+      "tags": []
+    },
+    {
+      "slug": "impostor-schwarzbier",
+      "title": "Impostor Schwarzbier",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "5.8",
+        "featured_image": "107"
+      },
+      "body_markdown": "A Schwarzbier is a nearly-black lager that is light-bodied while retaining a complex character. Its bitterness comes not from its dark-roasted malt, but from a noticeable dose of spicy Continental Hops.\n\nThis beer has been in hiding for some time now, and returns for a limited time only!",
+      "seo": {
+        "description": "A Schwarzbier is a nearly-black lager that is light-bodied while retaining a complex character. Its bitterness comes not from its dark-roasted malt, but from a noticeable dose of spicy Continental Hops."
+      },
+      "published_at": "2025-08-07 13:57:16 UTC",
+      "collection": "beers",
+      "category": "schwarzbier",
+      "tags": []
+    },
+    {
+      "slug": "nordkapp",
+      "title": "Nordkapp",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "7.2",
+        "featured_image": "116"
+      },
+      "body_markdown": "Brewed with Citra and Comet hops and fermented with a strain of Norwegian yeast called Kveik that produces clean, citrusy, peachy-tasting beers, this New England IPA is extremely hoppy but not very bitter. It will bring sunshine to even your darkest of nights.",
+      "seo": {
+        "description": "Brewed with Citra and Comet hops and fermented with a strain of Norwegian yeast called Kveik that produces clean, citrusy, peachy-tasting beers, this New England IPA is extremely hoppy but not very bitter. It will bring sunshine to even your darkest of nights."
+      },
+      "published_at": "2026-06-30 19:18:54 UTC",
+      "collection": "beers",
+      "category": "neipa",
+      "tags": []
+    },
+    {
+      "slug": "beer-jargon-pale-ale",
+      "title": "Beer Jargon Pale Ale",
+      "locale": "en",
+      "frontmatter": {
+        "abv": "4.8",
+        "featured_image": "118"
+      },
+      "body_markdown": "Brewed as a love letter to our brewer’s favorite ingredients, this “SMASH” beer (Single Malt And Single Hop) was brewed with premium British Maris Otter Pale Malt and Michigan-grown Chinook Hops – in this case, some of the last hops ever grown down the road at Hop Head Farms.",
+      "seo": {},
+      "published_at": "2026-09-03 15:24:48 UTC",
+      "collection": "beers",
+      "category": "pale-ale",
+      "tags": []
+    },
+    {
+      "slug": "the-autumn-burger",
+      "title": "The Autumn Burger",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "w/ Brandied Apples, Bacon, & Provolone Cheese",
+      "seo": {
+        "description": "w/ Brandied Apples, Bacon, & Provolone Cheese"
+      },
+      "published_at": null,
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "basket-of-french-fries",
+      "title": "Basket of French Fries",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:36:26 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "basked-of-parmesan-truffle-fries",
+      "title": "Basked of Parmesan-Truffle Fries",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:36:37 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "basket-of-sweet-potato-fries",
+      "title": "Basket of Sweet Potato Fries",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:36:47 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "homemade-coleslaw",
+      "title": "Homemade Coleslaw",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:37:05 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "baked-potato",
+      "title": "Baked Potato",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:37:30 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "vegetable-of-the-day",
+      "title": "Vegetable of the Day",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:38:11 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "coca-cola",
+      "title": "Coca Cola",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:38:37 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "diet-coke",
+      "title": "Diet Coke",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:38:50 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "kettle-chips-beer-cheese",
+      "title": "Kettle Chips & Beer Cheese (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "our housemade Kettle Chips w/ warm Beer Cheese Dip",
+      "seo": {
+        "description": "our housemade Kettle Chips w/ warm Beer Cheese Dip"
+      },
+      "published_at": "2023-05-04 13:55:27 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "cheese-quesadilla",
+      "title": "Cheese Quesadilla (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "grilled Flour Tortilla stuffed w/ melted Cheddar-Jack Cheese, Tomatoes, Onions, w/ Sour Cream & Salsa -- option to add grilled Chicken or pulled Pork",
+      "seo": {
+        "description": "grilled Flour Tortilla stuffed w/ melted Cheddar-Jack Cheese, Tomatoes, Onions, w/ Sour Cream & Salsa -- option to add grilled Chicken or pulled Pork"
+      },
+      "published_at": "2023-05-04 13:57:28 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "onion-rings",
+      "title": "Onion Rings (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "basket of crispy-fried Onion Rings, w/ Ranch Dressing",
+      "seo": {
+        "description": "basket of crispy-fried Onion Rings, w/ Ranch Dressing"
+      },
+      "published_at": "2023-05-04 13:57:47 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "soup-of-the-day",
+      "title": "Soup of the Day",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "made in house daily, served in a cup or a bowl",
+      "seo": {
+        "description": "made in house daily, served in a cup or a bowl"
+      },
+      "published_at": "2023-05-04 14:15:47 UTC",
+      "collection": "food",
+      "category": "soup",
+      "tags": []
+    },
+    {
+      "slug": "chicken-tender-salad",
+      "title": "Chicken Tender Salad",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "fresh Greens, crispy Chicken Tenders, Cheddar-Jack Cheese, Tomatoes, Scallions, w/ choice of Dressing",
+      "seo": {
+        "description": "fresh Greens, crispy Chicken Tenders, Cheddar-Jack Cheese, Tomatoes, Scallions, w/ choice of Dressing"
+      },
+      "published_at": "2023-05-04 14:16:53 UTC",
+      "collection": "food",
+      "category": "salad",
+      "tags": []
+    },
+    {
+      "slug": "nuts-and-berries-gf",
+      "title": "Nuts and Berries Salad (GF) (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "fresh Greens, Michigan Dried Cherries, Bleu Cheese Crumbles, Toasted Pecans, w/ Raspberry Vinaigrette -- option to add grilled Chicken",
+      "seo": {
+        "description": "fresh Greens, Michigan Dried Cherries, Bleu Cheese Crumbles, Toasted Pecans, w/ Raspberry Vinaigrette -- option to add grilled Chicken"
+      },
+      "published_at": "2023-05-04 14:17:20 UTC",
+      "collection": "food",
+      "category": "salad",
+      "tags": []
+    },
+    {
+      "slug": "taco-salad",
+      "title": "Taco Salad",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "crispy Tortilla Bowl, Iceberg Lettuce, Cheddar-Jack Cheese, Tomatoes, Onions, & choice of seasoned Ground Beef or shredded Chicken, w/ choice of Dressing",
+      "seo": {
+        "description": "crispy Tortilla Bowl, Iceberg Lettuce, Cheddar-Jack Cheese, Tomatoes, Onions, & choice of seasoned Ground Beef or shredded Chicken, w/ choice of Dressing"
+      },
+      "published_at": "2023-05-04 14:18:58 UTC",
+      "collection": "food",
+      "category": "salad",
+      "tags": []
+    },
+    {
+      "slug": "buffalo-chicken-wrap",
+      "title": "Buffalo Chicken Wrap",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Chicken Tenders tossed in Buffalo Sauce, w/ Lettuce, Tomato, Cheddar-Jack Cheese, & Ranch Dressing",
+      "seo": {
+        "description": "Chicken Tenders tossed in Buffalo Sauce, w/ Lettuce, Tomato, Cheddar-Jack Cheese, & Ranch Dressing"
+      },
+      "published_at": "2023-05-04 14:19:26 UTC",
+      "collection": "food",
+      "category": "wraps",
+      "tags": []
+    },
+    {
+      "slug": "chicken-ranch-wrap",
+      "title": "Chicken Ranch Wrap",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "crispy Chicken Tenders, Lettuce, Tomato, Cheddar-Jack Cheese, & Ranch Dressing",
+      "seo": {
+        "description": "crispy Chicken Tenders, Lettuce, Tomato, Cheddar-Jack Cheese, & Ranch Dressing"
+      },
+      "published_at": "2023-05-04 14:20:05 UTC",
+      "collection": "food",
+      "category": "wraps",
+      "tags": []
+    },
+    {
+      "slug": "barbecue-pulled-pork-wrap",
+      "title": "Barbecue Pulled Pork Wrap",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "smoked Barbecue Pulled Pork, Cheddar-Jack Cheese, & housemade Coleslaw",
+      "seo": {
+        "description": "smoked Barbecue Pulled Pork, Cheddar-Jack Cheese, & housemade Coleslaw"
+      },
+      "published_at": "2023-05-04 14:20:27 UTC",
+      "collection": "food",
+      "category": "wraps",
+      "tags": []
+    },
+    {
+      "slug": "club-wrap",
+      "title": "Club Wrap",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "sliced Turkey & Ham, crispy Bacon, Cheddar-Jack Cheese, Lettuce, Tomato, & Mayo",
+      "seo": {
+        "description": "sliced Turkey & Ham, crispy Bacon, Cheddar-Jack Cheese, Lettuce, Tomato, & Mayo"
+      },
+      "published_at": "2023-05-04 14:20:51 UTC",
+      "collection": "food",
+      "category": "wraps",
+      "tags": []
+    },
+    {
+      "slug": "cherry-coke",
+      "title": "Cherry Coke",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:39:02 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "sprite",
+      "title": "Sprite",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:39:14 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "mello-yello",
+      "title": "Mello Yello",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:39:33 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "rootbeer",
+      "title": "Rootbeer",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:39:44 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "dr-pepper",
+      "title": "Dr. Pepper",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:39:55 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "lemonade",
+      "title": "Lemonade",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:40:10 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "iced-tea",
+      "title": "Iced Tea",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:40:22 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "hot-tea",
+      "title": "Hot Tea",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:40:36 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "coffee",
+      "title": "Coffee",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-05-04 14:41:01 UTC",
+      "collection": "food",
+      "category": "drinks",
+      "tags": []
+    },
+    {
+      "slug": "old-mill-burger",
+      "title": "Old Mill Burger",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "8oz hand-pressed Patty w/ LTO\n\n-- or make it a Cheeseburger",
+      "seo": {
+        "description": "8oz hand-pressed Patty w/ LTO -- or make it a Cheeseburger"
+      },
+      "published_at": "2023-05-04 14:21:24 UTC",
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "the-bronco-burger",
+      "title": "The Bronco Burger",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "w/ crispy Bacon, Barbecue Sauce, & Cheddar Cheese\n\n8oz hand-pressed Patty w/ LTO",
+      "seo": {
+        "description": "w/ crispy Bacon, Barbecue Sauce, & Cheddar Cheese - 8oz hand-pressed Patty w/ LTO"
+      },
+      "published_at": "2023-05-04 14:22:32 UTC",
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "green-olive-burger",
+      "title": "Green Olive Burger",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "w/ a mix of chopped Green Olives, Mayonnaise, & Seasonings\n\n8oz hand-pressed Patty w/ LTO",
+      "seo": {
+        "description": "w/ a mix of chopped Green Olives, Mayonnaise, & Seasonings - 8oz hand-pressed Patty w/ LTO"
+      },
+      "published_at": "2023-05-04 14:23:24 UTC",
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "vegetarian-burger",
+      "title": "Veggie Burger (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "even if you're not a vegetarian, you won't miss a thing w/ our healthy 'impossible' meat alternative\n\nw/ LTO",
+      "seo": {
+        "description": "even if you're not a vegetarian, you won't miss a thing w/ our healthy 'impossible' meat alternative - w/ LTO"
+      },
+      "published_at": "2023-05-04 14:25:02 UTC",
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "boxcar-blt-2",
+      "title": "Boxcar BLT",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "crispy Applewood-Smoked Bacon, Lettuce, Tomatoes, & Mayonnaise on grilled Sourdough",
+      "seo": {
+        "description": "crispy Applewood-Smoked Bacon, Lettuce, Tomatoes, & Mayonnaise on grilled Sourdough"
+      },
+      "published_at": "2023-05-04 14:25:43 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "classic-reuben",
+      "title": "Classic Reuben",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "thinly-sliced Corned Beef, Swiss Cheese, Sauerkraut, & Thousand Island Dressing on Grilled Rye",
+      "seo": {
+        "description": "thinly-sliced Corned Beef, Swiss Cheese, Sauerkraut, & Thousand Island Dressing on Grilled Rye"
+      },
+      "published_at": "2023-05-04 14:26:04 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "california-reuben",
+      "title": "California Reuben",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "thinly-sliced Turkey Breast, Swiss Cheese, & Housemade Coleslaw on grilled Rye",
+      "seo": {
+        "description": "thinly-sliced Turkey Breast, Swiss Cheese, & Housemade Coleslaw on grilled Rye"
+      },
+      "published_at": "2023-05-04 14:26:28 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "philly-cheesesteak",
+      "title": "Philly Cheesesteak",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "thinly-sliced Ribeye grilled w/ Green Peppers & Onions, topped w/ melted Provolone Cheese on a grilled hoagie bun -- option to add grilled Jalapeños & Cajun Seasoning",
+      "seo": {
+        "description": "thinly-sliced Ribeye grilled w/ Green Peppers & Onions, topped w/ melted Provolone Cheese on a grilled hoagie bun -- option to add grilled Jalapeños & Cajun Seasoning"
+      },
+      "published_at": "2023-05-04 14:28:34 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "grain-elevator",
+      "title": "Grain Elevator",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "grilled Ham & Turkey, American & Swiss Cheese, crispy Bacon, Lettuce, Tomato, & Mayonnaise on grilled Sourdough",
+      "seo": {
+        "description": "grilled Ham & Turkey, American & Swiss Cheese, crispy Bacon, Lettuce, Tomato, & Mayonnaise on grilled Sourdough"
+      },
+      "published_at": "2023-05-04 14:29:29 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "barbecue-pulled-pork-sandwich-2",
+      "title": "Barbecue Pulled Pork Sandwich",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "our own pulled Pork covered in tangy Barbecue Sauce on a homestyle Bun w/ a side of housemade Coleslaw",
+      "seo": {
+        "description": "our own pulled Pork covered in tangy Barbecue Sauce on a homestyle Bun w/ a side of housemade Coleslaw"
+      },
+      "published_at": "2023-05-04 14:30:18 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "beer-battered-perch",
+      "title": "Beer-Battered Perch",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Crazy-Beaver-Battered Zander Perch Fillets served w/ French Fries, housemade Coleslaw, & Tartar Sauce",
+      "seo": {
+        "description": "Crazy-Beaver-Battered Zander Perch Fillets served w/ French Fries, housemade Coleslaw, & Tartar Sauce"
+      },
+      "published_at": "2023-05-04 14:31:17 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "grilled-chicken-gf",
+      "title": "Grilled Chicken (GF)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "char-grilled boneless Chicken Breast (1 or 2) made how you like it: Barbecue, Blackened, or Salt & Pepper, served w/ Long Grain and Wild Rice, & the Vegetable of the day",
+      "seo": {
+        "description": "char-grilled boneless Chicken Breast (1 or 2) made how you like it: Barbecue, Blackened, or Salt & Pepper, served w/ a Baked Potato & the Vegetable of the day"
+      },
+      "published_at": "2023-05-04 14:33:05 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "chicken-tenders",
+      "title": "Chicken Tenders",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "crispy Chicken Tenders served w/ French Fries & your choice of Dipping Sauce",
+      "seo": {
+        "description": "crispy Chicken Tenders served w/ French Fries & your choice of Dipping Sauce"
+      },
+      "published_at": "2023-05-04 14:33:24 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "old-mills-famous-wed-burrito",
+      "title": "Old Mill's Famous Wet Burrito",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "A huge 12\" Flour Tortilla stuffed w/ your choice of shredded Chicken or seasoned Ground Beef, & Refried Beans, topped w/ Burrito Sauce, melted Cheddar-Jack Cheese, & all the fixings",
+      "seo": {
+        "description": "A huge 12\" Flour Tortilla stuffed w/ your choice of shredded Chicken or seasoned Ground Beef, & Refried Beans, topped w/ Burrito Sauce, melted Cheddar-Jack Cheese, & all the fixings"
+      },
+      "published_at": "2023-05-04 14:34:16 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "kids-chicken-fingers",
+      "title": "Kid's Chicken Fingers",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "served w/ French Fries -- for children twelve and under",
+      "seo": {
+        "description": "served w/ French Fries -- for children twelve and under"
+      },
+      "published_at": "2023-05-04 14:34:46 UTC",
+      "collection": "food",
+      "category": "kids-meal",
+      "tags": []
+    },
+    {
+      "slug": "kids-grilled-cheese",
+      "title": "Kid's Grilled Cheese",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "served w/ French Fries -- for children twelve and under",
+      "seo": {
+        "description": "served w/ French Fries -- for children twelve and under"
+      },
+      "published_at": "2023-05-04 14:35:07 UTC",
+      "collection": "food",
+      "category": "kids-meal",
+      "tags": []
+    },
+    {
+      "slug": "kids-mini-corn-dogs",
+      "title": "Kid's Mini Corn Dogs",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "served w/ French Fries -- for children twelve and under",
+      "seo": {
+        "description": "served w/ French Fries -- for children twelve and under"
+      },
+      "published_at": "2023-05-04 14:35:39 UTC",
+      "collection": "food",
+      "category": "kids-meal",
+      "tags": []
+    },
+    {
+      "slug": "kids-mac-cheese",
+      "title": "Kid's Mac & Cheese",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "served w/ French Fries -- for children twelve and under",
+      "seo": {
+        "description": "served w/ French Fries -- for children twelve and under"
+      },
+      "published_at": "2023-05-04 14:36:09 UTC",
+      "collection": "food",
+      "category": "kids-meal",
+      "tags": []
+    },
+    {
+      "slug": "house-side-salad",
+      "title": "House Side Salad",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Iceberg, Tomatoes, Scallions, shredded Cheese",
+      "seo": {
+        "description": "Iceberg, Tomatoes, Scallions, shredded Cheese"
+      },
+      "published_at": "2023-05-04 14:37:19 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "pretzels-beer-cheese",
+      "title": "Pretzels & Beer Cheese (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "two giant soft Pretzel Sticks w/ warm Beer Cheese Dip",
+      "seo": {
+        "description": "two giant soft Pretzel Sticks w/ warm Beer Cheese Dip"
+      },
+      "published_at": "2023-06-15 18:47:15 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "bourbon-barbecued-ribs-gf",
+      "title": "Bourbon-Barbecued Ribs (GS)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "half rack of Pork Ribs, slow-cooked & basted w/ our own Bourbon Barbecue Sauce, served w/ French Fries & housemade Coleslaw",
+      "seo": {
+        "description": "half rack of Pork Ribs, slow-cooked & basted w/ our own Bourbon Barbecue Sauce, served w/ French Fries & housemade Coleslaw"
+      },
+      "published_at": "2023-06-15 19:26:22 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "loaded-baked-potato",
+      "title": "Loaded Baked Potato",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-06-15 19:39:20 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "side-of-chips-salsa",
+      "title": "Side of Chips & Salsa",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "",
+      "seo": {},
+      "published_at": "2023-06-15 19:39:47 UTC",
+      "collection": "food",
+      "category": "extras",
+      "tags": []
+    },
+    {
+      "slug": "smoked-chicken-wings",
+      "title": "Smoked Chicken Wings (GS)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Six or Twelve Wings from off our smoker, served w/ your choice of Dipping Sauce",
+      "seo": {
+        "description": "Six or Twelve Wings from off our smoker, served w/ your choice of Dipping Sauce"
+      },
+      "published_at": "2023-09-21 21:16:48 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "belgian-waffle-w-caramel-sauce",
+      "title": "Belgian Waffle w/ Caramel Sauce",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Hot Belgian Waffle studded w/ crispy Sugar Pearls, topped w/ Caramel Sauce",
+      "seo": {
+        "description": "Hot Belgian Waffle studded w/ crispy Sugar Pearls, topped w/ Caramel Sauce"
+      },
+      "published_at": "2023-11-20 14:40:21 UTC",
+      "collection": "food",
+      "category": "desserts",
+      "tags": []
+    },
+    {
+      "slug": "belgian-waffle-of-the-week",
+      "title": "Belgian Waffle of the week",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Hot Belgian Waffle studded w/ crispy Sugar Pearls, topped w/ this week's special accompaniments!",
+      "seo": {
+        "description": "Hot Belgian Waffle studded w/ crispy Sugar Pearls, topped w/ this week's special accompaniments!"
+      },
+      "published_at": "2023-11-20 14:43:12 UTC",
+      "collection": "food",
+      "category": "desserts",
+      "tags": []
+    },
+    {
+      "slug": "smoked-whitefish-dip",
+      "title": "Smoked Whitefish Dip",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "smoked in house & served chilled, w/ fresh-Fried Pita Chips",
+      "seo": {
+        "description": "smoked in house & served chilled, w/ fresh-Fried Pita Chips"
+      },
+      "published_at": "2024-01-17 17:28:10 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "smoked-bologna-sandwich",
+      "title": "Smoked Bologna Sandwich",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "a thick slice of Bologna from off our smoker, grilled & glazed w/ our own Bourbon Barbecue Sauce, & topped w/ housemade Coleslaw on a homestyle Bun",
+      "seo": {
+        "description": "a thick slice of Bologna from off our smoker, grilled & glazed w/ our own Bourbon Barbecue Sauce, & topped w/ housemade Coleslaw on a homestyle Bun"
+      },
+      "published_at": "2024-01-17 17:33:52 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "pickle-fries",
+      "title": "Pickle Fries (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "lightly Battered & fried golden brown, w/ Ranch Dressing",
+      "seo": {
+        "description": "lightly Battered & fried golden brown, w/ Ranch Dressing"
+      },
+      "published_at": "2024-09-25 16:30:00 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "mexican-street-corn-dip",
+      "title": "Mexican Street Corn Dip (GS) (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "housemade Roasted Corn & fresh Mexican Cotija Cheese dip served w/ warm Tortilla Chips",
+      "seo": {
+        "description": "housemade Roasted Corn & fresh Mexican Cotija Cheese dip served w/ warm Tortilla Chips"
+      },
+      "published_at": "2024-09-25 16:30:58 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "ploughmans-grilled-cheese",
+      "title": "Ploughman's Grilled Cheese (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Havarti Cheese, Apricot-Black Pepper Preserves, Gala Apples, & Pickled Red Onion on grilled Sourdough",
+      "seo": {
+        "description": "Havarti Cheese, Apricot-Black Pepper Preserves, Gala Apples, & Pickled Red Onion on grilled Sourdough"
+      },
+      "published_at": "2024-09-25 16:34:12 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "smoked-cheese-mushroom-burger",
+      "title": "Smoked Cheese & Mushroom Burger",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "w/ Cream Cheese from off our Smoker, Sauteed Mushrooms, & Scallions",
+      "seo": {
+        "description": "w/ Cream Cheese from off our Smoker, Sauteed Mushrooms, & Scallions"
+      },
+      "published_at": "2024-12-17 16:42:22 UTC",
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "grilled-top-sirloin-steak-gf",
+      "title": "Grilled Top Sirloin Steak (GF)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "half-pound, hand-cut USDA Choice Top Sirloin Steak grilled to your specification, served w/ a Baked Potato, & the Vegetable of the day",
+      "seo": {
+        "description": "half-pound, hand-cut USDA Choice Top Sirloin Steak grilled to your specification, served w/ a Baked Potato, & the Vegetable of the day"
+      },
+      "published_at": "2025-04-04 19:22:11 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "smoked-mac-cheese",
+      "title": "Smoked Mac & Cheese (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Cavatappi Noodles tossed w/ a housemade thick & creamy Cheese Sauce made w/ Cheese from off our smoker, w/ a side of Garlic Toast\n\n--option to add grilled Chicken; pulled Pork; Barbecue Pulled Pork; Broccoli",
+      "seo": {
+        "description": "Cavatappi Noodles tossed w/ a housemade thick & creamy Cheese Sauce made w/ Cheese from off our smoker, w/ a side of Garlic Toast--option to add grilled Chicken; pulled Pork; Barbecue Pulled Pork; house-Smoked Bologna; Broccoli"
+      },
+      "published_at": "2025-05-15 19:44:03 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "bourbon-barbecue-salmon",
+      "title": "Bourbon-Barbecue Salmon (GF)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "a half pound Salmon Fillet charbroiled & glazed w/ our own Bourbon Barbecue Sauce, served w/ Long Grain & Wild Rice, & the Vegetable of the day",
+      "seo": {
+        "description": "a half pound Salmon Fillet charbroiled & glazed w/ our own Bourbon Barbecue Sauce, served w/ Long Grain & Wild Rice, & the Vegetable of the day"
+      },
+      "published_at": "2025-05-15 19:45:30 UTC",
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    },
+    {
+      "slug": "ranch-cheese-curds",
+      "title": "Ranch Cheese Curds (V)",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "Ranch-seasoned Wisconsin White Cheddar fried golden brown & served w/ our famous Ranch Dressing",
+      "seo": {
+        "description": "Ranch-seasoned Wisconsin White Cheddar fried golden brown & served w/ our famous Ranch Dressing"
+      },
+      "published_at": "2025-12-12 02:36:25 UTC",
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "smoked-chicken-street-tacos",
+      "title": "Smoked Chicken Street Tacos",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "chopped Smoked Chicken Thighs off our smoker in Flour Tortillas w/ Cotija Cheese, Lettuce, Tomato, Onion, fresh Cilantro, & Jalapeño Crema, served w/ Chips & Salsa",
+      "seo": {
+        "description": "chopped Smoked Chicken Thighs off our smoker in Flour Tortillas w/ Cotija Cheese, Lettuce, Tomato, Onion, fresh Cilantro, & Jalapeño Crema, served w/ Chips & Salsa"
+      },
+      "published_at": "2025-12-12 02:41:41 UTC",
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "mexican-chicken-corn-wrap",
+      "title": "Mexican Chicken & Corn Wrap",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "grilled Chicken Breast, Cheddar-Jack, our Mexican Street Corn Dip, Black Beans, Lettuce, Tomato, & Jalapeño Crema",
+      "seo": {
+        "description": "grilled Chicken Breast, Cheddar-Jack, our Mexican Street Corn Dip, Black Beans, Lettuce, Tomato, & Jalapeño Crema"
+      },
+      "published_at": "2025-12-12 02:44:53 UTC",
+      "collection": "food",
+      "category": "wraps",
+      "tags": []
+    },
+    {
+      "slug": "dad-joke-burger",
+      "title": "Dad Joke Burger",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "w/ American, Swiss, Provolone, Beer Cheese Sauce, & Caramelized Onions",
+      "seo": {
+        "description": "w/ American, Swiss, Provolone, Beer Cheese Sauce, & Caramelized Onions"
+      },
+      "published_at": "2026-03-12 19:39:03 UTC",
+      "collection": "food",
+      "category": "burgers",
+      "tags": []
+    },
+    {
+      "slug": "fried-portabella-mushrooms",
+      "title": "Fried Portabella Mushrooms",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "<p>basket of crispy-fried breaded Mushrooms, w/ Ranch Dressing</p>",
+      "seo": {},
+      "published_at": null,
+      "collection": "food",
+      "category": "appetizers",
+      "tags": []
+    },
+    {
+      "slug": "fried-walleye-sandwich",
+      "title": "Fried Walleye Sandwich",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "<p>crispy-fried hand-breaded Walley Fillet, Lettuce, Tomato, &amp; Tartar Sauce in a grilled Hoagie Bun</p>",
+      "seo": {},
+      "published_at": null,
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "meatball-marinara-sub",
+      "title": "Meatball Marinara Sub",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "<p>a half dozen of our smoked-in-house Pork &amp; Beef Meatballs cooked in housemade Marinara Sauce, topped w/ Provolone Cheese in a grilled Hoagie Bun</p>",
+      "seo": {},
+      "published_at": null,
+      "collection": "food",
+      "category": "sandwiches",
+      "tags": []
+    },
+    {
+      "slug": "spaghetti-and-meatballs",
+      "title": "Spaghetti & Meatballs",
+      "locale": "en",
+      "frontmatter": {},
+      "body_markdown": "<p>a half dozen of our smoked-in-house Pork &amp; Beef Meatballs in our classic housemade Marinara over Spaghetti &amp; topped w/ Parmesan Cheese, w/ a side of Garlic Bread</p>",
+      "seo": {},
+      "published_at": null,
+      "collection": "food",
+      "category": "entrees",
+      "tags": []
+    }
+  ],
+  "forms": [
+    {
+      "slug": "careers",
+      "title": "Job Application",
+      "fields": [
+        {
+          "name": "full_name",
+          "label": "Full name",
+          "type": "text",
+          "required": true,
+          "placeholder": "Jane Doe"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "placeholder": "you@example.com"
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "tel",
+          "required": true,
+          "placeholder": "(269) 555-0123"
+        },
+        {
+          "name": "position",
+          "label": "Position you're applying for",
+          "type": "select",
+          "required": true,
+          "placeholder": "Choose a role…",
+          "options": [
+            {
+              "value": "Server",
+              "label": "Server"
+            },
+            {
+              "value": "Bartender",
+              "label": "Bartender"
+            },
+            {
+              "value": "Line Cook",
+              "label": "Line Cook"
+            },
+            {
+              "value": "Prep Cook",
+              "label": "Prep Cook"
+            },
+            {
+              "value": "Dishwasher",
+              "label": "Dishwasher"
+            },
+            {
+              "value": "Host",
+              "label": "Host"
+            },
+            {
+              "value": "Kitchen Manager",
+              "label": "Kitchen Manager"
+            },
+            {
+              "value": "Brewery Assistant",
+              "label": "Brewery Assistant"
+            },
+            {
+              "value": "Other",
+              "label": "Other"
+            }
+          ]
+        },
+        {
+          "name": "employment_type",
+          "label": "Employment type",
+          "type": "select",
+          "required": true,
+          "placeholder": "Choose one…",
+          "options": [
+            {
+              "value": "Full-time",
+              "label": "Full-time"
+            },
+            {
+              "value": "Part-time",
+              "label": "Part-time"
+            },
+            {
+              "value": "Seasonal",
+              "label": "Seasonal"
+            },
+            {
+              "value": "Weekends only",
+              "label": "Weekends only"
+            }
+          ]
+        },
+        {
+          "name": "availability",
+          "label": "Availability",
+          "type": "text",
+          "placeholder": "e.g. Weeknights & weekends"
+        },
+        {
+          "name": "start_date",
+          "label": "Earliest start date",
+          "type": "text",
+          "placeholder": "MM/DD/YYYY"
+        },
+        {
+          "name": "experience",
+          "label": "Relevant experience",
+          "type": "textarea",
+          "placeholder": "Where have you worked, and for how long?"
+        },
+        {
+          "name": "message",
+          "label": "Anything else you'd like us to know?",
+          "type": "textarea"
+        }
+      ],
+      "submit_label": "Submit Application",
+      "success_message": "Thanks for applying to Old Mill! We've received your application and will reach out if there's a good fit."
+    }
+  ],
+  "site": {
+    "title": "Old Mill Brewpub & Grill",
+    "description": "Brewpub and grill in the 1869 mill on Bridge Street in Plainwell, Michigan. Beer brewed in-house, scratch kitchen."
+  }
+}

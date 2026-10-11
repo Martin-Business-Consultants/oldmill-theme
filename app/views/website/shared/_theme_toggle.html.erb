@@ -1,0 +1,8 @@
+<%# locals: () -%>
+<%# Dark mill or limestone by day (oldmill/nav.js keeps the choice). Customize can take it away. %>
+<% if website_design(:theme_toggle) %>
+  <button type="button" class="theme-toggle" aria-label="Switch between dark and light" data-theme-toggle>
+    <%= oldmill_icon("sun", class: "theme-toggle__sun") %>
+    <%= oldmill_icon("moon", class: "theme-toggle__moon") %>
+  </button>
+<% end %>

@@ -1,0 +1,13 @@
+<%# locals: (data:) -%>
+<%# The core hero, drawn as the site's page header. %>
+<section class="page-header">
+  <%= render "website/shared/photo_backdrop", image: data.image_id %>
+  <div class="container container--narrow page-header__body">
+    <h1 class="page-header__title" data-fade><%= data.heading %></h1>
+    <div class="ledger-rule ledger-rule--center" data-fade></div>
+    <% if data.subheading.present? %>
+      <p class="page-header__body-text" data-fade><%= website_plain_text(data.subheading) %></p>
+    <% end %>
+    <div data-fade><%= render "website/shared/ctas", ctas: data.ctas %></div>
+  </div>
+</section>

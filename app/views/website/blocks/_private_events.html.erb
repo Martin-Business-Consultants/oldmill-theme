@@ -1,0 +1,26 @@
+<%# locals: (data:) -%>
+<%# Kinds of private event, as cards, then how to ask about one. %>
+<section class="section">
+  <div class="container container--mid">
+    <%= render "website/shared/section_heading", heading: "Private", highlighted: "Events", amber: false, body: "The Old Mill is a one-of-a-kind venue for your next gathering." %>
+    <div class="cards cards--3 cards--center" data-reveal-group>
+      <% data.events.each do |event| %>
+        <div class="card">
+          <h3 class="card__title"><%= event.name %></h3>
+          <p class="card__text"><%= website_plain_text(event.desc) %></p>
+        </div>
+      <% end %>
+    </div>
+    <% if data.contact_email.present? || data.contact_phone.present? %>
+      <div class="centered private-events__contact" data-reveal>
+        <p class="muted">Interested in hosting an event?</p>
+        <% if data.contact_email.present? %>
+          <%= oldmill_button "Contact Us", href: "mailto:#{data.contact_email}" %>
+        <% end %>
+        <% if data.contact_phone.present? %>
+          <p class="small faint">or call <%= link_to data.contact_phone, oldmill_tel(data.contact_phone), class: "data accent-link" %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>

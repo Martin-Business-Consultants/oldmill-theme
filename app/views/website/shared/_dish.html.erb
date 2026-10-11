@@ -1,0 +1,19 @@
+<%# locals: (dish:) -%>
+<%# A dish on the menu: its name and dietary marks (from its title, "(GF)"), its description, a link to its page. %>
+<% name, marks = oldmill_dietary(dish.title) %>
+<% description = oldmill_body_text(dish) %>
+<%= link_to website_path(dish), class: "dish dish--link" do %>
+  <span class="dish__head">
+    <h3 class="dish__name"><%= name %></h3>
+    <% marks.each do |mark| %>
+      <abbr class="tag data" title="<%= oldmill_dietary_label([mark]) %>"><%= mark %></abbr>
+    <% end %>
+    <span class="dish__arrow" aria-hidden="true">&rarr;</span>
+  </span>
+  <% if description.present? %>
+    <span class="dish__desc"><%= description %></span>
+  <% end %>
+  <% if oldmill_weekdays_only?(dish) %>
+    <span class="dish__note">Not on the Sunday menu</span>
+  <% end %>
+<% end %>

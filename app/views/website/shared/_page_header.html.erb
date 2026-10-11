@@ -1,0 +1,18 @@
+<%# locals: (heading:, highlighted: nil, eyebrow: nil, body: nil, image: nil, cta_label: nil, cta_href: nil, fallback: "food") -%>
+<%# An inner page's header: its heading over a darkened photo (the block's, else the mill's own food or taps shot), a ledger rule, and an optional button. %>
+<section class="page-header">
+  <%= render "website/shared/photo_backdrop", image:, fallback: %>
+  <div class="container container--narrow page-header__body">
+    <% if eyebrow.present? %>
+      <p class="eyebrow page-header__eyebrow" data-fade><%= eyebrow %></p>
+    <% end %>
+    <h1 class="page-header__title" data-fade><%= oldmill_heading(heading, highlighted, italic: true) %></h1>
+    <div class="ledger-rule ledger-rule--center" data-fade></div>
+    <% if body.present? %>
+      <p class="page-header__body-text" data-fade><%= body %></p>
+    <% end %>
+    <% if cta_label.present? && cta_href %>
+      <div data-fade><%= oldmill_button cta_label, href: cta_href, class: "page-header__cta" %></div>
+    <% end %>
+  </div>
+</section>

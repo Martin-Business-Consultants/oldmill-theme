@@ -1,0 +1,11 @@
+<%# locals: (special:, day:) -%>
+<% special_fields = website_fields(special) %>
+<% price = website_plain_text(special_fields.price) %>
+<% description = website_plain_text(special_fields.description) %>
+<%= link_to website_path(special), class: "card card--link special" do %>
+  <p class="eyebrow"><%= day %>&rsquo;s Special</p>
+  <h3 class="special__name"><%= website_plain_text(special.title) %></h3>
+  <% if price.present? %><p class="data special__price"><%= price %></p><% end %>
+  <% if description.present? %><p class="special__desc"><%= description %></p><% end %>
+  <span class="special__more" aria-hidden="true">View &rarr;</span>
+<% end %>

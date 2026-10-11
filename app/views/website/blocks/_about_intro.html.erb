@@ -1,0 +1,20 @@
+<%# locals: (data:) -%>
+<%# A photo beside the mill's story, a paragraph at a time (rich text). The photo is the block's image, or the media library file its imported image_url points at. %>
+<% image = oldmill_image(data.image_id, data.image_url) %>
+<section class="section">
+  <div class="container container--mid about">
+    <% if image %>
+      <div class="about__photo" data-reveal>
+        <%= website_image_tag image, alt: data.image_alt.presence, sizes: "(min-width: 768px) 36rem, 90vw" %>
+      </div>
+    <% end %>
+    <div class="about__text" data-reveal>
+      <% data.paragraphs.each do |paragraph| %>
+        <% html = oldmill_paragraph(paragraph.html) %>
+        <% if html.present? %>
+          <div class="about__paragraph"><%= html %></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

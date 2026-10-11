@@ -1,0 +1,13 @@
+<%# locals: (data:) -%>
+<section class="section">
+  <div class="container container--narrow">
+    <% if data.heading.present? %>
+      <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <% end %>
+    <ul class="checklist" data-reveal>
+      <% data.items.each do |item| %>
+        <li><%= item.text %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>

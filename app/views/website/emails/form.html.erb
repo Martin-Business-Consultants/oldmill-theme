@@ -1,0 +1,52 @@
+<%# locals: (email:) -%>
+<%# A form email (notification or confirmation) in the site's design, drawn from its blocks each time it's sent. The Forms plugin then puts the logo in (data-cms-logo), repeats the answers row once per answer and fills the {{tokens}}. Mail clients need tables and inline styles, so this uses nothing else; the colours are the site's light (limestone) palette (site.css), in hex. %>
+<% c = {page: "#f6f1e7", card: "#fffdf8", ink: "#241d12", muted: "#574b36", rule: "#d7cbb2", amber: "#94501f", tint: "#f0e8d9"} %>
+<% serif = "'Fraunces', Georgia, 'Times New Roman', serif" %>
+<% sans = "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif" %>
+<% name = oldmill_name %>
+<% home = website_url("/") %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= email.subject %></title>
+  </head>
+  <body style="margin:0;padding:0;background:<%= c[:page] %>;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:<%= c[:page] %>;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
+            <% if defined?(FormEmail::SiteTemplate::LOGO) %>
+              <%# The Branding logo: Forms puts it in here (sent with the email), or takes this row out without one. %>
+              <tr>
+                <td data-cms-logo style="padding:0 8px 12px;">
+                  <%= tag.a href: home, style: "text-decoration:none;" do %><img alt="<%= name %>" height="64" style="display:block;height:64px;width:auto;border:0;"><% end %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td style="padding:0 8px 20px;font-family:<%= serif %>;font-size:18px;letter-spacing:2px;text-transform:uppercase;color:<%= c[:amber] %>;">
+                <%= tag.a name, href: home, style: "color:#{c[:amber]};text-decoration:none;" %>
+              </td>
+            </tr>
+            <tr>
+              <td style="background:<%= c[:card] %>;border:1px solid <%= c[:rule] %>;border-top:4px solid <%= c[:amber] %>;border-radius:12px;padding:36px 36px 28px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <% email.content_blocks.each do |block| %>
+                    <%= render "website/emails/block", block:, c:, serif:, sans: %>
+                  <% end %>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:20px 8px 0;font-family:<%= sans %>;font-size:12px;line-height:1.5;color:<%= c[:muted] %>;">
+                <%= name %> &middot; <%= tag.a home.sub(%r{\Ahttps?://}, "").chomp("/"), href: home, style: "color:#{c[:muted]};" %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
