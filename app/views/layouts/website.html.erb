@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= website_settings["default_locale"].presence || "en" %>" data-theme="<%= website_design(:color_scheme) %>">
+<html lang="<%= content_for(:lang).presence || oldmill_locale %>" data-theme="<%= website_design(:color_scheme) %>">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,9 +16,6 @@
     <link rel="stylesheet" href="<%= oldmill_asset_path("site.css") %>">
     <%= website_design_tags %>
     <%= yield :head %>
-    <% if content_for?(:turnstile) %>
-      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="<%= content_security_policy_nonce %>"></script>
-    <% end %>
     <link rel="icon" type="image/png" href="<%= oldmill_favicon_href %>">
     <link rel="apple-touch-icon" href="<%= oldmill_favicon_href %>">
     <link rel="manifest" href="/site.webmanifest">

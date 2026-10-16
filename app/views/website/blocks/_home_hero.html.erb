@@ -3,8 +3,8 @@
 <% order = oldmill_order %>
 <% primary_href = oldmill_href(data.cta_primary_url) %>
 <% secondary_href = oldmill_href(data.cta_secondary_url) %>
-<% phone = website_settings["phone"].presence || oldmill_footer.phone %>
-<% address = [website_settings["address_line1"], [website_settings["city"], [website_settings["state"], website_settings["zip"]].compact_blank.join(" ")].compact_blank.join(", ")].compact_blank.join(", ").presence || oldmill_footer.address %>
+<% phone = website_settings["phone"].presence || oldmill_footer&.phone %>
+<% address = [website_settings["address_line1"], [website_settings["city"], [website_settings["state"], website_settings["zip"]].compact_blank.join(" ")].compact_blank.join(", ")].compact_blank.join(", ").presence || oldmill_footer&.address %>
 <section class="home-hero">
   <%= render "website/shared/photo_backdrop" %>
   <div class="container home-hero__body">

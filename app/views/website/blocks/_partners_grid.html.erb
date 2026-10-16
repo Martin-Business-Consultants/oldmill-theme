@@ -1,0 +1,23 @@
+<%# locals: (data:) -%>
+<%# Partners picked from the partners collection (a deprecated core block; a Collection list of partners is the way now), as a row of cards. %>
+<% partners = CollectionEntry.joins(:collection).where(collections: {slug: "partners"}, id: Array(data.partners)) %>
+<% partners = partners.live unless previewing? %>
+<section class="section">
+  <div class="container container--mid">
+    <% if data.heading.present? %>
+      <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <% end %>
+    <ul class="partners" data-reveal-group>
+      <% partners.each do |partner| %>
+        <%# herb:key partner.id %>
+        <% fields = partner.frontmatter.to_h %>
+        <% logo = fields["logo"].presence || fields["logo_id"].presence || fields["image_id"].presence %>
+        <% name = (logo && website_image_tag(logo, alt: partner.title, sizes: "10rem")) || partner.title %>
+        <% href = oldmill_href(fields["url"].presence || fields["website"].to_s) || (website_path(partner) if oldmill_draws?("partners")) %>
+        <li class="card partners__item">
+          <% if href %><%= link_to name, href, **oldmill_link_options(href) %><% else %><%= name %><% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>

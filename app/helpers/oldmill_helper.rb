@@ -1,24 +1,80 @@
 # frozen_string_literal: true
 
-# The theme's own vocabulary on top of WebsiteHelper: the beer list, the
-# food menu and the week's specials as the collections hold them, the words
-# around them, its icons and buttons, and the forms it draws by hand.
+# The theme's own vocabulary on top of WebsiteHelper: what every theme needs
+# (its files at the address the theme serves them from, the site's name,
+# links, the title and favicon, and the forms), then the beer list, the food
+# menu and the week's specials as the collections hold them, the words around
+# them, and its icons and buttons. Each helper is named for the theme, so two
+# themes linked side by side never shadow each other's.
 module OldmillHelper
   ICONS = Oldmill::Engine.root.join("app/assets/images/oldmill/icons")
+  # Inline editing (the editor's preview) marks editable text with invisible
+  # characters; an address or a phone number can't carry them.
+  INLINE_EDIT_MARKS = [Website::InlineEdit::START, Website::InlineEdit::FINISH, *Website::InlineEdit::DIGITS].join.freeze
+  # The attribution a form keeps, for the fields its form declares
+  # (forms.js fills them from the visit).
+  ATTRIBUTION = %w[utm_source utm_medium utm_campaign utm_term utm_content gclid fbclid msclkid landing_path referrer form_path].freeze
+  DIGESTS = {} # rubocop:disable Style/MutableConstant
+  OLDMILL_ICON_CACHE = {} # rubocop:disable Style/MutableConstant
   DAYS = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].freeze
   # The pub's day, not the visitor's: the specials run on Plainwell time.
   TIME_ZONE = "America/New_York"
   DIETARY_MARKS = /\s*\((GF|GS|V)\)/i
   DIETARY_LABELS = {"GF" => "Gluten-free", "GS" => "Gluten-sensitive", "V" => "Vegetarian"}.freeze
 
-  def oldmill_nav = website_global(:nav)
+  # ── The theme's files ──
 
-  def oldmill_footer = website_global(:footer)
+  # A file of the theme's ("site.css", "hero.webp") at the address the theme
+  # serves it from (Oldmill::AssetsController), with its digest so it can be
+  # cached for good and a changed file gets a new address.
+  def oldmill_asset_path(name)
+    file = Oldmill::AssetsController.find(name) or raise ArgumentError, "the theme has no file #{name} (app/assets/*/oldmill, app/javascript/oldmill)"
+    digest = Rails.env.production? ? (DIGESTS[name] ||= oldmill_digest(file)) : oldmill_digest(file)
+    "/_oldmill/#{name}?v=#{digest}"
+  end
+
+  # The theme's scripts as ES modules (every .js in app/javascript/oldmill),
+  # each preloaded, then site.js, which imports the rest. Its own importmap:
+  # none of the admin's scripts reach a visitor.
+  def oldmill_javascript_tags
+    modules = Oldmill::AssetsController.files.keys.select { it.end_with?(".js") }.sort
+    imports = modules.to_h { ["oldmill/#{it.delete_suffix(".js")}", oldmill_asset_path(it)] }
+    nonce = content_security_policy_nonce
+    safe_join([
+      tag.script(ERB::Util.json_escape({imports:}.to_json).html_safe, type: "importmap", nonce:), # rubocop:disable Rails/OutputSafety -- our own paths, JSON-escaped
+      *imports.values.map { tag.link(rel: "modulepreload", href: it, nonce:) },
+      tag.script('import "oldmill/site"'.html_safe, type: "module", nonce:) # rubocop:disable Rails/OutputSafety -- a constant
+    ], "\n")
+  end
+
+  # ── The site ──
 
   def oldmill_name = website_settings["title"].presence || "Old Mill Brewpub & Grill"
 
+  # The language of what's shown: the record's own locale, else the site's.
+  def oldmill_locale(record = nil) = record.try(:locale).presence || website_settings["default_locale"].presence || "en"
+
+  # A global's data, or nil when the site doesn't have it (a fresh site, or
+  # one whose content hasn't been copied yet), so the layout still draws.
+  def oldmill_global(slug)
+    website_global(slug)
+  rescue ActiveRecord::RecordNotFound
+    nil
+  end
+
+  def oldmill_nav = oldmill_global(:nav)
+
+  def oldmill_footer = oldmill_global(:footer)
+
   # The "Order Online" link (the nav global's), or nil.
-  def oldmill_order = (oldmill_nav.cta_url.presence && {label: oldmill_nav.cta_label.presence || "Order Online", href: oldmill_nav.cta_url})
+  def oldmill_order
+    href = oldmill_href(oldmill_nav&.cta_url) or return
+    {label: oldmill_nav.cta_label.presence || "Order Online", href:}
+  end
+
+  # Whether the theme draws a collection's entries (website/entries/<slug>):
+  # an entry of one it doesn't is a 404, so nothing links to it.
+  def oldmill_draws?(collection_slug) = lookup_context.exists?("website/entries/#{collection_slug}", [], false)
 
   # The beers on tap: the beers collection, newest first, as oldmillbrew.com lists them.
   def oldmill_beers = @oldmill_beers ||= oldmill_newest_first(website_entries(:beers))
@@ -123,17 +179,19 @@ module OldmillHelper
   # The share image when a record has none: General's default.
   def oldmill_share_image = website_settings["default_og_image"].presence
 
-  # A link typed into a text field: a page ("/menu/", the Astro site's
-  # slashed form) at its address here ("/menu"), anything else as written.
-  # In the editor's preview a text field carries its inline-edit markers
-  # (Website::InlineEdit); an address is followed, not edited in place.
-  def oldmill_href(url)
-    url = url.to_s.delete(INLINE_EDIT_MARKS).strip
-    return if url.empty? || !SafeUrl.safe?(url)
-
-    url.match?(%r{\A/[^/?#]+.*/\z}) ? url.chomp("/") : url
+  # An href from a link field ({kind, value}) or a link typed into a text
+  # field: a page ("/menu/", the Astro site's slashed form) at its address
+  # here ("/menu"), anything else as written. In the editor's preview a text
+  # field carries its inline-edit markers (Website::InlineEdit); an address
+  # is followed, not edited in place. Nothing for an empty or unsafe one.
+  def oldmill_href(link)
+    link = {"kind" => "url", "value" => link} unless link.is_a?(Hash)
+    link = link.to_h.stringify_keys
+    href = website_href(link.merge("value" => oldmill_plain(link["value"]))) or return
+    href.match?(%r{\A/[^/?#]+.*/\z}) ? href.chomp("/") : href
   end
-  INLINE_EDIT_MARKS = [Website::InlineEdit::START, Website::InlineEdit::FINISH, *Website::InlineEdit::DIGITS].join
+
+  def oldmill_plain(text) = text.to_s.delete(INLINE_EDIT_MARKS).strip
 
   # Opens in a new tab: an address on another site.
   def oldmill_external?(href) = href.to_s.match?(%r{\Ahttps?://})
@@ -159,10 +217,12 @@ module OldmillHelper
     attributes.merge!(label ? {role: "img", "aria-label": label} : {"aria-hidden": "true"})
     svg.sub("<svg", "<svg #{tag.attributes(attributes)}").html_safe # rubocop:disable Rails/OutputSafety -- the theme's own files
   end
-  OLDMILL_ICON_CACHE = {} # rubocop:disable Style/MutableConstant
 
-  # "(269) 204-6601" as a tel: link's href.
-  def oldmill_tel(phone) = "tel:#{phone.to_s.gsub(/[^+\d]/, "")}"
+  # "tel:+12692046601" from however the number is written; nil without one.
+  def oldmill_tel(phone = website_settings["phone"])
+    digits = oldmill_plain(phone).gsub(/[^\d+]/, "")
+    "tel:#{digits}" if digits.present?
+  end
 
   def oldmill_directions(address) = "https://www.google.com/maps/search/?api=1&query=#{ERB::Util.url_encode(address.to_s.gsub(/\s*\n\s*/, ", "))}"
 
@@ -189,75 +249,58 @@ module OldmillHelper
     (id && website_image_url(id, width: 192)) || oldmill_asset_path("favicon.png")
   end
 
-  # Cloudflare Turnstile ({site_key:, theme:}) when Settings › Forms has it
-  # set up (the Forms plugin then refuses a submission without its token),
-  # else nil.
-  def oldmill_turnstile
-    captcha = Forms.public_captcha if defined?(Forms) && Forms.respond_to?(:public_captcha)
-    {site_key: captcha[:site_key], theme: captcha[:theme] || "auto"} if captcha && captcha[:provider] == "turnstile"
+  # ── Forms (the Forms plugin) ──
+
+  # A published form by slug, or nil (no Forms plugin, or no such form).
+  def oldmill_form(slug)
+    return unless defined?(Form) && Cms::Plugins.enabled?(:forms)
+
+    Form.find_by(slug: oldmill_plain(slug), status: "published")
   end
 
   # The published form a page shows under its blocks: the one with the
-  # page's own slug (the careers page, the careers form). Nil without one,
-  # or without the Forms plugin.
+  # page's own slug (the careers page, the careers form), unless one of its
+  # blocks already draws it.
   def oldmill_page_form(page)
-    defined?(Form) && Form.find_by(slug: page.slug, status: "published")
+    form = oldmill_form(page.slug) or return
+    form unless Array(page.blocks).any? { it["type"] == "form" && oldmill_plain(it.dig("data", "form")) == form.slug }
   end
 
-  # A form field's control, by its type as the form defines it. Choices are
-  # the form's (FormChoices works out those taken from a collection).
-  def oldmill_form_control(field, id:)
-    name = field["name"]
-    required = field["required"].present?
-    attributes = {class: "field__input", id:, name:, required:}
-    choices = defined?(FormChoices) ? FormChoices.for(field) : Array(field["options"])
-    case field["type"]
-    when "textarea"
-      tag.textarea("", rows: 5, placeholder: field["placeholder"], **attributes)
-    when "select"
-      prompt = tag.option(field["placeholder"].presence || "Choose one…", value: "", disabled: true, selected: true)
-      tag.select(safe_join([prompt, *choices.map { tag.option(it["label"], value: it["value"]) }]), **attributes)
-    when "radio", "checkbox"
-      return tag.input(type: "checkbox", value: "yes", class: "field__check", id:, name:, required:) if field["type"] == "checkbox" && choices.empty?
+  # Where a form posts (the Forms plugin's public endpoint).
+  def oldmill_form_action(form) = "/api/forms/#{form.slug}/submissions"
 
-      tag.div(class: "field__choices", id:) do
-        safe_join(choices.each_with_index.map do |choice, index|
-          tag.label(class: "field__choice") do
-            safe_join([tag.input(type: field["type"], name: (field["type"] == "checkbox") ? "#{name}[]" : name, value: choice["value"],
-              required: required && field["type"] == "radio" && index.zero?), tag.span(choice["label"])])
-          end
-        end)
-      end
-    else
-      autocomplete = {"full_name" => "name", "name" => "name", "first_name" => "given-name", "last_name" => "family-name"}[name] ||
-        {"email" => "email", "tel" => "tel", "url" => "url"}[field["type"]]
-      tag.input(type: field["type"].presence_in(%w[text email tel url file]) || "text", placeholder: field["placeholder"], autocomplete:, **attributes)
-    end
+  # A choice field's options as the form defines them (a collection's
+  # entries too, for one that lists them).
+  def oldmill_choices(field) = defined?(FormChoices) ? FormChoices.for(field) : Array(field["options"]).select { it.is_a?(Hash) }
+
+  # The spam check Settings › Forms has set up ({provider:, site_key:,
+  # theme:}), or nil. The Forms plugin refuses a submission without its token
+  # when one is, so a form that doesn't draw it never gets through.
+  def oldmill_captcha = defined?(Forms) && Forms.respond_to?(:public_captcha) ? Forms.public_captcha : nil
+
+  # A select for a choice field: a prompt, then the form's choices.
+  def oldmill_select(field, id:, required:)
+    prompt = tag.option(field["placeholder"].presence || "Select one…", value: "", disabled: required, selected: true)
+    choices = oldmill_choices(field).map { tag.option(it["label"], value: it["value"]) }
+    tag.select(safe_join([prompt, *choices]), id:, name: field["name"], required:, class: "field__input")
   end
 
-  # A file of the theme's ("site.css", "hero.webp") at the address the theme
-  # serves it from, with its digest, so browsers and caches keep it for good
-  # and a changed file gets a new address (Oldmill::AssetsController).
-  def oldmill_asset_path(name)
-    digest = (OLDMILL_DIGESTS[name] ||= Digest::SHA1.file(Oldmill::AssetsController.find(name) || raise(ArgumentError, "no theme file #{name}")).hexdigest[0, 10])
-    "/_oldmill/#{name}?v=#{digest}"
+  # Autofill hints for the fields browsers know how to fill.
+  def oldmill_autocomplete(field)
+    {"full_name" => "name", "name" => "name", "first_name" => "given-name", "last_name" => "family-name"}[field["name"]] ||
+      {"email" => "email", "tel" => "tel", "url" => "url"}[field["type"]]
   end
-  OLDMILL_DIGESTS = {} # rubocop:disable Style/MutableConstant
 
-  # The site's scripts as ES modules: an importmap of the theme's own files
-  # (config/importmap.rb's pins, served by the theme), each preloaded, and
-  # the entry point. Instead of website_javascript_tags, which needs the
-  # files compiled into the asset pipeline.
-  OLDMILL_MODULES = %w[site nav tabs specials motion form].freeze
+  # A field the form keeps for attribution: filled by the page, never shown.
+  def oldmill_attribution?(field) = ATTRIBUTION.include?(field["name"])
 
-  def oldmill_javascript_tags
-    imports = OLDMILL_MODULES.to_h { ["oldmill/#{it}", oldmill_asset_path("#{it}.js")] }.merge("oldmill" => oldmill_asset_path("site.js"))
-    nonce = content_security_policy_nonce
-    safe_join([
-      tag.script(ERB::Util.json_escape({imports:}.to_json).html_safe, type: "importmap", nonce:), # rubocop:disable Rails/OutputSafety -- our own paths, JSON-escaped
-      *imports.values.uniq.map { tag.link(rel: "modulepreload", href: it, nonce:) },
-      tag.script('import "oldmill"'.html_safe, type: "module", nonce:) # rubocop:disable Rails/OutputSafety -- a constant
-    ], "\n")
+  # The hidden attribution inputs, for the fields the form declares.
+  def oldmill_attribution(form)
+    safe_join(ATTRIBUTION.filter_map do |name|
+      next unless form.fields.any? { it["name"] == name }
+
+      tag.input(type: "hidden", name:, value: (name == "form_path") ? request.path : nil, data: {attribution: name})
+    end)
   end
 
   # The year in the footer's copyright line.
@@ -268,4 +311,8 @@ module OldmillHelper
     path = href.to_s.split(/[?#]/).first.to_s
     !path.empty? && (path.chomp("/").presence || "/") == (request.path.chomp("/").presence || "/")
   end
+
+  private
+
+  def oldmill_digest(file) = Digest::SHA1.file(file).hexdigest[0, 10]
 end

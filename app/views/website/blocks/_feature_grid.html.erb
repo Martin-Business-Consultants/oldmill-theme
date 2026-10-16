@@ -28,7 +28,7 @@
       <% end %>
       <div class="<%= class_names("cards", "cards--3": centered, "cards--center": centered) %>" data-reveal-group>
         <% items.each do |item| %>
-          <% href = website_href(item.link) %>
+          <% href = oldmill_href(item.link) %>
           <div class="card">
             <% if item.icon.present? %>
               <span class="card__icon"><%= render "website/shared/path_icon", icon: item.icon %></span>

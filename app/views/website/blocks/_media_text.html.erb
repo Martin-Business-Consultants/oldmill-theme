@@ -1,5 +1,5 @@
 <%# locals: (data:) -%>
-<% href = website_href(data.cta_url) %>
+<% href = oldmill_href(data.cta_url) %>
 <section class="<%= class_names("section", "section--alt": data.background.to_s == "muted", "section--glow": data.background.to_s == "accent") %>">
   <div class="<%= class_names("container container--mid about", "about--flip": data.side.to_s == "left") %>">
     <% if data.image_id.present? %>

@@ -21,7 +21,7 @@ namespace :oldmill do
       "pages" => Page.live.order(:path).map { keep.(it, "path", "slug", "title", "locale", "blocks", "frontmatter", "seo") },
       # Pools first (food sections, beer styles), so the entries filed under them can name them.
       "entries" => CollectionEntry.live.includes(:collection, :category, :tags).sort_by { [it.collection.categories_collection_id || it.collection.tags_collection_id ? 1 : 0, it.collection.slug, it.id] }.map do |entry|
-        keep.(entry, "slug", "title", "locale", "frontmatter", "body_markdown", "seo", "published_at")
+        keep.(entry, "slug", "title", "locale", "frontmatter", "body_markdown", "blocks", "seo", "published_at")
           .merge("collection" => entry.collection.slug, "category" => entry.category&.slug, "tags" => entry.tags.map(&:slug))
       end,
       "forms" => (defined?(Form) ? Form.where(status: "published").order(:slug).map { keep.(it, "slug", "title", "fields", "submit_label", "success_message") } : []),

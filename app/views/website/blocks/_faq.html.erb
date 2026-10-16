@@ -1,0 +1,22 @@
+<%# locals: (data:) -%>
+<%# Questions that open in place, ruled like the mill's ledger, and the same for search engines (FAQPage). %>
+<% items = Array(data.items).select { it.question.present? } %>
+<section class="section">
+  <div class="container container--narrow">
+    <% if data.heading.present? %>
+      <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+    <% end %>
+    <div class="faq" data-reveal>
+      <% items.each_with_index do |item, index| %>
+        <%# herb:key index %>
+        <details class="faq__item">
+          <summary class="faq__question"><%= item.question %></summary>
+          <div class="prose faq__answer"><%= website_markdown item.answer %></div>
+        </details>
+      <% end %>
+    </div>
+    <%= website_json_ld({"@context" => "https://schema.org", "@type" => "FAQPage",
+          "mainEntity" => items.map { {"@type" => "Question", "name" => oldmill_plain(it.question),
+            "acceptedAnswer" => {"@type" => "Answer", "text" => oldmill_plain(it.answer)}} }}) if items.any? %>
+  </div>
+</section>

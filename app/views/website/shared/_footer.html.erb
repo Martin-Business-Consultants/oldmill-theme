@@ -1,13 +1,13 @@
 <%# locals: () -%>
 <%# The footer global: the tagline under the logo, its quick links, the pub's social accounts and phone, the copyright and address. %>
 <% footer = oldmill_footer %>
-<% links = footer.quick_links.filter_map { |item| (href = website_href(item.link)) && {label: item.label, href:} } %>
+<% links = Array(footer&.quick_links).filter_map { |item| (href = oldmill_href(item.link)) && item.label.present? && {label: item.label, href:} } %>
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
       <div>
         <a class="footer__logo" href="/"><%= oldmill_logo %></a>
-        <% if footer.tagline.present? %>
+        <% if footer&.tagline.present? %>
           <p class="footer__tagline"><%= website_plain_text(footer.tagline) %></p>
         <% end %>
       </div>
@@ -23,15 +23,16 @@
       <% end %>
       <div>
         <h2 class="eyebrow footer__heading">Connect</h2>
-        <%= render "website/shared/socials", facebook: footer.facebook_url, instagram: footer.instagram_url %>
-        <% if footer.phone.present? %>
-          <p class="footer__phone"><%= link_to footer.phone, oldmill_tel(footer.phone), class: "data" %></p>
+        <%= render "website/shared/socials", facebook: footer&.facebook_url, instagram: footer&.instagram_url %>
+        <% phone = footer&.phone.presence || website_settings["phone"] %>
+        <% if (tel = oldmill_tel(phone)) %>
+          <p class="footer__phone"><%= link_to phone, tel, class: "data" %></p>
         <% end %>
       </div>
     </div>
     <div class="footer__bottom">
-      <p>&copy; <%= oldmill_year %> <%= footer.copyright %></p>
-      <% if footer.address.present? %>
+      <p>&copy; <%= oldmill_year %> <%= footer&.copyright.presence || oldmill_name %></p>
+      <% if footer&.address.present? %>
         <p class="data footer__address"><%= footer.address %></p>
       <% end %>
     </div>

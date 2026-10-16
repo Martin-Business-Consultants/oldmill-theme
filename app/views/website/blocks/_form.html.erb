@@ -1,0 +1,17 @@
+<%# locals: (data:) -%>
+<%# One of the site's forms (the theme's Form block type), under a heading over the ledger rule. In the editor's preview, a form that isn't there says so; on the site it's left out. %>
+<% form = oldmill_form(data.form) %>
+<% if form || previewing? %>
+  <section class="section">
+    <div class="container container--narrow">
+      <% if data.heading.present? %>
+        <%= render "website/shared/section_heading", heading: data.heading, body: (website_plain_text(data.body) if data.body.present?) %>
+      <% end %>
+      <% if form %>
+        <%= render "website/shared/form", form: %>
+      <% else %>
+        <p class="card card--note centered">No published form "<%= oldmill_plain(data.form) %>": publish it in Forms, or pick another.</p>
+      <% end %>
+    </div>
+  </section>
+<% end %>

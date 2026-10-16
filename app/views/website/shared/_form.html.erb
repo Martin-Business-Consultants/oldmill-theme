@@ -1,35 +1,64 @@
-<%# locals: (form:) -%>
-<%# A CMS form (the Forms plugin's), in the site's design: its fields, labels, choices, button and thank-you are the form's. It posts to the Forms plugin, which checks the honeypot, its rate limit, Cloudflare Turnstile (when Settings › Forms has its keys) and the fields, then sends its emails (oldmill/form.js). %>
-<% turnstile = oldmill_turnstile %>
-<section class="section section--tight">
-  <div class="container container--narrow">
-    <form id="form-<%= form.slug %>" class="form" method="post" action="<%= api_form_submissions_path(form_slug: form.slug) %>" enctype="multipart/form-data"
-      data-form data-honeypot="<%= Form::HONEYPOT_FIELD %>" data-success="<%= form.success_message.presence || "Thanks, we got it." %>" novalidate>
-      <p class="honeypot" aria-hidden="true">
-        <label>Leave this empty: <input name="<%= Form::HONEYPOT_FIELD %>" tabindex="-1" autocomplete="off"></label>
-      </p>
-      <% form.fields.each do |field| %>
-        <% id = "form-#{form.slug}-#{field["name"]}" %>
-        <% single_check = field["type"] == "checkbox" && Array(field["options"]).empty? %>
-        <div class="<%= class_names("field", "field--check": single_check) %>">
-          <% if single_check %>
-            <%= oldmill_form_control(field, id:) %>
-            <label class="field__label" for="<%= id %>"><%= field["label"] %><% if field["required"] %><span class="field__required" aria-hidden="true"> *</span><% end %></label>
-          <% else %>
-            <label class="field__label" for="<%= id %>"><%= field["label"] %><% if field["required"] %><span class="field__required" aria-hidden="true"> *</span><% end %></label>
-            <%= oldmill_form_control(field, id:) %>
+<%# locals: (form:, submit_label: nil) -%>
+<%# One of the site's forms (Forms), every field as the form defines it, in the mill's design, posted
+    by forms.js to the Forms plugin: its honeypot, the spam check Settings ›
+    Forms has set up, and the visit's attribution for the fields that keep it.
+    The form's own labels, choices, button and thank-you. %>
+<% captcha = oldmill_captcha %>
+<% id = "form-#{form.slug}" %>
+<% enctype = form.fields.any? { it["type"] == "file" } ? "multipart/form-data" : "application/x-www-form-urlencoded" %>
+<form id="<%= id %>" class="form" action="<%= oldmill_form_action(form) %>" method="post" enctype="<%= enctype %>" novalidate data-form="<%= form.slug %>" data-success="<%= form.success_message.presence || "Thanks, we got it. We'll be in touch." %>">
+  <% form.fields.each do |field| %>
+    <%# herb:key field["name"] %>
+    <% next if oldmill_attribution?(field) %>
+    <% name, type, required = field["name"], field["type"], field["required"].present? %>
+    <% field_id = "#{id}-#{name}" %>
+    <% mark = required ? tag.span(" *", class: "field__required", aria: {hidden: true}) : "" %>
+    <% if type.in?(%w[radio checkbox]) && !(type == "checkbox" && oldmill_choices(field).empty?) %>
+      <fieldset class="form__field field">
+        <legend class="field__label"><%= field["label"] %><%= mark %></legend>
+        <div class="field__choices">
+          <% oldmill_choices(field).each_with_index do |choice, index| %>
+            <%# herb:key index %>
+            <label class="form__choice field__choice">
+              <%= tag.input type:, name: (type == "checkbox" ? "#{name}[]" : name), value: choice["value"], required: (required && type == "radio") %>
+              <span><%= choice["label"] %></span>
+            </label>
           <% end %>
-          <p class="field__error" data-error-for="<%= field["name"] %>" data-label="<%= field["label"] %>" hidden></p>
         </div>
-      <% end %>
-      <% if turnstile %>
-        <% content_for :turnstile, "on" %>
-        <div class="cf-turnstile" data-sitekey="<%= turnstile[:site_key] %>" data-theme="<%= turnstile[:theme] %>" data-size="flexible"></div>
-      <% end %>
-      <div class="form__submit">
-        <%= oldmill_button form.submit_label.presence || "Submit", type: :submit %>
+      </fieldset>
+    <% elsif type == "checkbox" %>
+      <div class="form__field field field--check">
+        <%= tag.input type: "checkbox", id: field_id, name:, value: "yes", required:, class: "field__check" %>
+        <label class="field__label" for="<%= field_id %>"><%= field["label"] %><%= mark %></label>
       </div>
-      <p class="form__status" data-form-status role="status" aria-live="polite" hidden></p>
-    </form>
+    <% else %>
+      <div class="form__field field">
+        <label class="field__label" for="<%= field_id %>"><%= field["label"] %><%= mark %></label>
+        <% if type == "textarea" %>
+          <%= tag.textarea "", id: field_id, name:, rows: 5, required:, placeholder: field["placeholder"], class: "field__input" %>
+        <% elsif type == "select" %>
+          <%= oldmill_select field, id: field_id, required: %>
+        <% elsif type == "file" %>
+          <%= tag.input type: "file", id: field_id, name: (field["multiple"] ? "#{name}[]" : name), multiple: field["multiple"].present?, accept: field["accept"].presence, required:, class: "field__input" %>
+        <% else %>
+          <%= tag.input type: type.presence_in(%w[text email tel url number date]) || "text", id: field_id, name:, required:, placeholder: field["placeholder"],
+                autocomplete: oldmill_autocomplete(field), class: "field__input" %>
+        <% end %>
+        <% if field["help"].present? %><p class="field__help"><%= field["help"] %></p><% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= oldmill_attribution(form) %>
+  <%# The honeypot: a person never sees it; a bot that fills it is thanked and ignored. %>
+  <div class="visually-hidden" aria-hidden="true">
+    <label for="<%= id %>-hp">Leave this empty</label>
+    <input type="text" id="<%= id %>-hp" name="_hp" tabindex="-1" autocomplete="off">
   </div>
-</section>
+  <% if captcha %>
+    <%= tag.div class: "form__captcha", data: {captcha: captcha[:provider], sitekey: captcha[:site_key], theme: captcha[:theme]} %>
+  <% end %>
+  <div class="form__submit">
+    <%= oldmill_button submit_label.presence || form.submit_label.presence || "Submit", type: :submit %>
+  </div>
+  <p class="form__status" role="status" aria-live="polite" hidden></p>
+</form>

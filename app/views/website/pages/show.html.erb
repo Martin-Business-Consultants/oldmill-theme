@@ -1,10 +1,15 @@
 <%# locals: (page:) -%>
-<%# Every CMS page, from its blocks, and under them the form of the same name when there is one (the careers page, the careers form). A page that doesn't open with a photo header gets its title as one, over the mill. %>
+<%# Every CMS page, from its blocks, and under them the form of the same name when there is one (the careers page, the careers form). A page that doesn't open with a photo header (a synced pattern's first block counts) gets its title as one, over the mill. %>
 <% content_for :head, oldmill_seo_tags(page) %>
-<% unless %w[home_hero page_hero hero].include?(Array(page.blocks).first.to_h["type"]) %>
+<% content_for :lang, oldmill_locale(page) %>
+<% unless %w[home_hero page_hero hero].include?(Array(page.expanded_blocks(live: !previewing?)).first.to_h["type"]) %>
   <%= render "website/shared/page_header", heading: page.title %>
 <% end %>
 <%= website_blocks page %>
 <% if (form = oldmill_page_form(page)) %>
-  <%= render "website/shared/form", form: %>
+  <section class="section section--tight">
+    <div class="container container--narrow">
+      <%= render "website/shared/form", form: %>
+    </div>
+  </section>
 <% end %>

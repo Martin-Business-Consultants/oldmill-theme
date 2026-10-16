@@ -2,17 +2,13 @@
 
 module Oldmill
   # A theme is an engine like a plugin: its views and helpers join the app's,
-  # its assets join Propshaft's load path (app/assets/*/oldmill, so they
-  # never collide with the admin's), and it registers with Website, which
-  # turns the public site on. Its scripts get an importmap of their own
-  # (config/importmap.rb), so the admin's never reach a visitor.
+  # and it registers with Website, which turns the public site on. Its files
+  # are served by the theme itself (Oldmill::AssetsController), so it works
+  # however it was installed; its scripts get an importmap of their own
+  # (the theme helper's oldmill_javascript_tags), so the admin's never reach a
+  # visitor.
   class Engine < ::Rails::Engine
-    initializer "oldmill.importmap", before: "importmap" do |app|
-      app.config.assets.paths << root.join("app/javascript")
-    end
-
-    # The theme's files, served by the theme (Oldmill::AssetsController), ahead
-    # of the website's catch-all.
+    # The theme's files, ahead of the website's catch-all.
     initializer "oldmill.routes" do |app|
       app.routes.append do
         get "_oldmill/*path", to: "oldmill/assets#show", format: false, as: :oldmill_asset
@@ -24,11 +20,14 @@ module Oldmill
       # release, updates it, and switches the site on and off.
       Cms::Plugins.register :oldmill, name: "Old Mill Brewpub & Grill", version: Oldmill::VERSION,
         description: "The oldmillbrew.com website, as a theme: switch it off and the CMS is headless.",
-        author: "Martin Business Consultants", enabled_by_default: true, requires: ">= 1.14",
+        author: "Martin Business Consultants", enabled_by_default: true, requires: ">= 1.33",
         homepage: "https://github.com/Martin-Business-Consultants/oldmill-theme"
+      # Block types the theme draws beyond the core's and the site's own,
+      # installed the first time it's switched on (an existing block type is
+      # left as it is).
+      Cms::Plugins.block_types :oldmill, Oldmill::BLOCK_TYPES
       Website.register :oldmill, name: "Old Mill Brewpub & Grill", version: Oldmill::VERSION,
         views: Oldmill::Engine.root.join("app/views"),
-        importmap: Importmap::Map.new.draw(Oldmill::Engine.root.join("config/importmap.rb")),
         # Settings › Themes › Customize. The mill is stone and lamplight by
         # default; a visitor can still flip it with the sun/moon button.
         design: [
