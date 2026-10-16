@@ -15,7 +15,7 @@
       <div class="centered private-events__contact" data-reveal>
         <p class="muted">Interested in hosting an event?</p>
         <% if data.contact_email.present? %>
-          <%= oldmill_button "Contact Us", href: "mailto:#{data.contact_email}" %>
+          <%= oldmill_button "Contact Us", href: oldmill_mailto(data.contact_email) %>
         <% end %>
         <% if data.contact_phone.present? %>
           <p class="small faint">or call <%= link_to data.contact_phone, oldmill_tel(data.contact_phone), class: "data accent-link" %></p>

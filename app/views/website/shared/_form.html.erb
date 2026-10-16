@@ -11,7 +11,7 @@
     <%# herb:key field["name"] %>
     <% next if oldmill_attribution?(field) %>
     <% name, type, required = field["name"], field["type"], field["required"].present? %>
-    <% field_id = "#{id}-#{name}" %>
+    <% input_id = "#{id}-#{name}" %>
     <% mark = required ? tag.span(" *", class: "field__required", aria: {hidden: true}) : "" %>
     <% if type.in?(%w[radio checkbox]) && !(type == "checkbox" && oldmill_choices(field).empty?) %>
       <fieldset class="form__field field">
@@ -28,20 +28,20 @@
       </fieldset>
     <% elsif type == "checkbox" %>
       <div class="form__field field field--check">
-        <%= tag.input type: "checkbox", id: field_id, name:, value: "yes", required:, class: "field__check" %>
-        <label class="field__label" for="<%= field_id %>"><%= field["label"] %><%= mark %></label>
+        <%= tag.input type: "checkbox", id: input_id, name:, value: "yes", required:, class: "field__check" %>
+        <label class="field__label" for="<%= input_id %>"><%= field["label"] %><%= mark %></label>
       </div>
     <% else %>
       <div class="form__field field">
-        <label class="field__label" for="<%= field_id %>"><%= field["label"] %><%= mark %></label>
+        <label class="field__label" for="<%= input_id %>"><%= field["label"] %><%= mark %></label>
         <% if type == "textarea" %>
-          <%= tag.textarea "", id: field_id, name:, rows: 5, required:, placeholder: field["placeholder"], class: "field__input" %>
+          <%= tag.textarea "", id: input_id, name:, rows: 5, required:, placeholder: field["placeholder"], class: "field__input" %>
         <% elsif type == "select" %>
-          <%= oldmill_select field, id: field_id, required: %>
+          <%= oldmill_select field, id: input_id, required: %>
         <% elsif type == "file" %>
-          <%= tag.input type: "file", id: field_id, name: (field["multiple"] ? "#{name}[]" : name), multiple: field["multiple"].present?, accept: field["accept"].presence, required:, class: "field__input" %>
+          <%= tag.input type: "file", id: input_id, name: (field["multiple"] ? "#{name}[]" : name), multiple: field["multiple"].present?, accept: field["accept"].presence, required:, class: "field__input" %>
         <% else %>
-          <%= tag.input type: type.presence_in(%w[text email tel url number date]) || "text", id: field_id, name:, required:, placeholder: field["placeholder"],
+          <%= tag.input type: type.presence_in(%w[text email tel url number date]) || "text", id: input_id, name:, required:, placeholder: field["placeholder"],
                 autocomplete: oldmill_autocomplete(field), class: "field__input" %>
         <% end %>
         <% if field["help"].present? %><p class="field__help"><%= field["help"] %></p><% end %>

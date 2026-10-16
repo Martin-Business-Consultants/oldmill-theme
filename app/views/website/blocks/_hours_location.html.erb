@@ -39,7 +39,7 @@
         <% end %>
         <% if data.email.present? %>
           <p class="label">Email</p>
-          <p><a class="data contact-line" href="mailto:<%= data.email %>"><%= data.email %></a></p>
+          <p><a class="data contact-line" href="<%= oldmill_mailto(data.email) %>"><%= data.email %></a></p>
         <% end %>
         <% if data.facebook_url.present? || data.instagram_url.present? %>
           <div class="card__social">

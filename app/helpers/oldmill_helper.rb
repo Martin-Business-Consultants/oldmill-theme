@@ -224,7 +224,13 @@ module OldmillHelper
     "tel:#{digits}" if digits.present?
   end
 
-  def oldmill_directions(address) = "https://www.google.com/maps/search/?api=1&query=#{ERB::Util.url_encode(address.to_s.gsub(/\s*\n\s*/, ", "))}"
+  # "mailto:mgmt@oldmillbrew.com"; nil without one.
+  def oldmill_mailto(email)
+    address = oldmill_plain(email)
+    "mailto:#{address}" if address.present?
+  end
+
+  def oldmill_directions(address) = "https://www.google.com/maps/search/?api=1&query=#{ERB::Util.url_encode(oldmill_plain(address).gsub(/\s*\n\s*/, ", "))}"
 
   # An image field, or what an import left in its place: an Active Storage
   # URL (about_intro's image_url) of a file in the media library. The asset's

@@ -34,7 +34,7 @@ RSpec.describe "The Old Mill website", type: :request, website: true do
       title = seo["meta_title"].presence || seo["seo_title"].presence || "#{page["title"]} | #{NAME}"
       expect(html.at_css("title").text).to eq(title)
       expect(html.at_css("meta[name=description]")&.[]("content")).to eq(seo["meta_description"].presence || seo["seo_description"]) if seo["seo_description"]
-          end
+    end
   end
 
   SNAPSHOT["entries"].group_by { it["collection"] }.each do |collection, entries|
@@ -150,6 +150,24 @@ RSpec.describe "The Old Mill website", type: :request, website: true do
     expect(mail.subject).to eq("Thanks, Ann")
     expect(body).to include("Thank you, Ann", NAME.gsub("&", "&amp;"))
     expect(body.scan("data-cms-repeat").size + body.scan("{{").size).to eq(0)
+  end
+
+  it "keeps every link working in the editor's preview, where text fields carry inline-edit marks" do
+    sign_in_as create(:user)
+    marks = /[#{OldmillHelper::INLINE_EDIT_MARKS}]/o
+    %w[events visit home].each do |path|
+      record = Page.find_by!(path:)
+      blocks = Array(record.blocks).each_with_index.to_h { |block, index| [index.to_s, {"_json" => block.to_json}] }
+
+      patch page_path(record.slug, website_preview: 1), params: {page: {title: record.title, slug: record.slug, status: "published", lock_version: record.lock_version, blocks:}}
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(Website::InlineEdit::START) # the preview marks the blocks' text
+      hrefs = html.css("a[href], iframe[src]").map { it["href"] || it["src"] }
+      expect(hrefs.grep(marks)).to be_empty, "#{path}: #{hrefs.grep(marks).first.inspect}"
+    end
+    # The home page's directions, from its hours block's address: followed, not edited.
+    expect(html.css("a[href^='https://www.google.com/maps'], a[href^='https://maps.google.com']")).to be_present
   end
 
   it "starts dark, lets a visitor switch, and follows Customize" do

@@ -10,10 +10,10 @@
     <ul class="partners" data-reveal-group>
       <% partners.each do |partner| %>
         <%# herb:key partner.id %>
-        <% fields = partner.frontmatter.to_h %>
-        <% logo = fields["logo"].presence || fields["logo_id"].presence || fields["image_id"].presence %>
+        <% partner_fields = partner.frontmatter.to_h %>
+        <% logo = partner_fields["logo"].presence || partner_fields["logo_id"].presence || partner_fields["image_id"].presence %>
         <% name = (logo && website_image_tag(logo, alt: partner.title, sizes: "10rem")) || partner.title %>
-        <% href = oldmill_href(fields["url"].presence || fields["website"].to_s) || (website_path(partner) if oldmill_draws?("partners")) %>
+        <% href = oldmill_href(partner_fields["url"].presence || partner_fields["website"].to_s) || (website_path(partner) if oldmill_draws?("partners")) %>
         <li class="card partners__item">
           <% if href %><%= link_to name, href, **oldmill_link_options(href) %><% else %><%= name %><% end %>
         </li>

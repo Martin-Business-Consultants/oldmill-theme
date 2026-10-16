@@ -25,8 +25,8 @@
         <h2 class="eyebrow footer__heading">Connect</h2>
         <%= render "website/shared/socials", facebook: footer&.facebook_url, instagram: footer&.instagram_url %>
         <% phone = footer&.phone.presence || website_settings["phone"] %>
-        <% if (tel = oldmill_tel(phone)) %>
-          <p class="footer__phone"><%= link_to phone, tel, class: "data" %></p>
+        <% if (tel_href = oldmill_tel(phone)) %>
+          <p class="footer__phone"><%= link_to phone, tel_href, class: "data" %></p>
         <% end %>
       </div>
     </div>
