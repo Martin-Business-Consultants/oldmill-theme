@@ -33,6 +33,9 @@ RSpec.describe "The Old Mill website", type: :request, website: true do
       seo = page["seo"].to_h
       title = seo["meta_title"].presence || seo["seo_title"].presence || "#{page["title"]} | #{NAME}"
       expect(html.at_css("title").text).to eq(title)
+      # A field called "name" is read as data["name"]: data.name is the schema's
+      # own name for the record ("recurring_events.events[0]"), not the field.
+      expect(html.at_css("main").text).not_to match(/\b[a-z_]+\.[a-z_]+\[\d+\]/)
       expect(html.at_css("meta[name=description]")&.[]("content")).to eq(seo["meta_description"].presence || seo["seo_description"]) if seo["seo_description"]
     end
   end
@@ -48,6 +51,15 @@ RSpec.describe "The Old Mill website", type: :request, website: true do
         expect(html.at_css("h1").text).to include(entry["title"].gsub(/\s*\((GF|GS|V)\)/i, "").strip.tr("'", "’").first(12)) if drawn
       end
     end
+  end
+
+  it "names each event, beer and dish its block lists" do
+    get "/events"
+
+    events = SNAPSHOT["pages"].find { it["path"] == "events" }["blocks"].select { it["type"].in?(%w[recurring_events private_events]) }
+    names = events.flat_map { |block| block.dig("data", "events").map { it["name"] } }
+    expect(names).to be_present
+    expect(html.css("main .card__title").map { it.text.strip }).to eq(names)
   end
 
   it "lists the beers on tap newest first, each to its page" do

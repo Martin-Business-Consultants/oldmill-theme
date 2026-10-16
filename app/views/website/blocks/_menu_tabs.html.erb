@@ -2,7 +2,7 @@
 <%# The food menu: the food collection's sections as tabs (oldmill/tabs.js), each dish linking to its page. The block's own categories stand in only where there's no food collection to read. %>
 <% sections = oldmill_menu %>
 <% if sections.empty? %>
-  <% sections = data.categories.map { |category| {name: category.name, slug: category.name.parameterize, note: category.note, items: category.items} } %>
+  <% sections = data.categories.map { |category| {name: category["name"], slug: category["name"].to_s.parameterize, note: category.note, items: category.items} } %>
 <% end %>
 <section id="menu" class="section section--alt section--fade-top">
   <div class="container" data-tabs>
@@ -23,7 +23,7 @@
             <% else %>
               <div class="dish">
                 <div class="dish__head">
-                  <h3 class="dish__name"><%= item.name %></h3>
+                  <h3 class="dish__name"><%= item["name"] %></h3>
                   <% if item.tag.present? %><span class="tag data"><%= item.tag %></span><% end %>
                 </div>
                 <% if item.desc.present? %><p class="dish__desc"><%= website_plain_text(item.desc) %></p><% end %>

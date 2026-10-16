@@ -2,7 +2,7 @@
 <%# One section of a menu written into the page: its name, a note, and its items in two columns. %>
 <section class="section section--ruled-top">
   <div class="container container--mid">
-    <h2 class="h2"><%= data.name %></h2>
+    <h2 class="h2"><%= data["name"] %></h2>
     <% if data.note.present? %>
       <p class="tab-panel__note tab-panel__note--left"><%= data.note %></p>
     <% end %>
@@ -10,7 +10,7 @@
       <% data.items.each do |item| %>
         <div class="dish">
           <div class="dish__head">
-            <h3 class="dish__name"><%= item.name %></h3>
+            <h3 class="dish__name"><%= item["name"] %></h3>
             <% if item.tag.present? %><span class="tag data"><%= item.tag %></span><% end %>
           </div>
           <% if item.desc.present? %><p class="dish__desc"><%= website_plain_text(item.desc) %></p><% end %>

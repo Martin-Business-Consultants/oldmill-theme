@@ -10,10 +10,10 @@
         <% data.beers.each do |beer| %>
           <div class="beer-tile">
             <% if beer.image_id.present? %>
-              <span class="beer-tile__art"><%= website_image_tag beer.image_id, alt: "#{beer.name} beer artwork", sizes: "(min-width: 1024px) 20vw, 45vw" %></span>
+              <span class="beer-tile__art"><%= website_image_tag beer.image_id, alt: "#{beer["name"]} beer artwork", sizes: "(min-width: 1024px) 20vw, 45vw" %></span>
             <% end %>
             <span class="beer-tile__text">
-              <span class="beer-tile__head"><h3 class="beer-tile__name"><%= beer.name %></h3><span class="data beer-tile__abv"><%= beer.abv %></span></span>
+              <span class="beer-tile__head"><h3 class="beer-tile__name"><%= beer["name"] %></h3><span class="data beer-tile__abv"><%= beer.abv %></span></span>
               <span class="beer-tile__style"><%= beer.style %></span>
             </span>
           </div>

@@ -1,7 +1,7 @@
 <%# locals: (data:) -%>
 <%# Follow the pub: a heading and line over its Facebook and Instagram. %>
 <% networks = [["facebook", "Facebook", oldmill_href(data.facebook_url)], ["instagram", "Instagram", oldmill_href(data.instagram_url)]].select(&:last) %>
-<section class="section section--alt">
+<section class="section section--alt cta social-cta">
   <div class="container container--narrow centered" data-reveal>
     <% if data.heading.present? || data.heading_highlight.present? %>
       <h2 class="h2"><%= oldmill_heading(data.heading, data.heading_highlight, amber: false) %></h2>

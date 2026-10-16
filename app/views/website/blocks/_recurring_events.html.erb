@@ -9,7 +9,7 @@
         <div class="card card--hover">
           <span class="card__icon"><%= oldmill_icon(icons[index % icons.size]) %></span>
           <p class="card__day"><%= event.day %></p>
-          <h3 class="card__title"><%= event.name %></h3>
+          <h3 class="card__title"><%= event["name"] %></h3>
           <p class="card__text"><%= website_plain_text(event.desc) %></p>
         </div>
       <% end %>

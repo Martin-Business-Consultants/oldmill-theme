@@ -415,6 +415,7 @@ a.beer-tile:hover .beer-tile__name { color: var(--brand-400); }
 .cta .h2 + .ledger-rule { margin-top: 1.5rem; margin-bottom: 2rem; }
 .cta__body { margin-bottom: 2rem; color: var(--text-muted); }
 .cta .actions { margin-top: 0; }
+.social-cta .cta__body { max-width: 36rem; margin-inline: auto; color: color-mix(in srgb, var(--cream) 50%, transparent); }
 .cta__body + .button, .ledger-rule + .button { margin-top: 0.5rem; }
 .private-events__contact { margin-top: 3rem; }
 .private-events__contact .muted { margin-bottom: 1rem; color: var(--text-muted); }
@@ -537,7 +538,7 @@ textarea.field__input { resize: vertical; }
 .footer__logo { display: inline-block; margin-bottom: 1rem; }
 .footer__logo img { height: 2.5rem; width: auto; }
 .footer__tagline { max-width: 20rem; font-size: 0.875rem; line-height: 1.625; color: color-mix(in srgb, var(--cream) 40%, transparent); }
-.footer__heading { margin-bottom: 1rem; font-family: var(--font-mono); font-weight: 400; color: color-mix(in srgb, var(--cream) 60%, transparent); }
+.footer__heading { margin-bottom: 1rem; font-family: var(--font-mono); font-weight: 400; }
 .footer__links { display: grid; gap: 0.5rem; padding: 0; list-style: none; font-size: 0.875rem; }
 .footer__links a, .footer__phone a { color: color-mix(in srgb, var(--cream) 40%, transparent); transition: color 0.3s; }
 .footer__links a:hover, .footer__phone a:hover { color: var(--brand-400); }
