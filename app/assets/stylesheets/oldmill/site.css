@@ -181,6 +181,7 @@ abbr[title] { text-decoration: none; }
 .nav__mobile { display: flex; align-items: center; gap: 0.25rem; }
 .nav__burger, .theme-toggle, .mobile-menu__close { display: inline-flex; padding: 0.5rem; border: 0; background: none; color: var(--text); cursor: pointer; transition: color 0.3s; }
 .nav__burger:hover, .theme-toggle:hover, .mobile-menu__close:hover { color: var(--brand-400); }
+.nav__burger { color: var(--text-strong); }
 .nav__burger .icon { width: 1.5rem; height: 1.5rem; }
 .theme-toggle__moon { display: none; }
 [data-theme="light"] .theme-toggle__sun { display: none; }
@@ -207,7 +208,7 @@ abbr[title] { text-decoration: none; }
   background: linear-gradient(to bottom, color-mix(in srgb, var(--scrim) 70%, transparent), transparent 8rem),
     linear-gradient(to top, var(--scrim), transparent 10rem), color-mix(in srgb, var(--scrim) 80%, transparent); }
 
-.home-hero { position: relative; display: flex; align-items: center; justify-content: center; min-height: 100vh; min-height: 100svh; overflow: hidden; padding-block: 7rem 3rem; }
+.home-hero { position: relative; display: flex; align-items: center; justify-content: center; min-height: 100vh; min-height: 100svh; overflow: hidden; padding-block: 5rem; }
 .home-hero .backdrop__shade { background: linear-gradient(to bottom, color-mix(in srgb, var(--scrim) 70%, transparent), transparent 8rem),
   linear-gradient(to top, var(--scrim), transparent 14rem), color-mix(in srgb, var(--scrim) 78%, transparent); }
 .home-hero__body { position: relative; z-index: 2; max-width: 64rem; text-align: center; }
@@ -325,7 +326,7 @@ abbr[title] { text-decoration: none; }
 .dish { display: block; padding-block: 0.75rem; border-bottom: 1px solid var(--hairline); transition: border-color 0.3s; }
 .dish--link:hover { border-color: color-mix(in srgb, var(--brand-400) 25%, transparent); }
 .dish__head { display: flex; align-items: center; gap: 0.5rem; }
-.dish__name { font-family: var(--font-body); font-size: 1.125rem; font-weight: 500; transition: color 0.3s; }
+.dish__name { font-family: var(--font-heading); font-size: 1.125rem; font-weight: 500; transition: color 0.3s; }
 .dish--link:hover .dish__name { color: var(--brand-400); }
 .dish__arrow { margin-left: auto; color: transparent; transition: color 0.3s; }
 .dish--link:hover .dish__arrow { color: color-mix(in srgb, var(--brand-400) 70%, transparent); }

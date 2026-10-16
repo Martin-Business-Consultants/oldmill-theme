@@ -12,7 +12,7 @@
       <p class="page-header__body-text" data-fade><%= body %></p>
     <% end %>
     <% if cta_label.present? && cta_href %>
-      <div data-fade><%= oldmill_button cta_label, href: cta_href, class: "page-header__cta" %></div>
+      <div data-fade><%= oldmill_button cta_label, href: cta_href, class: "page-header__cta", icon_after: ("arrow-down" if cta_href.start_with?("#")) %></div>
     <% end %>
   </div>
 </section>
